@@ -1,0 +1,307 @@
+---
+title: "Hooks and State Management"
+description: "Master React hooks including useState, useEffect, and custom hooks for effective state management."
+---
+
+# Hooks and State Management
+
+React Hooks revolutionized how we write React components. They allow you to use state and other React features in functional components, making your code cleaner and more reusable.
+
+## useState Hook
+
+The `useState` hook lets you add state to functional components.
+
+```jsx
+import React, { useState } from 'react';
+
+const Counter = () => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>
+        Increment
+      </button>
+      <button onClick={() => setCount(count - 1)}>
+        Decrement
+      </button>
+    </div>
+  );
+};
+```
+
+### State with Objects and Arrays
+
+```jsx
+const UserProfile = () => {
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    age: 0
+  });
+
+  const updateName = (newName) => {
+    setUser(prevUser => ({
+      ...prevUser,
+      name: newName
+    }));
+  };
+
+  return (
+    <div>
+      <input 
+        value={user.name}
+        onChange={(e) => updateName(e.target.value)}
+        placeholder="Enter name"
+      />
+      <p>Hello, {user.name}!</p>
+    </div>
+  );
+};
+```
+
+## useEffect Hook
+
+`useEffect` lets you perform side effects in functional components. It combines the functionality of `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount`.
+
+### Basic Usage
+
+```jsx
+import React, { useState, useEffect } from 'react';
+
+const DataFetcher = () => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // This runs after every render
+    fetchData();
+  }, []); // Empty dependency array = run once on mount
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch('/api/data');
+      const result = await response.json();
+      setData(result);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) return <div>Loading...</div>;
+
+  return (
+    <div>
+      <h2>Data:</h2>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </div>
+  );
+};
+```
+
+### Dependency Array
+
+The dependency array controls when the effect runs:
+
+```jsx
+const SearchComponent = () => {
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState([]);
+
+  // Runs when query changes
+  useEffect(() => {
+    if (query) {
+      searchAPI(query).then(setResults);
+    }
+  }, [query]); // Runs when query changes
+
+  return (
+    <div>
+      <input 
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
+      {/* Render results */}
+    </div>
+  );
+};
+```
+
+### Cleanup
+
+Some effects need cleanup to prevent memory leaks:
+
+```jsx
+const TimerComponent = () => {
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSeconds(prev => prev + 1);
+    }, 1000);
+
+    // Cleanup function
+    return () => clearInterval(interval);
+  }, []);
+
+  return <div>Timer: {seconds}s</div>;
+};
+```
+
+## useContext Hook
+
+`useContext` provides a way to share values between components without prop drilling.
+
+```jsx
+import React, { createContext, useContext, useState } from 'react';
+
+const ThemeContext = createContext();
+
+const ThemeProvider = ({ children }) => {
+  const [theme, setTheme] = useState('light');
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  };
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
+
+const ThemedButton = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
+  return (
+    <button 
+      className={theme === 'light' ? 'light-theme' : 'dark-theme'}
+      onClick={toggleTheme}
+    >
+      Switch to {theme === 'light' ? 'dark' : 'light'} theme
+    </button>
+  );
+};
+```
+
+## useReducer Hook
+
+For complex state logic, `useReducer` is often better than `useState`:
+
+```jsx
+import React, { useReducer } from 'react';
+
+const todoReducer = (state, action) => {
+  switch (action.type) {
+    case 'ADD_TODO':
+      return [...state, { id: Date.now(), text: action.text, done: false }];
+    case 'TOGGLE_TODO':
+      return state.map(todo =>
+        todo.id === action.id ? { ...todo, done: !todo.done } : todo
+      );
+    case 'DELETE_TODO':
+      return state.filter(todo => todo.id !== action.id);
+    default:
+      return state;
+  }
+};
+
+const TodoApp = () => {
+  const [todos, dispatch] = useReducer(todoReducer, []);
+  const [inputText, setInputText] = useState('');
+
+  const addTodo = () => {
+    if (inputText.trim()) {
+      dispatch({ type: 'ADD_TODO', text: inputText });
+      setInputText('');
+    }
+  };
+
+  return (
+    <div>
+      <input 
+        value={inputText}
+        onChange={(e) => setInputText(e.target.value)}
+      />
+      <button onClick={addTodo}>Add Todo</button>
+      
+      {todos.map(todo => (
+        <div key={todo.id}>
+          <span 
+            style={{ textDecoration: todo.done ? 'line-through' : 'none' }}
+            onClick={() => dispatch({ type: 'TOGGLE_TODO', id: todo.id })}
+          >
+            {todo.text}
+          </span>
+          <button onClick={() => dispatch({ type: 'DELETE_TODO', id: todo.id })}>
+            Delete
+          </button>
+        </div>
+      ))}
+    </div>
+  );
+};
+```
+
+## Custom Hooks
+
+Create reusable stateful logic with custom hooks:
+
+```jsx
+// Custom hook for API calls
+const useApi = (url) => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(url);
+        const result = await response.json();
+        setData(result);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [url]);
+
+  return { data, loading, error };
+};
+
+// Usage
+const UserProfile = ({ userId }) => {
+  const { data: user, loading, error } = useApi(`/api/users/${userId}`);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  return <div>Welcome, {user.name}!</div>;
+};
+```
+
+## Best Practices
+
+1. **Keep effects focused**: Each `useEffect` should handle one concern
+2. **Use dependency arrays correctly**: Include all values from component scope used inside the effect
+3. **Extract custom hooks**: Reuse stateful logic between components
+4. **Clean up effects**: Prevent memory leaks by cleaning up subscriptions and timers
+5. **Use the right hook**: `useState` for simple state, `useReducer` for complex state logic
+
+## Common Pitfalls
+
+1. **Missing dependencies**: Always include dependencies in the array
+2. **Stale closures**: Be careful with closures in effects
+3. **Infinite loops**: Avoid effects that update their own dependencies
+4. **Not cleaning up**: Always clean up subscriptions and listeners
+
+Understanding hooks deeply will make you a more effective React developer. Practice with different scenarios and gradually build more complex applications!

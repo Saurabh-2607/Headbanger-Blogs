@@ -1,0 +1,154 @@
+---
+title: "React Fundamentals"
+description: "Learn the core concepts of React including JSX, components, and the virtual DOM."
+---
+
+# React Fundamentals
+
+Understanding React fundamentals is crucial for building robust applications. Let's explore the core concepts that make React so powerful.
+
+## JSX: JavaScript XML
+
+JSX is a syntax extension for JavaScript that looks similar to HTML. It allows you to write HTML-like code within JavaScript.
+
+```jsx
+const element = <h1>Hello, React!</h1>;
+```
+
+### Key JSX Rules:
+
+1. **Single Parent Element**: JSX must return a single parent element
+2. **Use Fragments**: Use `<>` or `React.Fragment` to wrap multiple elements
+3. **CamelCase**: HTML attributes use camelCase (e.g., `className` instead of `class`)
+
+```jsx
+// Good
+const MyComponent = () => {
+  return (
+    <>
+      <h1>Title</h1>
+      <p>Description</p>
+    </>
+  );
+};
+```
+
+## Components: Building Blocks
+
+React applications are built using components. There are two main types:
+
+### Functional Components
+
+```jsx
+function Welcome(props) {
+  return <h1>Hello, {props.name}!</h1>;
+}
+
+// Or with arrow function
+const Welcome = (props) => {
+  return <h1>Hello, {props.name}!</h1>;
+};
+```
+
+### Class Components (Legacy)
+
+```jsx
+class Welcome extends React.Component {
+  render() {
+    return <h1>Hello, {this.props.name}!</h1>;
+  }
+}
+```
+
+> **Modern React**: We recommend using functional components with hooks for new projects.
+
+## Props: Passing Data
+
+Props are how components communicate with each other. They're read-only and help make components reusable.
+
+```jsx
+const UserCard = ({ name, email, age }) => {
+  return (
+    <div className="user-card">
+      <h2>{name}</h2>
+      <p>Email: {email}</p>
+      <p>Age: {age}</p>
+    </div>
+  );
+};
+
+// Usage
+<UserCard name="John Doe" email="john@example.com" age={30} />
+```
+
+## Virtual DOM
+
+The Virtual DOM is a JavaScript representation of the real DOM. React uses it to:
+
+1. **Track Changes**: Compare current and previous virtual DOM states
+2. **Calculate Differences**: Determine what actually changed
+3. **Update Efficiently**: Only update the real DOM elements that changed
+
+This process is called "reconciliation" and makes React applications fast and responsive.
+
+## Event Handling
+
+React uses SyntheticEvents, which wrap native events and provide a consistent API across browsers.
+
+```jsx
+const Button = () => {
+  const handleClick = (event) => {
+    event.preventDefault();
+    console.log('Button clicked!');
+  };
+
+  return <button onClick={handleClick}>Click Me</button>;
+};
+```
+
+## Conditional Rendering
+
+You can conditionally render elements in React using JavaScript operators:
+
+```jsx
+const Greeting = ({ isLoggedIn, user }) => {
+  return (
+    <div>
+      {isLoggedIn ? (
+        <h1>Welcome back, {user.name}!</h1>
+      ) : (
+        <h1>Please log in.</h1>
+      )}
+    </div>
+  );
+};
+```
+
+## Lists and Keys
+
+When rendering lists, always provide a unique `key` prop:
+
+```jsx
+const TodoList = ({ todos }) => {
+  return (
+    <ul>
+      {todos.map(todo => (
+        <li key={todo.id}>
+          {todo.text}
+        </li>
+      ))}
+    </ul>
+  );
+};
+```
+
+## Next Steps
+
+Now that you understand React fundamentals, you're ready to dive deeper into:
+
+- State management with hooks
+- Effect handling and lifecycle
+- Advanced component patterns
+- Testing React applications
+
+Practice these concepts by building small projects—the more you code, the more natural React will become!

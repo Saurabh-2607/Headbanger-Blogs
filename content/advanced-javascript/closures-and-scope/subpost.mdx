@@ -1,0 +1,345 @@
+---
+title: "Closures and Lexical Scope"
+description: "Master closures, lexical scope, and how JavaScript handles variable access across different execution contexts."
+---
+
+# Closures and Lexical Scope
+
+Closures are one of JavaScript's most powerful and fundamental concepts. They enable data privacy, functional programming patterns, and are essential for understanding how modern JavaScript works.
+
+## Understanding Lexical Scope
+
+Lexical scope means that the accessibility of variables is determined by where they are declared in the code, not where they are called.
+
+```javascript
+function outerFunction(x) {
+  // This is the outer scope
+  
+  function innerFunction(y) {
+    // This is the inner scope
+    console.log(x); // Can access 'x' from outer scope
+    console.log(y); // Can access 'y' from current scope
+  }
+  
+  return innerFunction;
+}
+
+const myFunction = outerFunction(10);
+myFunction(20); // Logs: 10, 20
+```
+
+### Scope Chain
+
+JavaScript uses a scope chain to resolve variable names:
+
+```javascript
+const globalVar = 'I am global';
+
+function level1() {
+  const level1Var = 'I am in level 1';
+  
+  function level2() {
+    const level2Var = 'I am in level 2';
+    
+    function level3() {
+      // This function can access all three variables
+      console.log(globalVar);  // 'I am global'
+      console.log(level1Var);  // 'I am in level 1'
+      console.log(level2Var);  // 'I am in level 2'
+    }
+    
+    return level3;
+  }
+  
+  return level2;
+}
+
+const myFunc = level1()();
+myFunc();
+```
+
+## What Are Closures?
+
+A closure is created when a function accesses variables from an outer (enclosing) scope even after the outer function has finished executing.
+
+```javascript
+function createCounter() {
+  let count = 0;
+  
+  return function() {
+    count++;
+    return count;
+  };
+}
+
+const counter = createCounter();
+console.log(counter()); // 1
+console.log(counter()); // 2
+console.log(counter()); // 3
+
+// The 'count' variable is private and persisted!
+```
+
+### How Closures Work
+
+When a function is created in JavaScript, it forms a closure with its surrounding state (the lexical environment). This environment consists of any local variables that were in-scope at the time the closure was created.
+
+```javascript
+function multiplier(factor) {
+  // The 'factor' variable is captured by the closure
+  
+  return function(number) {
+    return number * factor; // Uses 'factor' from outer scope
+  };
+}
+
+const double = multiplier(2);
+const triple = multiplier(3);
+
+console.log(double(5)); // 10
+console.log(triple(5)); // 15
+
+// Each closure maintains its own copy of 'factor'
+```
+
+## Practical Examples of Closures
+
+### Data Privacy and Encapsulation
+
+```javascript
+function createBankAccount(initialBalance) {
+  let balance = initialBalance;
+  
+  return {
+    deposit(amount) {
+      if (amount > 0) {
+        balance += amount;
+        return balance;
+      }
+    },
+    
+    withdraw(amount) {
+      if (amount > 0 && amount <= balance) {
+        balance -= amount;
+        return balance;
+      }
+      return 'Insufficient funds';
+    },
+    
+    getBalance() {
+      return balance;
+    }
+  };
+}
+
+const account = createBankAccount(100);
+console.log(account.getBalance()); // 100
+account.deposit(50);
+console.log(account.getBalance()); // 150
+
+// Cannot access 'balance' directly - it's private!
+console.log(account.balance); // undefined
+```
+
+### Module Pattern
+
+```javascript
+const Calculator = (function() {
+  // Private variables and functions
+  let history = [];
+  
+  function addToHistory(operation, result) {
+    history.push({ operation, result, timestamp: new Date() });
+  }
+  
+  // Public API
+  return {
+    add(a, b) {
+      const result = a + b;
+      addToHistory(`${a} + ${b}`, result);
+      return result;
+    },
+    
+    subtract(a, b) {
+      const result = a - b;
+      addToHistory(`${a} - ${b}`, result);
+      return result;
+    },
+    
+    getHistory() {
+      return [...history]; // Return a copy
+    },
+    
+    clearHistory() {
+      history = [];
+    }
+  };
+})();
+
+console.log(Calculator.add(5, 3)); // 8
+console.log(Calculator.subtract(10, 4)); // 6
+console.log(Calculator.getHistory());
+```
+
+### Event Handlers with State
+
+```javascript
+function createButtonHandler(buttonName) {
+  let clickCount = 0;
+  
+  return function handleClick() {
+    clickCount++;
+    console.log(`${buttonName} clicked ${clickCount} times`);
+  };
+}
+
+// Usage with DOM elements
+const button1Handler = createButtonHandler('Save Button');
+const button2Handler = createButtonHandler('Cancel Button');
+
+// Each handler maintains its own click count
+document.getElementById('saveBtn').addEventListener('click', button1Handler);
+document.getElementById('cancelBtn').addEventListener('click', button2Handler);
+```
+
+## Closures in Loops - Common Pitfall
+
+A classic JavaScript gotcha involves closures in loops:
+
+```javascript
+// Problem: All functions log 3
+for (var i = 0; i < 3; i++) {
+  setTimeout(function() {
+    console.log(i); // Logs 3, 3, 3
+  }, 1000);
+}
+
+// Solution 1: Use let instead of var
+for (let i = 0; i < 3; i++) {
+  setTimeout(function() {
+    console.log(i); // Logs 0, 1, 2
+  }, 1000);
+}
+
+// Solution 2: Create a closure with IIFE
+for (var i = 0; i < 3; i++) {
+  (function(index) {
+    setTimeout(function() {
+      console.log(index); // Logs 0, 1, 2
+    }, 1000);
+  })(i);
+}
+
+// Solution 3: Use bind
+for (var i = 0; i < 3; i++) {
+  setTimeout(function(index) {
+    console.log(index); // Logs 0, 1, 2
+  }.bind(null, i), 1000);
+}
+```
+
+## Advanced Closure Patterns
+
+### Currying with Closures
+
+```javascript
+function curry(fn) {
+  return function curried(...args) {
+    if (args.length >= fn.length) {
+      return fn.apply(this, args);
+    } else {
+      return function(...nextArgs) {
+        return curried.apply(this, args.concat(nextArgs));
+      };
+    }
+  };
+}
+
+function multiply(a, b, c) {
+  return a * b * c;
+}
+
+const curriedMultiply = curry(multiply);
+
+console.log(curriedMultiply(2)(3)(4)); // 24
+console.log(curriedMultiply(2, 3)(4)); // 24
+console.log(curriedMultiply(2)(3, 4)); // 24
+```
+
+### Memoization with Closures
+
+```javascript
+function memoize(fn) {
+  const cache = new Map();
+  
+  return function(...args) {
+    const key = JSON.stringify(args);
+    
+    if (cache.has(key)) {
+      console.log('Cache hit!');
+      return cache.get(key);
+    }
+    
+    console.log('Computing...');
+    const result = fn.apply(this, args);
+    cache.set(key, result);
+    return result;
+  };
+}
+
+const fibonacci = memoize(function(n) {
+  if (n < 2) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+});
+
+console.log(fibonacci(10)); // Computes once
+console.log(fibonacci(10)); // Cache hit!
+```
+
+## Memory Considerations
+
+Closures can lead to memory leaks if not handled properly:
+
+```javascript
+// Potential memory leak
+function attachListeners() {
+  const largeData = new Array(1000000).fill('data');
+  
+  document.getElementById('button').addEventListener('click', function() {
+    // This closure keeps 'largeData' in memory
+    console.log('Button clicked');
+  });
+}
+
+// Better approach
+function attachListeners() {
+  const largeData = new Array(1000000).fill('data');
+  
+  function handleClick() {
+    console.log('Button clicked');
+    // 'largeData' is not referenced, so it can be garbage collected
+  }
+  
+  document.getElementById('button').addEventListener('click', handleClick);
+}
+```
+
+## Best Practices
+
+1. **Use closures for data privacy**: Keep implementation details private
+2. **Be mindful of memory usage**: Avoid unnecessary references to large objects
+3. **Use arrow functions carefully**: They don't create their own `this` context
+4. **Prefer `let` and `const`**: Block scope helps prevent common closure pitfalls
+5. **Clean up event listeners**: Remove listeners to prevent memory leaks
+
+## Summary
+
+Closures are a fundamental JavaScript concept that enables:
+
+- **Data privacy and encapsulation**
+- **Functional programming patterns**
+- **Module systems and namespacing**
+- **State management in callbacks**
+- **Advanced patterns like currying and memoization**
+
+Understanding closures deeply will make you a more effective JavaScript developer and help you write more elegant, maintainable code.
