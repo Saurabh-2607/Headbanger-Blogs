@@ -1,0 +1,269 @@
+---
+title: "Variables and Data Types in Python"
+description: "Master Python variables and data types including strings, numbers, booleans, and type conversion with practical examples."
+date: "2024-02-12"
+author: "Alex Chen"
+readTime: "8 min read"
+---
+
+# Variables and Data Types in Python
+
+Variables are the foundation of any programming language. In Python, variables are like containers that store data values. Understanding how to work with different data types is crucial for writing effective Python programs.
+
+## What are Variables?
+
+A variable is a named location in memory that stores a value. Think of it like a labeled box where you can put different items.
+
+```python
+# Creating variables
+name = "Alice"
+age = 25
+height = 5.6
+is_student = True
+```
+
+## Python Data Types
+
+Python has several built-in data types:
+
+### 1. Numeric Types
+
+**Integers (int)**
+```python
+score = 100
+temperature = -5
+population = 1000000
+```
+
+**Floating-point numbers (float)**
+```python
+price = 19.99
+pi = 3.14159
+weight = 68.5
+```
+
+**Complex numbers (complex)**
+```python
+z = 3 + 4j
+complex_num = complex(2, 3)
+```
+
+### 2. Text Type
+
+**Strings (str)**
+```python
+message = "Hello, World!"
+name = 'Python'
+multiline = """This is a
+multiline string"""
+```
+
+String operations:
+```python
+# Concatenation
+greeting = "Hello" + " " + "World"
+
+# Repetition
+pattern = "Python " * 3  # "Python Python Python "
+
+# Length
+length = len("Hello")  # 5
+
+# Indexing and slicing
+text = "Python"
+first_char = text[0]  # 'P'
+last_char = text[-1]  # 'n'
+substring = text[1:4]  # 'yth'
+```
+
+### 3. Boolean Type
+
+**Boolean (bool)**
+```python
+is_active = True
+is_finished = False
+
+# Boolean operations
+result = True and False  # False
+result = True or False   # True
+result = not True        # False
+```
+
+## Variable Assignment
+
+### Simple Assignment
+```python
+x = 10
+name = "John"
+```
+
+### Multiple Assignment
+```python
+# Assign same value to multiple variables
+a = b = c = 5
+
+# Assign different values
+x, y, z = 1, 2, 3
+name, age = "Alice", 30
+```
+
+### Swapping Variables
+```python
+a = 10
+b = 20
+a, b = b, a  # Now a=20, b=10
+```
+
+## Type Checking and Conversion
+
+### Checking Types
+```python
+value = 42
+print(type(value))  # <class 'int'>
+print(isinstance(value, int))  # True
+```
+
+### Type Conversion
+```python
+# String to number
+num_str = "123"
+num = int(num_str)  # 123
+float_num = float("123.45")  # 123.45
+
+# Number to string
+age = 25
+age_str = str(age)  # "25"
+
+# Boolean conversion
+print(bool(1))    # True
+print(bool(0))    # False
+print(bool(""))   # False
+print(bool("Hi")) # True
+```
+
+## Variable Naming Rules
+
+### Valid Names
+```python
+name = "Alice"
+age2 = 25
+_private = "secret"
+CONSTANT = 100
+firstName = "John"
+```
+
+### Invalid Names
+```python
+# These will cause errors:
+# 2age = 25        # Can't start with number
+# first-name = ""  # Can't use hyphens
+# class = "Math"   # Can't use keywords
+```
+
+### Naming Conventions
+```python
+# Use descriptive names
+user_count = 50  # Good
+uc = 50         # Avoid abbreviations
+
+# Constants in UPPERCASE
+MAX_USERS = 1000
+PI = 3.14159
+
+# Functions and variables in snake_case
+def calculate_area():
+    pass
+
+user_name = "Alice"
+```
+
+## Common Operations
+
+### String Formatting
+```python
+name = "Alice"
+age = 30
+
+# f-strings (Python 3.6+)
+message = f"My name is {name} and I'm {age} years old"
+
+# .format() method
+message = "My name is {} and I'm {} years old".format(name, age)
+
+# % formatting (older style)
+message = "My name is %s and I'm %d years old" % (name, age)
+```
+
+### Input from User
+```python
+# Getting user input (always returns string)
+name = input("Enter your name: ")
+age_str = input("Enter your age: ")
+age = int(age_str)  # Convert to integer
+```
+
+## Practice Exercises
+
+Try these exercises to reinforce your understanding:
+
+### Exercise 1: Personal Information
+```python
+# Create variables for personal information
+first_name = "Your name here"
+last_name = "Your last name"
+age = 0  # Your age
+height_cm = 0  # Your height in cm
+is_student = True  # True or False
+
+# Print a formatted message
+full_name = first_name + " " + last_name
+print(f"Hello! I'm {full_name}, {age} years old, {height_cm}cm tall.")
+```
+
+### Exercise 2: Calculator
+```python
+# Simple calculator
+num1 = float(input("Enter first number: "))
+num2 = float(input("Enter second number: "))
+
+sum_result = num1 + num2
+difference = num1 - num2
+product = num1 * num2
+quotient = num1 / num2
+
+print(f"Sum: {sum_result}")
+print(f"Difference: {difference}")
+print(f"Product: {product}")
+print(f"Quotient: {quotient}")
+```
+
+### Exercise 3: Type Conversion Practice
+```python
+# Convert between types
+string_number = "42"
+integer_number = int(string_number)
+float_number = float(string_number)
+
+print(f"String: {string_number} (type: {type(string_number)})")
+print(f"Integer: {integer_number} (type: {type(integer_number)})")
+print(f"Float: {float_number} (type: {type(float_number)})")
+```
+
+## Common Mistakes to Avoid
+
+1. **Using reserved keywords as variable names**
+2. **Forgetting to convert input strings to numbers**
+3. **Mixing data types without proper conversion**
+4. **Using unclear variable names**
+
+## Summary
+
+Understanding variables and data types is fundamental to Python programming. Remember:
+
+- Variables are containers for storing data
+- Python has several built-in data types
+- Use descriptive variable names
+- Convert between types when necessary
+- Practice with real examples
+
+In the next lesson, we'll explore control structures and learn how to make decisions in your Python programs!

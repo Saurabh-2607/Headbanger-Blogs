@@ -1,0 +1,394 @@
+---
+title: "Control Structures in Python"
+description: "Learn Python control structures including if statements, loops, and decision-making logic with practical examples and exercises."
+date: "2024-02-14"
+author: "Alex Chen"
+readTime: "10 min read"
+---
+
+# Control Structures in Python
+
+Control structures are the building blocks that control the flow of execution in your Python programs. They allow you to make decisions, repeat actions, and create dynamic, interactive applications.
+
+## Conditional Statements
+
+### The if Statement
+
+The `if` statement allows your program to make decisions:
+
+```python
+age = 18
+
+if age >= 18:
+    print("You are eligible to vote!")
+```
+
+### if-else Statement
+
+Add an alternative action with `else`:
+
+```python
+temperature = 25
+
+if temperature > 30:
+    print("It's hot outside!")
+else:
+    print("The weather is pleasant.")
+```
+
+### if-elif-else Statement
+
+Handle multiple conditions with `elif`:
+
+```python
+score = 85
+
+if score >= 90:
+    grade = "A"
+elif score >= 80:
+    grade = "B"
+elif score >= 70:
+    grade = "C"
+elif score >= 60:
+    grade = "D"
+else:
+    grade = "F"
+
+print(f"Your grade is: {grade}")
+```
+
+### Nested if Statements
+
+```python
+weather = "sunny"
+temperature = 25
+
+if weather == "sunny":
+    if temperature > 20:
+        print("Perfect day for a picnic!")
+    else:
+        print("Sunny but a bit cold.")
+else:
+    print("Maybe stay indoors today.")
+```
+
+## Comparison Operators
+
+```python
+x = 10
+y = 5
+
+print(x == y)  # Equal to: False
+print(x != y)  # Not equal to: True
+print(x > y)   # Greater than: True
+print(x < y)   # Less than: False
+print(x >= y)  # Greater than or equal: True
+print(x <= y)  # Less than or equal: False
+```
+
+## Logical Operators
+
+### and Operator
+```python
+age = 25
+has_license = True
+
+if age >= 18 and has_license:
+    print("You can drive!")
+```
+
+### or Operator
+```python
+day = "Saturday"
+
+if day == "Saturday" or day == "Sunday":
+    print("It's weekend!")
+```
+
+### not Operator
+```python
+is_raining = False
+
+if not is_raining:
+    print("Great day for outdoor activities!")
+```
+
+## Loops
+
+### The for Loop
+
+Use `for` loops to iterate over sequences:
+
+```python
+# Loop through a list
+fruits = ["apple", "banana", "orange"]
+for fruit in fruits:
+    print(f"I like {fruit}")
+
+# Loop through a range
+for i in range(5):
+    print(f"Number: {i}")
+
+# Loop with start, stop, step
+for i in range(2, 10, 2):
+    print(f"Even number: {i}")
+```
+
+### The while Loop
+
+Use `while` loops for conditional repetition:
+
+```python
+count = 0
+while count < 5:
+    print(f"Count is: {count}")
+    count += 1
+
+# User input loop
+password = ""
+while password != "secret":
+    password = input("Enter password: ")
+    if password != "secret":
+        print("Incorrect password. Try again.")
+print("Access granted!")
+```
+
+### Loop Control Statements
+
+#### break Statement
+```python
+# Exit the loop early
+for i in range(10):
+    if i == 5:
+        break
+    print(i)
+# Prints: 0, 1, 2, 3, 4
+```
+
+#### continue Statement
+```python
+# Skip the current iteration
+for i in range(10):
+    if i % 2 == 0:
+        continue
+    print(i)
+# Prints: 1, 3, 5, 7, 9
+```
+
+#### else with Loops
+```python
+# else executes if loop completes normally
+for i in range(3):
+    print(i)
+else:
+    print("Loop completed!")
+
+# else doesn't execute if loop is broken
+for i in range(5):
+    if i == 3:
+        break
+    print(i)
+else:
+    print("This won't print")
+```
+
+## Practical Examples
+
+### Example 1: Number Guessing Game
+```python
+import random
+
+secret_number = random.randint(1, 100)
+attempts = 0
+max_attempts = 7
+
+print("Welcome to the Number Guessing Game!")
+print(f"I'm thinking of a number between 1 and 100. You have {max_attempts} attempts.")
+
+while attempts < max_attempts:
+    guess = int(input("Enter your guess: "))
+    attempts += 1
+    
+    if guess == secret_number:
+        print(f"Congratulations! You guessed it in {attempts} attempts!")
+        break
+    elif guess < secret_number:
+        print("Too low!")
+    else:
+        print("Too high!")
+    
+    remaining = max_attempts - attempts
+    if remaining > 0:
+        print(f"You have {remaining} attempts left.")
+else:
+    print(f"Game over! The number was {secret_number}")
+```
+
+### Example 2: Grade Calculator
+```python
+print("Grade Calculator")
+print("Enter -1 to finish entering grades")
+
+grades = []
+total = 0
+count = 0
+
+while True:
+    grade = float(input("Enter a grade: "))
+    
+    if grade == -1:
+        break
+    
+    if 0 <= grade <= 100:
+        grades.append(grade)
+        total += grade
+        count += 1
+    else:
+        print("Please enter a grade between 0 and 100")
+
+if count > 0:
+    average = total / count
+    print(f"\nGrades entered: {grades}")
+    print(f"Average grade: {average:.2f}")
+    
+    if average >= 90:
+        letter_grade = "A"
+    elif average >= 80:
+        letter_grade = "B"
+    elif average >= 70:
+        letter_grade = "C"
+    elif average >= 60:
+        letter_grade = "D"
+    else:
+        letter_grade = "F"
+    
+    print(f"Letter grade: {letter_grade}")
+else:
+    print("No valid grades entered.")
+```
+
+### Example 3: Password Validator
+```python
+def validate_password(password):
+    """Validate password based on security criteria"""
+    
+    if len(password) < 8:
+        return False, "Password must be at least 8 characters long"
+    
+    has_upper = False
+    has_lower = False
+    has_digit = False
+    has_special = False
+    special_chars = "!@#$%^&*()_+-=[]{}|;:,.<>?"
+    
+    for char in password:
+        if char.isupper():
+            has_upper = True
+        elif char.islower():
+            has_lower = True
+        elif char.isdigit():
+            has_digit = True
+        elif char in special_chars:
+            has_special = True
+    
+    if not has_upper:
+        return False, "Password must contain at least one uppercase letter"
+    if not has_lower:
+        return False, "Password must contain at least one lowercase letter"
+    if not has_digit:
+        return False, "Password must contain at least one digit"
+    if not has_special:
+        return False, "Password must contain at least one special character"
+    
+    return True, "Password is valid!"
+
+# Test the validator
+while True:
+    user_password = input("Enter a password (or 'quit' to exit): ")
+    
+    if user_password.lower() == 'quit':
+        break
+    
+    is_valid, message = validate_password(user_password)
+    print(message)
+    
+    if is_valid:
+        print("Password accepted!")
+        break
+```
+
+## Common Patterns
+
+### Input Validation
+```python
+while True:
+    try:
+        age = int(input("Enter your age: "))
+        if age < 0:
+            print("Age cannot be negative.")
+            continue
+        break
+    except ValueError:
+        print("Please enter a valid number.")
+```
+
+### Menu Systems
+```python
+while True:
+    print("\n--- Menu ---")
+    print("1. Option 1")
+    print("2. Option 2")
+    print("3. Quit")
+    
+    choice = input("Enter your choice: ")
+    
+    if choice == "1":
+        print("You selected Option 1")
+    elif choice == "2":
+        print("You selected Option 2")
+    elif choice == "3":
+        print("Goodbye!")
+        break
+    else:
+        print("Invalid choice. Please try again.")
+```
+
+## Best Practices
+
+1. **Use meaningful variable names**
+2. **Keep conditions simple and readable**
+3. **Avoid deeply nested statements**
+4. **Use appropriate loop types for your needs**
+5. **Include proper error handling**
+6. **Comment complex logic**
+
+## Practice Exercises
+
+### Exercise 1: FizzBuzz
+Write a program that prints numbers 1 to 100, but:
+- Print "Fizz" for multiples of 3
+- Print "Buzz" for multiples of 5
+- Print "FizzBuzz" for multiples of both 3 and 5
+
+### Exercise 2: Prime Number Checker
+Create a program that checks if a number is prime.
+
+### Exercise 3: Simple ATM
+Build a simple ATM system with:
+- Balance inquiry
+- Deposit money
+- Withdraw money
+- Exit option
+
+## Summary
+
+Control structures are essential for creating dynamic programs:
+
+- **Conditional statements** help make decisions
+- **Loops** allow repetition of actions
+- **Break and continue** control loop execution
+- **Proper validation** makes programs robust
+
+Master these concepts, and you'll be able to build interactive and intelligent Python applications!
+
+Next, we'll explore Python's powerful data structures that will help you organize and manipulate data efficiently.

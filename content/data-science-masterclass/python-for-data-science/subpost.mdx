@@ -1,0 +1,585 @@
+---
+title: "Python for Data Science"
+description: "Master Python programming for data science with NumPy, Pandas, Matplotlib, and essential libraries for data manipulation and analysis."
+date: "2024-03-07"
+author: "Dr. Emma Wilson"
+readTime: "12 min read"
+---
+
+# Python for Data Science
+
+Python has become the de facto standard for data science due to its simplicity, powerful libraries, and active community. This comprehensive guide will teach you everything you need to know about using Python for data science projects.
+
+## Why Python for Data Science?
+
+### Advantages of Python
+- **Readable Syntax**: Easy to learn and understand
+- **Rich Ecosystem**: Extensive libraries for data science
+- **Community Support**: Large, active community
+- **Versatility**: Works for web development, automation, and more
+- **Integration**: Easy to integrate with other technologies
+- **Open Source**: Free and continuously improving
+
+### Python vs Other Languages
+
+**Python vs R:**
+- Python: General-purpose, better for production
+- R: Specialized for statistics, excellent for research
+
+**Python vs SQL:**
+- Python: Complex data manipulation and analysis
+- SQL: Database queries and data extraction
+
+**Python vs Excel:**
+- Python: Automation, large datasets, reproducibility
+- Excel: Quick analysis, business users, visualization
+
+## Essential Python Libraries
+
+### NumPy: Numerical Computing Foundation
+
+NumPy provides efficient arrays and mathematical operations:
+
+```python
+import numpy as np
+
+# Creating arrays
+arr1 = np.array([1, 2, 3, 4, 5])
+arr2 = np.array([[1, 2, 3], [4, 5, 6]])
+
+# Array properties
+print(arr1.shape)    # (5,)
+print(arr2.shape)    # (2, 3)
+print(arr1.dtype)    # int64
+
+# Array operations
+result = arr1 * 2    # [2, 4, 6, 8, 10]
+squared = arr1 ** 2  # [1, 4, 9, 16, 25]
+
+# Mathematical functions
+mean_val = np.mean(arr1)      # 3.0
+std_val = np.std(arr1)        # 1.58...
+sum_val = np.sum(arr1)        # 15
+
+# Array indexing and slicing
+first_element = arr1[0]       # 1
+subset = arr1[1:4]           # [2, 3, 4]
+```
+
+### Pandas: Data Manipulation and Analysis
+
+Pandas provides powerful data structures for data analysis:
+
+```python
+import pandas as pd
+
+# Creating DataFrames
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'Age': [25, 30, 35, 28],
+    'City': ['New York', 'London', 'Tokyo', 'Paris'],
+    'Salary': [70000, 80000, 90000, 75000]
+}
+df = pd.DataFrame(data)
+
+# DataFrame properties
+print(df.shape)      # (4, 4)
+print(df.columns)    # ['Name', 'Age', 'City', 'Salary']
+print(df.dtypes)     # Data types of columns
+print(df.info())     # Summary information
+
+# Data selection
+names = df['Name']                    # Select column
+first_row = df.iloc[0]               # Select first row
+subset = df[df['Age'] > 28]          # Filter rows
+specific = df.loc[0, 'Name']         # Select specific cell
+
+# Data manipulation
+df['Age_Group'] = df['Age'].apply(
+    lambda x: 'Young' if x < 30 else 'Senior'
+)
+
+# Grouping and aggregation
+avg_salary_by_group = df.groupby('Age_Group')['Salary'].mean()
+
+# Sorting
+df_sorted = df.sort_values('Salary', ascending=False)
+```
+
+### Data Loading and Saving
+
+```python
+# Reading from files
+df_csv = pd.read_csv('data.csv')
+df_excel = pd.read_excel('data.xlsx', sheet_name='Sheet1')
+df_json = pd.read_json('data.json')
+
+# Reading from databases
+import sqlite3
+conn = sqlite3.connect('database.db')
+df_sql = pd.read_sql_query("SELECT * FROM table_name", conn)
+
+# Saving data
+df.to_csv('output.csv', index=False)
+df.to_excel('output.xlsx', index=False)
+df.to_json('output.json')
+```
+
+### Matplotlib: Data Visualization
+
+Matplotlib is the foundation for plotting in Python:
+
+```python
+import matplotlib.pyplot as plt
+
+# Basic line plot
+x = np.linspace(0, 10, 100)
+y = np.sin(x)
+
+plt.figure(figsize=(10, 6))
+plt.plot(x, y, label='sin(x)')
+plt.xlabel('X values')
+plt.ylabel('Y values')
+plt.title('Sine Wave')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# Multiple subplots
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+# Histogram
+ax1.hist(df['Age'], bins=10, edgecolor='black')
+ax1.set_title('Age Distribution')
+ax1.set_xlabel('Age')
+ax1.set_ylabel('Frequency')
+
+# Scatter plot
+ax2.scatter(df['Age'], df['Salary'])
+ax2.set_title('Age vs Salary')
+ax2.set_xlabel('Age')
+ax2.set_ylabel('Salary')
+
+plt.tight_layout()
+plt.show()
+```
+
+### Seaborn: Statistical Visualization
+
+Seaborn builds on Matplotlib for statistical plots:
+
+```python
+import seaborn as sns
+
+# Set style
+sns.set_style("whitegrid")
+
+# Correlation heatmap
+plt.figure(figsize=(8, 6))
+numeric_cols = df.select_dtypes(include=[np.number])
+correlation = numeric_cols.corr()
+sns.heatmap(correlation, annot=True, cmap='coolwarm', center=0)
+plt.title('Correlation Matrix')
+plt.show()
+
+# Box plot
+plt.figure(figsize=(8, 6))
+sns.boxplot(x='Age_Group', y='Salary', data=df)
+plt.title('Salary Distribution by Age Group')
+plt.show()
+
+# Pair plot
+sns.pairplot(df, hue='Age_Group')
+plt.show()
+```
+
+## Data Cleaning and Preprocessing
+
+### Handling Missing Data
+
+```python
+# Create sample data with missing values
+data_missing = {
+    'A': [1, 2, np.nan, 4, 5],
+    'B': [5, np.nan, 3, 4, 5],
+    'C': [1, 2, 3, np.nan, 5]
+}
+df_missing = pd.DataFrame(data_missing)
+
+# Check for missing values
+print(df_missing.isnull().sum())
+print(df_missing.isnull().any())
+
+# Handle missing values
+# Option 1: Drop rows with any missing values
+df_dropped = df_missing.dropna()
+
+# Option 2: Drop columns with any missing values
+df_dropped_cols = df_missing.dropna(axis=1)
+
+# Option 3: Fill missing values
+df_filled = df_missing.fillna(df_missing.mean())  # Fill with mean
+df_forward_fill = df_missing.fillna(method='ffill')  # Forward fill
+df_backward_fill = df_missing.fillna(method='bfill')  # Backward fill
+
+# Option 4: Interpolation
+df_interpolated = df_missing.interpolate()
+```
+
+### Data Type Conversion
+
+```python
+# Convert data types
+df['Age'] = df['Age'].astype('int32')
+df['Salary'] = df['Salary'].astype('float64')
+
+# Convert to categorical
+df['City'] = df['City'].astype('category')
+
+# Convert to datetime
+dates = pd.to_datetime(['2023-01-01', '2023-02-01', '2023-03-01'])
+df['Date'] = dates[:len(df)]
+```
+
+### String Operations
+
+```python
+# String methods
+text_data = pd.Series(['Hello World', 'PYTHON programming', 'Data Science'])
+
+# Case conversion
+text_lower = text_data.str.lower()
+text_upper = text_data.str.upper()
+text_title = text_data.str.title()
+
+# String operations
+text_length = text_data.str.len()
+contains_python = text_data.str.contains('PYTHON', case=False)
+split_text = text_data.str.split()
+
+# Extract patterns
+# Extract words starting with capital letter
+pattern_extract = text_data.str.extract(r'([A-Z]\w+)')
+```
+
+## Advanced Pandas Operations
+
+### Merging and Joining DataFrames
+
+```python
+# Sample datasets
+df1 = pd.DataFrame({
+    'ID': [1, 2, 3, 4],
+    'Name': ['Alice', 'Bob', 'Charlie', 'Diana'],
+    'Department': ['IT', 'HR', 'Finance', 'IT']
+})
+
+df2 = pd.DataFrame({
+    'ID': [1, 2, 3, 5],
+    'Salary': [70000, 80000, 90000, 85000],
+    'Bonus': [5000, 6000, 7000, 5500]
+})
+
+# Inner join (default)
+merged_inner = pd.merge(df1, df2, on='ID')
+
+# Left join
+merged_left = pd.merge(df1, df2, on='ID', how='left')
+
+# Right join
+merged_right = pd.merge(df1, df2, on='ID', how='right')
+
+# Outer join
+merged_outer = pd.merge(df1, df2, on='ID', how='outer')
+
+# Concatenating DataFrames
+df_concat = pd.concat([df1, df2], axis=0, ignore_index=True)
+```
+
+### Grouping and Aggregation
+
+```python
+# Advanced grouping
+grouped = df.groupby(['Department', 'Age_Group'])
+
+# Multiple aggregation functions
+agg_result = df.groupby('Department').agg({
+    'Salary': ['mean', 'std', 'count'],
+    'Age': ['min', 'max']
+})
+
+# Custom aggregation functions
+def salary_range(series):
+    return series.max() - series.min()
+
+custom_agg = df.groupby('Department')['Salary'].agg([
+    'mean', salary_range
+])
+
+# Transform operations
+df['Salary_Zscore'] = df.groupby('Department')['Salary'].transform(
+    lambda x: (x - x.mean()) / x.std()
+)
+```
+
+### Pivot Tables and Cross-tabulation
+
+```python
+# Pivot table
+pivot_table = df.pivot_table(
+    values='Salary',
+    index='Department',
+    columns='Age_Group',
+    aggfunc='mean',
+    fill_value=0
+)
+
+# Cross-tabulation
+crosstab = pd.crosstab(df['Department'], df['Age_Group'])
+```
+
+## Working with Time Series Data
+
+```python
+# Create time series data
+date_range = pd.date_range('2023-01-01', periods=100, freq='D')
+ts_data = pd.DataFrame({
+    'Date': date_range,
+    'Value': np.random.randn(100).cumsum()
+})
+
+# Set date as index
+ts_data.set_index('Date', inplace=True)
+
+# Time-based operations
+monthly_mean = ts_data.resample('M').mean()
+weekly_sum = ts_data.resample('W').sum()
+
+# Rolling window operations
+ts_data['Moving_Average'] = ts_data['Value'].rolling(window=7).mean()
+ts_data['Moving_Std'] = ts_data['Value'].rolling(window=7).std()
+
+# Time-based filtering
+recent_data = ts_data['2023-02-01':'2023-02-28']
+```
+
+## Performance Optimization
+
+### Efficient Data Operations
+
+```python
+# Use vectorized operations instead of loops
+# Slow: Loop approach
+result_slow = []
+for value in df['Salary']:
+    result_slow.append(value * 1.1)
+
+# Fast: Vectorized approach
+result_fast = df['Salary'] * 1.1
+
+# Use .loc and .iloc for indexing
+# Slow: Chain indexing
+value_slow = df[df['Name'] == 'Alice']['Salary']
+
+# Fast: Direct indexing
+value_fast = df.loc[df['Name'] == 'Alice', 'Salary']
+
+# Use categorical data for repeated strings
+df['City_cat'] = df['City'].astype('category')
+
+# Use appropriate data types
+df['Age'] = df['Age'].astype('int8')  # If values are small
+```
+
+### Memory Optimization
+
+```python
+# Check memory usage
+print(df.memory_usage(deep=True))
+
+# Optimize data types
+def optimize_dtypes(df):
+    for col in df.columns:
+        if df[col].dtype == 'object':
+            df[col] = df[col].astype('category')
+        elif df[col].dtype == 'int64':
+            df[col] = pd.to_numeric(df[col], downcast='integer')
+        elif df[col].dtype == 'float64':
+            df[col] = pd.to_numeric(df[col], downcast='float')
+    return df
+
+df_optimized = optimize_dtypes(df.copy())
+```
+
+## Real-World Example: Sales Data Analysis
+
+Let's analyze a complete sales dataset:
+
+```python
+# Generate sample sales data
+np.random.seed(42)
+n_records = 10000
+
+sales_data = pd.DataFrame({
+    'Date': pd.date_range('2023-01-01', periods=n_records, freq='H'),
+    'Product': np.random.choice(['A', 'B', 'C', 'D'], n_records),
+    'Region': np.random.choice(['North', 'South', 'East', 'West'], n_records),
+    'Sales_Amount': np.random.normal(100, 30, n_records),
+    'Quantity': np.random.poisson(5, n_records),
+    'Customer_Type': np.random.choice(['New', 'Returning'], n_records)
+})
+
+# Data cleaning
+sales_data['Sales_Amount'] = sales_data['Sales_Amount'].clip(lower=0)
+sales_data['Revenue'] = sales_data['Sales_Amount'] * sales_data['Quantity']
+
+# Exploratory Data Analysis
+print("Dataset Overview:")
+print(sales_data.info())
+print("\nSummary Statistics:")
+print(sales_data.describe())
+
+# Time-based analysis
+sales_data.set_index('Date', inplace=True)
+daily_revenue = sales_data.resample('D')['Revenue'].sum()
+
+# Product performance
+product_performance = sales_data.groupby('Product').agg({
+    'Revenue': ['sum', 'mean', 'count'],
+    'Quantity': 'sum'
+}).round(2)
+
+# Regional analysis
+regional_analysis = sales_data.groupby(['Region', 'Product'])['Revenue'].sum().unstack()
+
+# Customer type analysis
+customer_analysis = sales_data.groupby('Customer_Type')['Revenue'].agg([
+    'sum', 'mean', 'count'
+])
+
+# Visualizations
+fig, axes = plt.subplots(2, 2, figsize=(15, 10))
+
+# Daily revenue trend
+axes[0, 0].plot(daily_revenue.index, daily_revenue.values)
+axes[0, 0].set_title('Daily Revenue Trend')
+axes[0, 0].set_xlabel('Date')
+axes[0, 0].set_ylabel('Revenue')
+
+# Product revenue distribution
+product_revenue = sales_data.groupby('Product')['Revenue'].sum()
+axes[0, 1].bar(product_revenue.index, product_revenue.values)
+axes[0, 1].set_title('Revenue by Product')
+axes[0, 1].set_xlabel('Product')
+axes[0, 1].set_ylabel('Total Revenue')
+
+# Regional heatmap
+sns.heatmap(regional_analysis, annot=True, fmt='.0f', ax=axes[1, 0])
+axes[1, 0].set_title('Revenue Heatmap: Region vs Product')
+
+# Sales amount distribution
+axes[1, 1].hist(sales_data['Sales_Amount'], bins=30, edgecolor='black')
+axes[1, 1].set_title('Sales Amount Distribution')
+axes[1, 1].set_xlabel('Sales Amount')
+axes[1, 1].set_ylabel('Frequency')
+
+plt.tight_layout()
+plt.show()
+
+# Advanced insights
+print("\n=== KEY INSIGHTS ===")
+print(f"Total Revenue: ${sales_data['Revenue'].sum():,.2f}")
+print(f"Average Daily Revenue: ${daily_revenue.mean():,.2f}")
+print(f"Best Performing Product: {product_revenue.idxmax()}")
+print(f"Best Performing Region: {sales_data.groupby('Region')['Revenue'].sum().idxmax()}")
+
+# Correlation analysis
+correlation_matrix = sales_data[['Sales_Amount', 'Quantity', 'Revenue']].corr()
+print("\nCorrelation Matrix:")
+print(correlation_matrix)
+```
+
+## Best Practices for Data Science Python
+
+### Code Organization
+```python
+# Use functions for reusable code
+def clean_sales_data(df):
+    """Clean and preprocess sales data"""
+    df = df.copy()
+    df['Sales_Amount'] = df['Sales_Amount'].clip(lower=0)
+    df['Revenue'] = df['Sales_Amount'] * df['Quantity']
+    return df
+
+def calculate_metrics(df):
+    """Calculate key business metrics"""
+    metrics = {
+        'total_revenue': df['Revenue'].sum(),
+        'avg_order_value': df['Revenue'].mean(),
+        'total_orders': len(df)
+    }
+    return metrics
+
+# Use classes for complex operations
+class SalesAnalyzer:
+    def __init__(self, data):
+        self.data = data
+        self.metrics = {}
+    
+    def calculate_trends(self):
+        """Calculate time-based trends"""
+        self.data.set_index('Date', inplace=True)
+        self.daily_trends = self.data.resample('D')['Revenue'].sum()
+        return self.daily_trends
+    
+    def segment_customers(self):
+        """Segment customers based on behavior"""
+        customer_segments = self.data.groupby('Customer_Type').agg({
+            'Revenue': ['sum', 'mean', 'count']
+        })
+        return customer_segments
+```
+
+### Error Handling
+```python
+def safe_data_load(file_path):
+    """Safely load data with error handling"""
+    try:
+        if file_path.endswith('.csv'):
+            df = pd.read_csv(file_path)
+        elif file_path.endswith('.xlsx'):
+            df = pd.read_excel(file_path)
+        else:
+            raise ValueError("Unsupported file format")
+        
+        print(f"Successfully loaded {len(df)} rows")
+        return df
+    
+    except FileNotFoundError:
+        print(f"File {file_path} not found")
+        return None
+    except Exception as e:
+        print(f"Error loading file: {str(e)}")
+        return None
+
+# Usage
+df = safe_data_load('sales_data.csv')
+if df is not None:
+    # Proceed with analysis
+    pass
+```
+
+## Summary
+
+Python is an incredibly powerful tool for data science:
+
+- **NumPy** provides efficient numerical operations
+- **Pandas** offers powerful data manipulation capabilities
+- **Matplotlib/Seaborn** enable rich data visualization
+- **Proper data cleaning** is crucial for accurate analysis
+- **Performance optimization** matters for large datasets
+- **Code organization** makes projects maintainable
+
+Practice these concepts with real datasets, and you'll develop the skills needed to tackle any data science challenge.
+
+Next, we'll explore statistical analysis and hypothesis testing to make data-driven decisions with confidence!

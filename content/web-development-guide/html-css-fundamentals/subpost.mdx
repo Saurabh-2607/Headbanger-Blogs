@@ -1,0 +1,825 @@
+---
+title: "HTML & CSS Fundamentals"
+description: "Master the building blocks of web development with comprehensive HTML and CSS fundamentals, including semantic markup and modern styling techniques."
+date: "2024-01-17"
+author: "Sarah Johnson"
+readTime: "15 min read"
+---
+
+# HTML & CSS Fundamentals
+
+HTML and CSS are the foundation of web development. HTML provides the structure and content, while CSS handles the presentation and styling. Mastering these technologies is essential for any aspiring web developer.
+
+## HTML Fundamentals
+
+### What is HTML?
+
+HTML (HyperText Markup Language) is the standard markup language for creating web pages. It uses tags to define elements and structure content.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First Webpage</title>
+</head>
+<body>
+    <h1>Welcome to My Website</h1>
+    <p>This is my first paragraph.</p>
+</body>
+</html>
+```
+
+### HTML Document Structure
+
+Every HTML document follows a basic structure:
+
+```html
+<!DOCTYPE html>           <!-- Document type declaration -->
+<html>                   <!-- Root element -->
+  <head>                 <!-- Document metadata -->
+    <title>Page Title</title>
+    <meta charset="UTF-8">
+  </head>
+  <body>                 <!-- Visible content -->
+    <h1>Main Heading</h1>
+    <p>Content goes here</p>
+  </body>
+</html>
+```
+
+### Essential HTML Elements
+
+#### Headings
+```html
+<h1>Main Title</h1>
+<h2>Section Title</h2>
+<h3>Subsection Title</h3>
+<h4>Minor Heading</h4>
+<h5>Smaller Heading</h5>
+<h6>Smallest Heading</h6>
+```
+
+#### Text Elements
+```html
+<p>This is a paragraph with <strong>bold text</strong> and <em>italic text</em>.</p>
+<p>You can also use <b>bold</b> and <i>italic</i> for styling only.</p>
+<p>Here's a <a href="https://example.com">link to another page</a>.</p>
+<p>This text has a <span>highlighted section</span> in it.</p>
+```
+
+#### Lists
+```html
+<!-- Unordered List -->
+<ul>
+    <li>First item</li>
+    <li>Second item</li>
+    <li>Third item</li>
+</ul>
+
+<!-- Ordered List -->
+<ol>
+    <li>Step one</li>
+    <li>Step two</li>
+    <li>Step three</li>
+</ol>
+
+<!-- Description List -->
+<dl>
+    <dt>HTML</dt>
+    <dd>HyperText Markup Language</dd>
+    <dt>CSS</dt>
+    <dd>Cascading Style Sheets</dd>
+</dl>
+```
+
+#### Images and Media
+```html
+<img src="image.jpg" alt="Description of image" width="300" height="200">
+<video controls width="640" height="360">
+    <source src="video.mp4" type="video/mp4">
+    <source src="video.webm" type="video/webm">
+    Your browser doesn't support video.
+</video>
+<audio controls>
+    <source src="audio.mp3" type="audio/mpeg">
+    <source src="audio.ogg" type="audio/ogg">
+    Your browser doesn't support audio.
+</audio>
+```
+
+### Semantic HTML5 Elements
+
+Semantic elements provide meaning to the structure:
+
+```html
+<header>
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <article>
+        <header>
+            <h1>Article Title</h1>
+            <time datetime="2024-01-17">January 17, 2024</time>
+        </header>
+        <section>
+            <h2>Introduction</h2>
+            <p>Article content goes here...</p>
+        </section>
+        <aside>
+            <h3>Related Articles</h3>
+            <ul>
+                <li><a href="#">Article 1</a></li>
+                <li><a href="#">Article 2</a></li>
+            </ul>
+        </aside>
+    </article>
+</main>
+
+<footer>
+    <p>&copy; 2024 My Website. All rights reserved.</p>
+</footer>
+```
+
+### Forms and Input Elements
+
+```html
+<form action="/submit" method="post">
+    <fieldset>
+        <legend>Personal Information</legend>
+        
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" min="1" max="120">
+        
+        <label for="country">Country:</label>
+        <select id="country" name="country">
+            <option value="">Select a country</option>
+            <option value="us">United States</option>
+            <option value="uk">United Kingdom</option>
+            <option value="ca">Canada</option>
+        </select>
+        
+        <fieldset>
+            <legend>Gender:</legend>
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male">Male</label>
+            
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">Female</label>
+            
+            <input type="radio" id="other" name="gender" value="other">
+            <label for="other">Other</label>
+        </fieldset>
+        
+        <label for="interests">Interests:</label>
+        <input type="checkbox" id="sports" name="interests" value="sports">
+        <label for="sports">Sports</label>
+        
+        <input type="checkbox" id="music" name="interests" value="music">
+        <label for="music">Music</label>
+        
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="4" cols="50"></textarea>
+        
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+    </fieldset>
+</form>
+```
+
+## CSS Fundamentals
+
+### What is CSS?
+
+CSS (Cascading Style Sheets) is used to style and layout HTML elements. It controls the visual presentation of web pages.
+
+### CSS Syntax
+
+```css
+selector {
+    property: value;
+    property: value;
+}
+
+/* Example */
+h1 {
+    color: blue;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+```
+
+### CSS Selectors
+
+#### Basic Selectors
+```css
+/* Element Selector */
+p {
+    color: black;
+}
+
+/* Class Selector */
+.highlight {
+    background-color: yellow;
+}
+
+/* ID Selector */
+#header {
+    background-color: navy;
+}
+
+/* Universal Selector */
+* {
+    margin: 0;
+    padding: 0;
+}
+```
+
+#### Advanced Selectors
+```css
+/* Descendant Selector */
+nav ul li {
+    list-style: none;
+}
+
+/* Child Selector */
+div > p {
+    margin-top: 0;
+}
+
+/* Adjacent Sibling */
+h1 + p {
+    font-size: 18px;
+}
+
+/* Attribute Selector */
+input[type="text"] {
+    border: 1px solid #ccc;
+}
+
+/* Pseudo-classes */
+a:hover {
+    color: red;
+}
+
+a:visited {
+    color: purple;
+}
+
+/* Pseudo-elements */
+p::first-line {
+    font-weight: bold;
+}
+
+p::before {
+    content: "★ ";
+}
+```
+
+### CSS Properties
+
+#### Typography
+```css
+.text-styles {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: italic;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: underline;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    word-spacing: 4px;
+}
+```
+
+#### Colors and Backgrounds
+```css
+.color-examples {
+    /* Color values */
+    color: red;                    /* Named color */
+    color: #ff0000;               /* Hex color */
+    color: rgb(255, 0, 0);        /* RGB color */
+    color: rgba(255, 0, 0, 0.5);  /* RGBA with transparency */
+    color: hsl(0, 100%, 50%);     /* HSL color */
+    
+    /* Background properties */
+    background-color: lightblue;
+    background-image: url('image.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    
+    /* Shorthand */
+    background: lightblue url('image.jpg') no-repeat center/cover;
+}
+```
+
+#### Box Model
+```css
+.box-model {
+    /* Content area */
+    width: 300px;
+    height: 200px;
+    
+    /* Padding (inside the element) */
+    padding: 20px;
+    padding-top: 10px;
+    padding-right: 15px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    
+    /* Border */
+    border: 2px solid black;
+    border-radius: 10px;
+    
+    /* Margin (outside the element) */
+    margin: 20px;
+    margin: 10px 20px;        /* top/bottom left/right */
+    margin: 10px 15px 20px 25px; /* top right bottom left */
+    
+    /* Box-sizing */
+    box-sizing: border-box;   /* Include padding and border in width */
+}
+```
+
+### CSS Layout
+
+#### Display Property
+```css
+.display-examples {
+    display: block;        /* Full width, stacks vertically */
+    display: inline;       /* Only takes needed width, flows horizontally */
+    display: inline-block; /* Hybrid: flows horizontally but accepts width/height */
+    display: none;         /* Hidden completely */
+    display: flex;         /* Flexible layout */
+    display: grid;         /* Grid layout */
+}
+```
+
+#### Flexbox Layout
+```css
+.flex-container {
+    display: flex;
+    flex-direction: row;    /* row, column, row-reverse, column-reverse */
+    justify-content: center; /* flex-start, flex-end, center, space-between, space-around */
+    align-items: center;    /* flex-start, flex-end, center, stretch, baseline */
+    flex-wrap: wrap;        /* nowrap, wrap, wrap-reverse */
+    gap: 20px;
+}
+
+.flex-item {
+    flex: 1;               /* flex-grow, flex-shrink, flex-basis */
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 200px;
+    align-self: flex-start; /* Override parent's align-items */
+}
+```
+
+#### CSS Grid Layout
+```css
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;  /* Fraction units */
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: 
+        "header header header"
+        "sidebar main aside"
+        "footer footer footer";
+    gap: 20px;
+}
+
+.grid-item {
+    grid-column: 1 / 3;    /* Span from column 1 to 3 */
+    grid-row: 2 / 4;       /* Span from row 2 to 4 */
+    grid-area: header;     /* Use named area */
+}
+```
+
+#### Positioning
+```css
+.position-examples {
+    position: static;      /* Default positioning */
+    position: relative;    /* Relative to normal position */
+    position: absolute;    /* Relative to positioned parent */
+    position: fixed;       /* Relative to viewport */
+    position: sticky;      /* Sticky within container */
+    
+    top: 10px;
+    right: 20px;
+    bottom: 30px;
+    left: 40px;
+    z-index: 100;         /* Stacking order */
+}
+```
+
+### Responsive Design
+
+#### Media Queries
+```css
+/* Mobile First Approach */
+.responsive-text {
+    font-size: 14px;
+}
+
+/* Tablet */
+@media screen and (min-width: 768px) {
+    .responsive-text {
+        font-size: 16px;
+    }
+}
+
+/* Desktop */
+@media screen and (min-width: 1024px) {
+    .responsive-text {
+        font-size: 18px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .no-print {
+        display: none;
+    }
+}
+```
+
+#### Flexible Images
+```css
+.responsive-image {
+    max-width: 100%;
+    height: auto;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+```
+
+### CSS Best Practices
+
+#### Organization
+```css
+/* 1. Reset/Normalize */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* 2. Typography */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* 3. Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 4. Components */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+/* 5. Utilities */
+.text-center { text-align: center; }
+.mt-20 { margin-top: 20px; }
+.mb-20 { margin-bottom: 20px; }
+```
+
+#### CSS Variables (Custom Properties)
+```css
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --font-size-base: 16px;
+    --border-radius: 4px;
+    --spacing-unit: 20px;
+}
+
+.component {
+    color: var(--primary-color);
+    font-size: var(--font-size-base);
+    border-radius: var(--border-radius);
+    margin: var(--spacing-unit);
+}
+```
+
+## Practical Exercise: Building a Complete Webpage
+
+Let's create a responsive personal portfolio page:
+
+### HTML Structure
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Doe - Web Developer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">John Doe</div>
+            <ul class="nav-menu">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1 class="hero-title">Hi, I'm John Doe</h1>
+                <p class="hero-subtitle">Full-Stack Web Developer</p>
+                <a href="#projects" class="btn btn-primary">View My Work</a>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <h2>About Me</h2>
+                <p>I'm a passionate web developer with experience in modern web technologies...</p>
+            </div>
+        </section>
+
+        <section id="projects" class="projects">
+            <div class="container">
+                <h2>My Projects</h2>
+                <div class="project-grid">
+                    <div class="project-card">
+                        <img src="project1.jpg" alt="Project 1">
+                        <h3>E-commerce Website</h3>
+                        <p>A fully responsive online store built with React and Node.js</p>
+                        <a href="#" class="btn btn-secondary">View Project</a>
+                    </div>
+                    <!-- More project cards... -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 John Doe. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
+```
+
+### CSS Styles
+```css
+/* CSS Variables */
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #64748b;
+    --text-color: #1e293b;
+    --bg-color: #ffffff;
+    --border-color: #e2e8f0;
+    --font-primary: 'Arial', sans-serif;
+    --container-width: 1200px;
+    --spacing: 2rem;
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-primary);
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Navigation */
+.header {
+    background: var(--bg-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.nav-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-menu a:hover {
+    color: var(--primary-color);
+}
+
+/* Hero Section */
+.hero {
+    padding: 8rem 0 4rem;
+    text-align: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.hero-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Sections */
+.about, .projects {
+    padding: 4rem 0;
+}
+
+.about h2, .projects h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+}
+
+/* Project Grid */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.project-card {
+    background: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+}
+
+.project-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.project-card h3 {
+    padding: 1rem 1rem 0.5rem;
+    color: var(--primary-color);
+}
+
+.project-card p {
+    padding: 0 1rem;
+    color: var(--secondary-color);
+}
+
+.project-card .btn {
+    margin: 1rem;
+}
+
+/* Footer */
+.footer {
+    background-color: var(--text-color);
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .nav-menu {
+        gap: 1rem;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+}
+```
+
+## Summary
+
+HTML and CSS form the foundation of web development:
+
+- **HTML** provides structure and semantic meaning
+- **CSS** controls visual presentation and layout
+- **Semantic HTML** improves accessibility and SEO
+- **Responsive design** ensures websites work on all devices
+- **Modern CSS** offers powerful layout tools like Flexbox and Grid
+
+Practice building complete layouts, experiment with different designs, and always consider user experience and accessibility.
+
+Next, we'll explore JavaScript to add interactivity and dynamic behavior to your web pages!
