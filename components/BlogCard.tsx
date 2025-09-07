@@ -16,26 +16,26 @@ export default function BlogCard({ post }: BlogCardProps) {
   };
 
   const tagColors = [
-    'bg-blue-100 text-blue-800',
-    'bg-green-100 text-green-800',
-    'bg-purple-100 text-purple-800',
-    'bg-orange-100 text-orange-800',
-    'bg-pink-100 text-pink-800'
+    'bg-blue-500/10 text-blue-400 border border-blue-500/20',
+    'bg-green-500/10 text-green-400 border border-green-500/20',
+    'bg-purple-500/10 text-purple-400 border border-purple-500/20',
+    'bg-orange-500/10 text-orange-400 border border-orange-500/20',
+    'bg-pink-500/10 text-pink-400 border border-pink-500/20'
   ];
 
   return (
-    <article className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+    <article className="bg-card rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-border">
       <div className="p-6">
         <div className="mb-4">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2 hover:text-blue-600 transition-colors">
+          <h2 className="text-2xl font-bold text-foreground mb-2 hover:text-primary transition-colors">
             <Link href={`/blog/${post.slug}`}>
               {post.title}
             </Link>
           </h2>
-          <p className="text-gray-600 leading-relaxed">{post.description}</p>
+          <p className="text-muted-foreground leading-relaxed">{post.description}</p>
         </div>
 
-        <div className="flex flex-wrap items-center text-sm text-gray-500 mb-4 gap-4">
+        <div className="flex flex-wrap items-center text-sm text-muted-foreground mb-4 gap-4">
           <div className="flex items-center gap-1">
             <Calendar className="w-4 h-4" />
             {formatDate(post.date)}
@@ -67,18 +67,18 @@ export default function BlogCard({ post }: BlogCardProps) {
         )}
 
         {post.subposts && post.subposts.length > 0 && (
-          <div className="border-t pt-4">
-            <p className="text-sm text-gray-600 mb-2">
+          <div className="border-t border-border pt-4">
+            <p className="text-sm text-muted-foreground mb-2">
               {post.subposts.length} subpost{post.subposts.length > 1 ? 's' : ''}
             </p>
             <div className="space-y-1">
               {post.subposts.slice(0, 3).map((subpost) => (
-                <div key={subpost.slug} className="text-sm text-gray-500">
+                <div key={subpost.slug} className="text-sm text-muted-foreground">
                   • {subpost.title}
                 </div>
               ))}
               {post.subposts.length > 3 && (
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-muted-foreground">
                   ... and {post.subposts.length - 3} more
                 </div>
               )}
@@ -86,10 +86,10 @@ export default function BlogCard({ post }: BlogCardProps) {
           </div>
         )}
 
-        <div className="mt-4 pt-4 border-t">
+        <div className="mt-4 pt-4 border-t border-border">
           <Link
             href={`/blog/${post.slug}`}
-            className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors"
+            className="inline-flex items-center text-primary hover:text-primary/80 font-medium text-sm transition-colors"
           >
             Read more →
           </Link>

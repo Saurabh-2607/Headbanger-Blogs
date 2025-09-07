@@ -1,11 +1,9 @@
-"use client"
-import { getBlogPost } from '@/lib/blog';
+import { getBlogPost, getAllBlogPosts } from '@/lib/blog';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { Calendar, Clock, User, Tag, ArrowLeft } from 'lucide-react';
 import TableOfContents from '@/components/TableOfContents';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import MarkdownContent from '@/components/MarkdownContent';
 
 interface BlogPageProps {
   params: {
@@ -29,21 +27,21 @@ export default function BlogPage({ params }: BlogPageProps) {
   };
 
   const tagColors = [
-    'bg-blue-100 text-blue-800',
-    'bg-green-100 text-green-800',
-    'bg-purple-100 text-purple-800',
-    'bg-orange-100 text-orange-800',
-    'bg-pink-100 text-pink-800'
+    'bg-blue-500/10 text-blue-400 border border-blue-500/20',
+    'bg-green-500/10 text-green-400 border border-green-500/20',
+    'bg-purple-500/10 text-purple-400 border border-purple-500/20',
+    'bg-orange-500/10 text-orange-400 border border-orange-500/20',
+    'bg-pink-500/10 text-pink-400 border border-pink-500/20'
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Back Navigation */}
         <div className="mb-8">
           <Link
             href="/"
-            className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors"
+            className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to all articles
@@ -53,17 +51,17 @@ export default function BlogPage({ params }: BlogPageProps) {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-3">
-            <article className="bg-white rounded-lg shadow-md overflow-hidden">
+            <article className="bg-card rounded-lg shadow-md overflow-hidden border border-border">
               {/* Article Header */}
-              <div className="p-8 border-b">
-                <h1 className="text-4xl font-bold text-gray-900 mb-4 leading-tight">
+              <div className="p-8 border-b border-border">
+                <h1 className="text-4xl font-bold text-foreground mb-4 leading-tight">
                   {post.title}
                 </h1>
-                <p className="text-xl text-gray-600 mb-6 leading-relaxed">
+                <p className="text-xl text-muted-foreground mb-6 leading-relaxed">
                   {post.description}
                 </p>
 
-                <div className="flex flex-wrap items-center text-sm text-gray-500 mb-4 gap-4">
+                <div className="flex flex-wrap items-center text-sm text-muted-foreground mb-4 gap-4">
                   <div className="flex items-center gap-1">
                     <Calendar className="w-4 h-4" />
                     {formatDate(post.date)}
@@ -96,10 +94,8 @@ export default function BlogPage({ params }: BlogPageProps) {
               </div>
 
               {/* Article Content */}
-              <div className="p-8 prose prose-lg max-w-none">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  {post.content}
-                </ReactMarkdown>
+              <div className="p-8">
+                <MarkdownContent content={post.content} />
               </div>
             </article>
           </div>

@@ -13,10 +13,10 @@ export default function TableOfContents({ subposts, currentSlug }: TableOfConten
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 sticky top-6">
+    <div className="bg-card rounded-lg shadow-md p-6 sticky top-6 border border-border">
       <div className="flex items-center gap-2 mb-4">
-        <List className="w-5 h-5 text-gray-700" />
-        <h3 className="font-bold text-lg text-gray-900">Table of Contents</h3>
+        <List className="w-5 h-5 text-foreground" />
+        <h3 className="font-bold text-lg text-foreground">Table of Contents</h3>
       </div>
       
       <nav className="space-y-2">
@@ -26,13 +26,13 @@ export default function TableOfContents({ subposts, currentSlug }: TableOfConten
               href={`/blog/${subpost.parentSlug}/${subpost.slug}`}
               className={`block p-3 rounded-md transition-colors ${
                 currentSlug === subpost.slug
-                  ? 'bg-blue-50 text-blue-700 border-l-4 border-blue-500'
-                  : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                  ? 'bg-primary/10 text-primary border-l-4 border-primary'
+                  : 'text-muted-foreground hover:bg-muted hover:text-foreground'
               }`}
             >
               <div className="font-medium">{subpost.title}</div>
-              <div className="text-sm text-gray-500 mt-1">{subpost.description}</div>
-              <div className="flex items-center gap-1 text-xs text-gray-400 mt-1">
+              <div className="text-sm text-muted-foreground mt-1">{subpost.description}</div>
+              <div className="flex items-center gap-1 text-xs text-muted-foreground mt-1">
                 <Clock className="w-3 h-3" />
                 {subpost.readTime}
               </div>
