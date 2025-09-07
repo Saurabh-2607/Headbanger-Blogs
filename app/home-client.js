@@ -1,22 +1,17 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { BlogPost } from '@/lib/blog';
 import BlogCard from '@/components/BlogCard';
 import { Search, Filter } from 'lucide-react';
 
-interface HomeClientProps {
-  initialBlogs: BlogPost[];
-}
-
-export default function HomeClient({ initialBlogs }: HomeClientProps) {
+export default function HomeClient({ initialBlogs }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTag, setSelectedTag] = useState('');
 
   const blogs = initialBlogs;
   
   const allTags = useMemo(() => {
-    const tags = new Set<string>();
+    const tags = new Set();
     blogs.forEach(blog => {
       blog.tags.forEach(tag => tags.add(tag));
     });

@@ -3,22 +3,17 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { Calendar, Clock, User, Tag, ArrowLeft } from 'lucide-react';
 import TableOfContents from '@/components/TableOfContents';
-import MarkdownContent from '@/components/MarkdownContent';
+import ReactMarkdown from 'react-markdown';
 
-interface BlogPageProps {
-  params: {
-    slug: string;
-  };
-}
-
-export default function BlogPage({ params }: BlogPageProps) {
-  const post = getBlogPost(params.slug);
+export default async function BlogPage({ params }) {
+  const { slug } = await params;
+  const post = getBlogPost(slug);
 
   if (!post) {
     notFound();
   }
 
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
@@ -95,7 +90,9 @@ export default function BlogPage({ params }: BlogPageProps) {
 
               {/* Article Content */}
               <div className="p-8">
-                <MarkdownContent content={post.content} />
+                <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:text-foreground prose-p:text-muted-foreground prose-strong:text-foreground prose-code:text-foreground prose-code:bg-muted prose-pre:bg-muted prose-blockquote:text-muted-foreground prose-blockquote:border-border prose-hr:border-border prose-a:text-primary hover:prose-a:text-primary/80">
+                  <ReactMarkdown>{post.content}</ReactMarkdown>
+                </div>
               </div>
             </article>
           </div>

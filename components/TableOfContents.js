@@ -1,13 +1,7 @@
 import Link from 'next/link';
-import { SubPost } from '@/lib/blog';
 import { List, Clock } from 'lucide-react';
 
-interface TableOfContentsProps {
-  subposts: SubPost[];
-  currentSlug?: string;
-}
-
-export default function TableOfContents({ subposts, currentSlug }: TableOfContentsProps) {
+export default function TableOfContents({ subposts, currentSlug }) {
   if (!subposts || subposts.length === 0) {
     return null;
   }

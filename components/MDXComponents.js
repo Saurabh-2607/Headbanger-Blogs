@@ -1,6 +1,4 @@
-import { MDXComponents } from 'mdx/types';
-
-const components: MDXComponents = {
+const components = {
   h1: ({ children }) => (
     <h1 className="text-4xl font-bold text-foreground mb-6 leading-tight">
       {children}

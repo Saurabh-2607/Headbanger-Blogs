@@ -1,13 +1,8 @@
 import Link from 'next/link';
-import { BlogPost } from '@/lib/blog';
 import { Calendar, Clock, User, Tag } from 'lucide-react';
 
-interface BlogCardProps {
-  post: BlogPost;
-}
-
-export default function BlogCard({ post }: BlogCardProps) {
-  const formatDate = (dateString: string) => {
+export default function BlogCard({ post }) {
+  const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
