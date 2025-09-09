@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Calendar, Clock, User, Tag, ArrowLeft } from 'lucide-react';
 import TableOfContents from '@/components/TableOfContents';
 import ReactMarkdown from 'react-markdown';
+import MDXComponents from '@/components/MDXComponents';
 
 export default async function BlogPage({ params }) {
   const { slug } = await params;
@@ -90,8 +91,8 @@ export default async function BlogPage({ params }) {
 
               {/* Article Content */}
               <div className="p-8">
-                <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:text-foreground prose-p:text-muted-foreground prose-strong:text-foreground prose-code:text-foreground prose-code:bg-muted prose-pre:bg-muted prose-blockquote:text-muted-foreground prose-blockquote:border-border prose-hr:border-border prose-a:text-primary hover:prose-a:text-primary/80">
-                  <ReactMarkdown>{post.content}</ReactMarkdown>
+                <div className="max-w-none">
+                  <ReactMarkdown components={MDXComponents}>{post.content}</ReactMarkdown>
                 </div>
               </div>
             </article>

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Clock } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import TableOfContents from '@/components/TableOfContents';
+import MDXComponents from '@/components/MDXComponents';
 
 export default async function SubpostPage({ params }) {
   const resolvedParams = await params;
@@ -79,8 +80,8 @@ export default async function SubpostPage({ params }) {
 
               {/* Article Content */}
               <div className="p-8">
-                <div className="prose prose-lg max-w-none dark:prose-invert prose-headings:text-foreground prose-p:text-muted-foreground prose-strong:text-foreground prose-code:text-foreground prose-code:bg-muted prose-pre:bg-muted prose-blockquote:text-muted-foreground prose-blockquote:border-border prose-hr:border-border prose-a:text-primary hover:prose-a:text-primary/80">
-                  <ReactMarkdown>{subpostData.content}</ReactMarkdown>
+                <div className="max-w-none">
+                  <ReactMarkdown components={MDXComponents}>{subpostData.content}</ReactMarkdown>
                 </div>
               </div>
 
