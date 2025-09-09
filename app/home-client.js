@@ -31,7 +31,7 @@ export default function HomeClient({ initialBlogs }) {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="bg-card shadow-sm border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="w-screen mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center">
             <h1 className="text-4xl font-bold text-foreground mb-4">
               Tech Blog
@@ -44,7 +44,7 @@ export default function HomeClient({ initialBlogs }) {
       </header>
 
       {/* Search and Filter */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="w-screen mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-card rounded-lg shadow-md p-6 mb-8 border border-border">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1 relative">

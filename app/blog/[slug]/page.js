@@ -1,10 +1,12 @@
-import { getBlogPost, getAllBlogPosts } from '@/lib/blog';
+import { getBlogPost, getAllBlogPosts, getPreviousPost, getNextPost } from '@/lib/blog';
+import { getContentImageUrl } from '@/lib/imageUtils';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { Calendar, Clock, User, Tag, ArrowLeft } from 'lucide-react';
+import { ArrowLeft, FileText, Hash, ChevronLeft, ChevronRight } from 'lucide-react';
 import TableOfContents from '@/components/TableOfContents';
 import ReactMarkdown from 'react-markdown';
 import MDXComponents from '@/components/MDXComponents';
+import Image from 'next/image';
 
 export default async function BlogPage({ params }) {
   const { slug } = await params;
@@ -14,6 +16,9 @@ export default async function BlogPage({ params }) {
     notFound();
   }
 
+  const previousPost = getPreviousPost(slug);
+  const nextPost = getNextPost(slug);
+
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -22,17 +27,9 @@ export default async function BlogPage({ params }) {
     });
   };
 
-  const tagColors = [
-    'bg-blue-500/10 text-blue-400 border border-blue-500/20',
-    'bg-green-500/10 text-green-400 border border-green-500/20',
-    'bg-purple-500/10 text-purple-400 border border-purple-500/20',
-    'bg-orange-500/10 text-orange-400 border border-orange-500/20',
-    'bg-pink-500/10 text-pink-400 border border-pink-500/20'
-  ];
-
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Back Navigation */}
         <div className="mb-8">
           <Link
@@ -44,73 +41,103 @@ export default async function BlogPage({ params }) {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-3">
-            <article className="bg-card rounded-lg shadow-md overflow-hidden border border-border">
-              {/* Article Header */}
-              <div className="p-8 border-b border-border">
-                <h1 className="text-4xl font-bold text-foreground mb-4 leading-tight">
-                  {post.title}
-                </h1>
-                <p className="text-xl text-muted-foreground mb-6 leading-relaxed">
-                  {post.description}
-                </p>
+        {/* Blog Post Header custom by Saurabh */}
 
-                <div className="flex flex-wrap items-center text-sm text-muted-foreground mb-4 gap-4">
-                  <div className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4" />
-                    {formatDate(post.date)}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <User className="w-4 h-4" />
-                    {post.author}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
-                    {post.readTime}
-                  </div>
-                </div>
-
-                {post.tags && post.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2">
-                    {post.tags.map((tag, index) => (
-                      <span
-                        key={tag}
-                        className={`px-3 py-1 rounded-full text-sm font-medium ${
-                          tagColors[index % tagColors.length]
-                        }`}
-                      >
-                        <Tag className="w-3 h-3 inline mr-1" />
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
+        <div className='flex flex-col gap-y-2 mb-8'>
+          {post.cover && (
+            <Image
+              alt={post.title}
+              className='object-cover mb-6 h-[50vh] w-[60%] mx-auto'
+              width={800}
+              height={300}
+              src={getContentImageUrl(slug, post.cover)}
+            />
+          )}
+          <div className='text-4xl flex-wrap w-[50%] mx-auto text-center'>
+            {post.title}
+          </div>
+          <div className='flex text-md text-white/75 justify-center gap-2'>
+            <div className='flex justify-center items-center gap-1'> <img className='rounded-full size-4.5 opacity-100' src="https://www.headbanger.tech/favicon.ico" />{post.author}</div>
+            <div>|</div>
+            <div>{formatDate(post.date)}</div>
+            <div>|</div>
+            <div>{post.readTime}</div>
+            <div>|</div>
+            <div className='flex'><FileText className='w-4 mr-1' />{post.subposts.length} subpost{post.subposts.length > 1 ? 's' : ''}</div>
+          </div>
+          <div className='flex justify-center'>
+            {post.tags && post.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {post.tags.map((tag, index) => (
+                  <span
+                    key={tag} className="px-3 py-1 text-sm text-white/75 bg-[#1a1815] font-medium">
+                    <Hash className="w-3 h-3 inline mr-1" />
+                    {tag}
+                  </span>
+                ))}
               </div>
+            )}
+          </div>
+        </div>
 
-              {/* Article Content */}
-              <div className="p-8">
-                <div className="max-w-none">
-                  <ReactMarkdown components={MDXComponents}>{post.content}</ReactMarkdown>
-                </div>
-              </div>
-            </article>
+
+        <div className='w-full flex gap-8'>
+          <div className='min-w-[10rem] border-b border-border my-6'>
+            <TableOfContents subposts={post.subposts || []} />
           </div>
 
-          {/* Sidebar */}
-          <div className="lg:col-span-1">
+          <div className='min-w-[50vw]'>
+            <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2">
+              {previousPost ? (
+                <Link
+                  href={`/blog/${previousPost.slug}`}
+                  className="flex items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
+                  <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                  <div className="text-left">
+                    <div className="text-[12px] opacity-75">Previous</div>
+                    <div className="font-medium text-sm">{previousPost.title}</div>
+                  </div>
+                </Link>
+              ) : (
+                <div></div>
+              )}
+
+              {nextPost ? (
+                <Link
+                  href={`/blog/${nextPost.slug}`}
+                  className="flex items-center justify-end h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
+                  <div className="text-right">
+                    <div className="text-[12px] opacity-75">Next</div>
+                    <div className="font-medium text-sm">{nextPost.title}</div>
+                  </div>
+                  <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              ) : (
+                <div></div>
+              )}
+            </div>
+
+            <ReactMarkdown components={MDXComponents}>{post.content}</ReactMarkdown>
+          </div>
+          <div className='min-w-[10rem] border-b border-border my-6'>
             <TableOfContents subposts={post.subposts || []} />
           </div>
         </div>
+
       </div>
     </div>
   );
 }
 
 export async function generateStaticParams() {
-  const posts = getAllBlogPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+  try {
+    const posts = getAllBlogPosts();
+    const params = posts.map((post) => ({
+      slug: post.slug,
+    }));
+    return params;
+  } catch (error) {
+    console.error('Error in generateStaticParams:', error);
+    return [];
+  }
 }
