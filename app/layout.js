@@ -1,7 +1,12 @@
 import './globals.css';
-import { Inter } from 'next/font/google';
+import { JetBrains_Mono } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] });
+const jetbrainsMono = JetBrains_Mono({ 
+  subsets: ['latin'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800'],
+  style: ['normal'],
+  variable: '--font-jetbrains-mono'
+});
 
 export const metadata = {
   title: 'Create Next App',
@@ -10,8 +15,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="dark">
-      <body className={inter.className}>
+    <html lang="en" className={`dark ${jetbrainsMono.variable}`}>
+      <body className={jetbrainsMono.className}>
         {children}
       </body>
     </html>
