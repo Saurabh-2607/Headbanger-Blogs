@@ -99,7 +99,13 @@ export default async function BlogPage({ params }) {
                   </div>
                 </Link>
               ) : (
-                <div></div>
+                  <div className="flex opacity-50 items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
+                    <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                    <div className="text-left">
+                      <div className="text-[12px] opacity-75">Previous</div>
+                      <div className="font-medium text-sm">You are at the First Post</div>
+                    </div>
+                  </div>
               )}
 
               {nextPost ? (
@@ -113,7 +119,13 @@ export default async function BlogPage({ params }) {
                   <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               ) : (
-                <div></div>
+                  <div className="flex items-center opacity-50 justify-end h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
+                    <div className="text-right">
+                      <div className="text-[12px] opacity-75">Next</div>
+                      <div className="font-medium text-sm">You are on the Last Post</div>
+                    </div>
+                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </div>
               )}
             </div>
 
