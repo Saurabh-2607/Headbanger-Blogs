@@ -3,7 +3,7 @@ import { getContentImageUrl } from '@/lib/imageUtils';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, FileText, Hash, ChevronLeft, ChevronRight } from 'lucide-react';
-import TableOfContents from '@/components/TableOfContents';
+import PostNavigation from '@/components/PostNavigation';
 import ReactMarkdown from 'react-markdown';
 import MDXComponents from '@/components/MDXComponents';
 import Image from 'next/image';
@@ -47,7 +47,7 @@ export default async function BlogPage({ params }) {
           {post.cover && (
             <Image
               alt={post.title}
-              className='object-cover mb-6 h-[50vh] w-[60%] mx-auto'
+              className='object-cover object-center mb-6 h-[50vh] w-[60%] mx-auto'
               width={800}
               height={300}
               src={getContentImageUrl(slug, post.cover)}
@@ -80,13 +80,13 @@ export default async function BlogPage({ params }) {
           </div>
         </div>
 
+        <div className='w-full flex gap-8 mx-auto'>
 
-        <div className='w-full flex gap-8'>
-          <div className='min-w-[10rem] border-b border-border my-6'>
-            <TableOfContents subposts={post.subposts || []} />
+          <div className='border-b w-80 border-border my-6'>
+            <PostNavigation mainTitle={post.title} mainRead={post.readTime} subposts={post.subposts || []} />
           </div>
 
-          <div className='min-w-[50vw]'>
+          <div className='w-[50vw]'>
             <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2">
               {previousPost ? (
                 <Link
@@ -99,13 +99,13 @@ export default async function BlogPage({ params }) {
                   </div>
                 </Link>
               ) : (
-                  <div className="flex opacity-50 items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
-                    <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                    <div className="text-left">
-                      <div className="text-[12px] opacity-75">Previous</div>
-                      <div className="font-medium text-sm">You are at the First Post</div>
-                    </div>
+                <div className="flex opacity-50 items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
+                  <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                  <div className="text-left">
+                    <div className="text-[12px] opacity-75">Previous</div>
+                    <div className="font-medium text-sm">You are at the First Post</div>
                   </div>
+                </div>
               )}
 
               {nextPost ? (
@@ -119,20 +119,20 @@ export default async function BlogPage({ params }) {
                   <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               ) : (
-                  <div className="flex items-center opacity-50 justify-end h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
-                    <div className="text-right">
-                      <div className="text-[12px] opacity-75">Next</div>
-                      <div className="font-medium text-sm">You are on the Last Post</div>
-                    </div>
-                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <div className="flex items-center opacity-50 justify-end h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
+                  <div className="text-right">
+                    <div className="text-[12px] opacity-75">Next</div>
+                    <div className="font-medium text-sm">You are on the Last Post</div>
                   </div>
+                  <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </div>
               )}
             </div>
 
             <ReactMarkdown components={MDXComponents}>{post.content}</ReactMarkdown>
           </div>
-          <div className='min-w-[10rem] border-b border-border my-6'>
-            <TableOfContents subposts={post.subposts || []} />
+          <div className='border-b w-80 border-border my-6'>
+            <PostNavigation mainTitle={post.title} mainRead={post.readTime} subposts={post.subposts || []} />
           </div>
         </div>
 
