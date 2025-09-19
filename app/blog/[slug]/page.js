@@ -2,7 +2,7 @@ import { getBlogPost, getAllBlogPosts, getPreviousPost, getNextPost } from '@/li
 import { getContentImageUrl } from '@/lib/imageUtils';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, FileText, Hash, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, FileText, Hash, ChevronLeft, ChevronRight, House, BookOpen,  } from 'lucide-react';
 import PostNavigation from '@/components/RightSidebar';
 import { getSuggestedPosts } from '@/lib/blog';
 import PostSidebar from '@/components/LeftSidebar';
@@ -33,32 +33,34 @@ export default async function BlogPage({ params }) {
   return (
     <div className="min-h-screen bg-background">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Back Navigation */}
-        <div className="mb-8">
-          <Link
-            href="/"
-            className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to all articles
-          </Link>
-        </div>
-
         {/* Blog Post Header custom by Saurabh */}
 
-        <div className='flex flex-col gap-y-2 mb-8'>
+        <div className='flex flex-col mx-auto w-[60%] gap-y-2 mb-8'>
+          <div className="mb-2">
+          <ol className="flex items-center space-x-2">
+              <li>
+                <Link href="/" className="text-white/60 flex items-center gap-x-2 hover:text-white">
+                  <House className='size-4' /> Home
+                </Link>
+              </li>
+              <li className="text-muted-foreground">/</li>
+              <li>
+                <Link href={`/blog/${slug}`} className="text-white/60 flex items-center gap-x-2 hover:text-white">
+                  <BookOpen className='size-4' /> {post.title}
+                </Link>
+              </li>
+            </ol>
+        </div>
           {post.cover && (
             <Image
               alt={post.title}
-              className='object-cover object-center mb-6 h-[50vh] w-[60%] mx-auto'
+              className='object-cover object-center w-full mb-6 h-[50vh] mx-auto'
               width={800}
               height={300}
               src={getContentImageUrl(slug, post.cover)}
             />
           )}
-          <div className='text-4xl flex-wrap w-[50%] mx-auto text-center'>
-            {post.title}
-          </div>
+          <div className='text-4xl flex-wrap w-full px-5 text-center'>{post.title}</div>
           <div className='flex text-md text-white/75 justify-center gap-2'>
             <div className='flex justify-center items-center gap-1'> <img className='rounded-full size-4.5 opacity-100' src="https://www.headbanger.tech/favicon.ico" />{post.author}</div>
             <div>|</div>

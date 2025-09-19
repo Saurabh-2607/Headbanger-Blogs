@@ -30,7 +30,7 @@ The first step is to create your own copy of the project. Navigate to the reposi
 
 
 After forking, the URL of the project will change to:
-```
+``` bash
 https://github.com/<YourUserName>/projectname
 ```
 

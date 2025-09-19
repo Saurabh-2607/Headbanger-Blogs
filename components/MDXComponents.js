@@ -1,66 +1,65 @@
 const components = {
   h1: ({ children }) => (
-    <h1 className="text-4xl font-bold text-foreground mb-6 mt-8 leading-tight border-b border-border pb-3 first:mt-0">
+    <h1 className="text-3xl font-bold text-white/90 mb-6 mt-8 leading-tight border-b border-border pb-3 first:mt-0">
       {children}
     </h1>
   ),
   h2: ({ children }) => (
-    <h2 className="text-3xl font-semibold text-foreground mb-4 mt-8 leading-tight first:mt-0">
+    <h2 className="text-2xl font-semibold text-white/85 mb-4 mt-8 leading-tight first:mt-0">
       {children}
     </h2>
   ),
   h3: ({ children }) => (
-    <h3 className="text-2xl font-semibold text-foreground mb-3 mt-6 leading-tight">
+    <h3 className="text-xl font-semibold text-white/80 mb-3 mt-6 leading-tight">
       {children}
     </h3>
   ),
   h4: ({ children }) => (
-    <h4 className="text-xl font-semibold text-foreground mb-3 mt-4 leading-tight">
+    <h4 className="text-lg font-semibold text-white/75 mb-3 mt-4 leading-tight">
       {children}
     </h4>
   ),
   h5: ({ children }) => (
-    <h5 className="text-lg font-semibold text-foreground mb-2 mt-4 leading-tight">
+    <h5 className="text-base font-semibold text-white/70 mb-2 mt-4 leading-tight">
       {children}
     </h5>
   ),
   h6: ({ children }) => (
-    <h6 className="text-base font-semibold text-foreground mb-2 mt-3 leading-tight">
+    <h6 className="text-sm font-semibold text-white/65 mb-2 mt-3 leading-tight">
       {children}
     </h6>
   ),
   p: ({ children }) => (
-    <p className="text-muted-foreground leading-relaxed mb-4 text-base first:mt-0">
+    <p className="text-muted-foreground leading-relaxed mb-4 text-white/60 first:mt-0">
       {children}
     </p>
   ),
   ul: ({ children }) => (
-    <ul className="list-disc pl-6 mb-6 space-y-1 text-muted-foreground marker:text-primary">
+    <ul className="list-disc pl-6 mb-6 space-y-1 text-white/50 marker:text-primary">
       {children}
     </ul>
   ),
   ol: ({ children }) => (
-    <ol className="list-decimal pl-6 mb-6 space-y-1 text-muted-foreground marker:text-primary">
+    <ol className="list-decimal pl-6 mb-6 space-y-1 text-white/50 marker:text-primary">
       {children}
     </ol>
   ),
   li: ({ children }) => (
-    <li className="leading-relaxed text-base mb-1">
+    <li className="leading-relaxed text-white/50 text-base mb-1">
       {children}
     </li>
   ),
   blockquote: ({ children }) => (
-    <blockquote className="border-l-4 border-primary/30 pl-6 py-3 mb-6 bg-primary/5 text-muted-foreground italic rounded-r-lg">
+    <blockquote className="border-l-4 border-primary/30 text-white/50 pl-6 py-3 mb-6 bg-primary/5 text-muted-foreground italic rounded-r-lg">
       {children}
     </blockquote>
   ),
   code: ({ children, className, inline }) => {
-    // Check if this is inline code
     const isInline = inline || !className;
     
     if (isInline) {
       return (
-        <code className="bg-muted text-foreground px-2 py-1 rounded text-sm font-mono border border-border">
+        <code className="bg-muted text-white/50 px-2 py-1 rounded text-sm font-mono border border-border">
           {children}
         </code>
       );
@@ -68,20 +67,20 @@ const components = {
     
     // Code block - preserve the className for syntax highlighting
     return (
-      <code className={`${className || ''} text-sm font-mono`}>
+      <code className={`${className || ''} text-sm text-white/50 font-mono`}>
         {children}
       </code>
     );
   },
   pre: ({ children }) => (
-    <pre className="bg-muted text-foreground p-4 rounded-lg overflow-x-auto mb-6 text-sm border border-border font-mono leading-relaxed">
+    <pre className="bg-muted text-white/50 p-4 rounded-lg overflow-x-auto mb-6 text-sm border border-border font-mono leading-relaxed">
       {children}
     </pre>
   ),
   a: ({ href, children }) => (
     <a
       href={href}
-      className="text-primary hover:text-primary/80 underline underline-offset-2 transition-colors font-medium"
+      className="text-primary hover:text-primary/80 text-white/50 underline underline-offset-2 transition-colors font-medium"
       target="_blank"
       rel="noopener noreferrer"
     >
@@ -89,21 +88,21 @@ const components = {
     </a>
   ),
   strong: ({ children }) => (
-    <strong className="font-semibold text-foreground">
+    <strong className="font-semibold text-white/50">
       {children}
     </strong>
   ),
   em: ({ children }) => (
-    <em className="italic text-foreground">
+    <em className="italic text-white/50">
       {children}
     </em>
   ),
   hr: () => (
-    <hr className="border-border my-8" />
+    <hr className="border-border text-white/50 my-8" />
   ),
   table: ({ children }) => (
     <div className="overflow-x-auto mb-6">
-      <table className="min-w-full border border-border rounded-lg">
+      <table className="min-w-full border text-white/50 border-border rounded-lg">
         {children}
       </table>
     </div>
