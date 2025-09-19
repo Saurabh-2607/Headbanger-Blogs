@@ -22,7 +22,7 @@ export default function PostNavigation({ mainTitle, mainRead, totalRead, subpost
   })();
 
   return (
-    <nav className="text-neutral-100 w-full sticky top-6">
+    <nav className="text-neutral-100 hidden md:block w-full sticky top-6">
       <div className='flex flex-col gap-2'>
         <div className="flex items-center gap-2 border border-neutral-800 p-2">
           <BookOpen className="w-5 h-5 text-neutral-400" />

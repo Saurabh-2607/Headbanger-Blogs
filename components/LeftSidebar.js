@@ -85,7 +85,7 @@ export default function PostSidebar({ content }) {
   };
 
   return (
-    <div className="w-80 my-6 sticky top-6">
+    <div className="w-80 my-6 hidden md:block sticky top-6">
       {headings.length > 0 && (
         <nav className="text-neutral-100 w-full">
           <div className="space-y-1">

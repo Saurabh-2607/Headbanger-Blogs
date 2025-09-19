@@ -2,7 +2,7 @@ import { getBlogPost, getAllBlogPosts, getPreviousPost, getNextPost } from '@/li
 import { getContentImageUrl } from '@/lib/imageUtils';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { FileText, Hash, ArrowLeft, ArrowRight, House, BookOpen,  } from 'lucide-react';
+import { FileText, Hash, ArrowLeft, ArrowRight, House, BookOpen, } from 'lucide-react';
 import PostNavigation from '@/components/RightSidebar';
 import { getSuggestedPosts } from '@/lib/blog';
 import PostSidebar from '@/components/LeftSidebar';
@@ -35,9 +35,9 @@ export default async function BlogPage({ params }) {
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Blog Post Header custom by Saurabh */}
 
-        <div className='flex flex-col mx-auto w-[60%] gap-y-2 mb-8'>
+        <div className='flex flex-col mx-auto px-2 md:px-0 md:w-[60%] gap-y-2 mb-8'>
           <div className="mb-2">
-          <ol className="flex items-center space-x-2">
+            <ol className="flex  items-center flex-wrap space-x-2">
               <li>
                 <Link href="/" className="text-white/60 flex items-center gap-x-2 hover:text-white">
                   <House className='size-4' /> Home
@@ -50,18 +50,18 @@ export default async function BlogPage({ params }) {
                 </Link>
               </li>
             </ol>
-        </div>
+          </div>
           {post.cover && (
             <Image
               alt={post.title}
-              className='object-cover object-center w-full mb-6 h-[50vh] mx-auto'
+              className='object-cover object-center w-full mb-6 h-[20vh] md:h-[50vh] mx-auto'
               width={800}
               height={300}
               src={getContentImageUrl(slug, post.cover)}
             />
           )}
-          <div className='text-4xl flex-wrap w-full px-5 text-center'>{post.title}</div>
-          <div className='flex text-md text-white/75 justify-center gap-2'>
+          <div className=' text-2xl md:text-4xl flex-wrap w-full px-5 text-center'>{post.title}</div>
+          <div className='md:flex hidden text-md text-white/75 justify-center gap-2'>
             <div className='flex justify-center items-center gap-1'> <img className='rounded-full size-4.5 opacity-100' src="https://www.headbanger.tech/favicon.ico" />{post.author}</div>
             <div>|</div>
             <div>{formatDate(post.date)}</div>
@@ -70,6 +70,16 @@ export default async function BlogPage({ params }) {
             <div>|</div>
             <div className='flex'><FileText className='w-4 mr-1' />{post.subposts.length} subpost{post.subposts.length > 1 ? 's' : ''}</div>
           </div>
+          <div className='flex-col md:hidden items-center text-md text-white/75 justify-center gap-2'>
+            <div className='flex justify-center items-center gap-1'> <img className='rounded-full size-4.5 opacity-100' src="https://www.headbanger.tech/favicon.ico" />{post.author}</div>
+            <div className='w-full border-1' />
+            <div className='flex mx-auto'>{formatDate(post.date)}</div>
+            <div className='w-full border-1' />
+            <div className='flex mx-auto'>{post.readTime}</div>
+            <div className='w-full border-1' />
+            <div className='flex mx-auto'><FileText className='w-4 mr-1' />{post.subposts.length} subpost{post.subposts.length > 1 ? 's' : ''}</div>
+          </div>
+
           <div className='flex justify-center'>
             {post.tags && post.tags.length > 0 && (
               <div className="flex flex-wrap gap-2">
@@ -94,7 +104,7 @@ export default async function BlogPage({ params }) {
             />
           </div>
 
-          <div className='w-[50vw]'>
+          <div className='md:w-[50vw] w-full'>
             <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2">
               {previousPost ? (
                 <Link
