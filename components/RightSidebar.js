@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { BookOpen, FileText } from 'lucide-react';
+import { BookOpen, FileText, File } from 'lucide-react';
 
 export default function PostNavigation({ mainTitle, mainRead, totalRead, subposts, currentSlug, suggestedPosts }) {
   if (!subposts || subposts.length === 0) {
@@ -33,22 +33,27 @@ export default function PostNavigation({ mainTitle, mainRead, totalRead, subpost
             </div>
           </div>
         </div>
-        {subposts.map((subpost) => (
-          <div key={subpost.slug} className="flex w-full p-2 items-center border border-neutral-800">
-            <Link
-              href={`/blog/${subpost.parentSlug}/${subpost.slug}`}
-              className="items-center flex ml-1 gap-2 w-full transition-colors duration-150"
-            >
-              <FileText className="w-4 h-4 text-neutral-400" />
-              <div className='w-full items-center'>
-                <div className="text-left text-xs">{subpost.title}</div>
-                <div className="items-center gap-1 text-[10px] text-neutral-400">
-                  {subpost.readTime}
+        {subposts.map((subpost) => {
+          const isActive = currentSlug === subpost.slug;
+          const IconComponent = isActive ? FileText : File;
+          
+          return (
+            <div key={subpost.slug} className="flex w-full p-2 items-center border border-neutral-800">
+              <Link
+                href={`/blog/${subpost.parentSlug}/${subpost.slug}`}
+                className="items-center flex ml-1 gap-2 w-full transition-colors duration-150"
+              >
+                <IconComponent className="w-4 h-4" />
+                <div className='w-full items-center'>
+                  <div className={`text-left text-xs ${isActive ? 'text-white font-medium' : ''}`}>{subpost.title}</div>
+                  <div className="items-center gap-1 text-[10px] text-neutral-400">
+                    {subpost.readTime}
+                  </div>
                 </div>
-              </div>
-            </Link>
-          </div>
-        ))}
+              </Link>
+            </div>
+          );
+        })}
         
         {/* Suggested Posts Section */}
         {suggestedPosts && suggestedPosts.length > 0 && (
