@@ -138,6 +138,48 @@ export default async function BlogPage({ params }) {
             </div>
 
             <ReactMarkdown components={MDXComponents}>{post.content}</ReactMarkdown>
+
+            <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2">
+              {previousPost ? (
+                <Link
+                  href={`/blog/${previousPost.slug}`}
+                  className="flex items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
+                  <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                  <div className="text-left">
+                    <div className="text-[12px] opacity-75">Previous</div>
+                    <div className="font-medium text-sm">{previousPost.title}</div>
+                  </div>
+                </Link>
+              ) : (
+                <div className="flex opacity-50 items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
+                  <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                  <div className="text-left">
+                    <div className="text-[12px] opacity-75">Previous</div>
+                    <div className="font-medium text-sm">You are at the First Post</div>
+                  </div>
+                </div>
+              )}
+
+              {nextPost ? (
+                <Link
+                  href={`/blog/${nextPost.slug}`}
+                  className="flex items-center justify-end h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
+                  <div className="text-right">
+                    <div className="text-[12px] opacity-75">Next</div>
+                    <div className="font-medium text-sm">{nextPost.title}</div>
+                  </div>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              ) : (
+                <div className="flex items-center opacity-50 justify-end h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
+                  <div className="text-right">
+                    <div className="text-[12px] opacity-75">Next</div>
+                    <div className="font-medium text-sm">You are on the Last Post</div>
+                  </div>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </div>
+              )}
+            </div>
           </div>
           <div className='w-80 my-6'>
             <PostNavigation

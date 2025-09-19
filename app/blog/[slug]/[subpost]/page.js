@@ -146,6 +146,61 @@ export default async function SubpostPage({ params }) {
             </div>
 
             <ReactMarkdown components={MDXComponents}>{subpostData.content}</ReactMarkdown>
+
+            <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-3 mb-6">
+              {previousSubpost ? (
+                <Link
+                  href={`/blog/${slug}/${previousSubpost.slug}`}
+                  className="flex items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"
+                >
+                  <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                  <div className="text-left">
+                    <div className="text-[12px] opacity-75">Previous</div>
+                    <div className="font-medium text-sm">{previousSubpost.title}</div>
+                  </div>
+                </Link>
+              ) : (
+                <div className="flex items-center h-auto gap-2 w-full text-muted-foreground/50 border-2 border-muted-foreground/20 p-2 opacity-50">
+                  <ArrowLeft className="w-4 h-4" />
+                  <div className="text-left">
+                    <div className="text-[12px] opacity-75">Previous</div>
+                    <div className="font-medium text-sm">No previous subpost</div>
+                  </div>
+                </div>
+              )}
+
+              <Link
+                href={`/blog/${slug}`}
+                className="flex items-center justify-center h-auto gap-1 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"
+              >
+                <CornerLeftUp className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                <div className="text-center">
+                  <div className="text-[12px] opacity-75">Parent Post</div>
+                  <div className="font-medium text-sm">{mainPost.title}</div>
+                </div>
+              </Link>
+
+              {nextSubpost ? (
+                <Link
+                  href={`/blog/${slug}/${nextSubpost.slug}`}
+                  className="flex items-center justify-end h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"
+                >
+                  <div className="text-right">
+                    <div className="text-[12px] opacity-75">Next</div>
+                    <div className="font-medium text-sm">{nextSubpost.title}</div>
+                  </div>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              ) : (
+                <div className="flex items-center justify-end h-auto gap-2 w-full text-muted-foreground/50 border-2 border-muted-foreground/20 p-2 opacity-50">
+                  <div className="text-right">
+                    <div className="text-[12px] opacity-75">Next</div>
+                    <div className="font-medium text-sm">No next subpost</div>
+                  </div>
+                  <ArrowRight className="w-4 h-4" />
+                </div>
+              )}
+            </div>
           </div>
 
           <div className='w-80 my-6'>
