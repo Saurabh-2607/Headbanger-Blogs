@@ -19,7 +19,7 @@ export default function BlogCard({ post }) {
   ];
 
   return (
-    <article className="bg-card rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-border">
+    <article className="bg-card shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-border">
       <div className="p-6">
         <div className="mb-4">
           <h2 className="text-2xl font-bold text-foreground mb-2 hover:text-primary transition-colors">
@@ -27,7 +27,6 @@ export default function BlogCard({ post }) {
               {post.title}
             </Link>
           </h2>
-          <p className="text-muted-foreground leading-relaxed">{post.description}</p>
         </div>
 
         <div className="flex flex-wrap items-center text-sm text-muted-foreground mb-4 gap-4">
@@ -50,7 +49,7 @@ export default function BlogCard({ post }) {
             {post.tags.map((tag, index) => (
               <span
                 key={tag}
-                className={`px-2 py-1 rounded-full text-xs font-medium ${
+                className={`px-2 py-1 text-xs font-medium ${
                   tagColors[index % tagColors.length]
                 }`}
               >
@@ -67,28 +66,19 @@ export default function BlogCard({ post }) {
               {post.subposts.length} subpost{post.subposts.length > 1 ? 's' : ''}
             </p>
             <div className="space-y-1">
-              {post.subposts.slice(0, 3).map((subpost) => (
-                <div key={subpost.slug} className="text-sm text-muted-foreground">
-                  • {subpost.title}
+              {post.subposts.slice(0, 4).map((subpost) => (
+                <div key={subpost.slug} className="text-[12px] text-muted-foreground">
+                  - {subpost.title}
                 </div>
               ))}
-              {post.subposts.length > 3 && (
+              {post.subposts.length > 4 && (
                 <div className="text-sm text-muted-foreground">
-                  ... and {post.subposts.length - 3} more
+                  ... and {post.subposts.length - 4} more
                 </div>
               )}
             </div>
           </div>
         )}
-
-        <div className="mt-4 pt-4 border-t border-border">
-          <Link
-            href={`/blog/${post.slug}`}
-            className="inline-flex items-center text-primary hover:text-primary/80 font-medium text-sm transition-colors"
-          >
-            Read more →
-          </Link>
-        </div>
       </div>
     </article>
   );

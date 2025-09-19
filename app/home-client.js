@@ -33,11 +33,9 @@ export default function HomeClient({ initialBlogs }) {
       <header className="bg-card shadow-sm border-b border-border">
         <div className="w-screen mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-foreground mb-4">
-              Tech Blog
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Discover insightful articles about technology, programming, and development
+            
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Discover insightful articles about technology, programming, and development by <a className='underline' href='https://www.headbanger.tech/'> Saurabh Sharma | Headbanger </a>
             </p>
           </div>
         </div>
@@ -45,7 +43,7 @@ export default function HomeClient({ initialBlogs }) {
 
       {/* Search and Filter */}
       <div className="w-screen mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-card rounded-lg shadow-md p-6 mb-8 border border-border">
+        <div className="bg-card shadow-md p-6 mb-8 border border-border">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
@@ -54,7 +52,7 @@ export default function HomeClient({ initialBlogs }) {
                 placeholder="Search articles..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-background border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-transparent text-foreground"
+                className="w-full pl-10 pr-4 py-2 bg-background border border-input focus:ring-2 focus:ring-ring focus:border-transparent text-foreground"
               />
             </div>
             <div className="relative">
@@ -62,7 +60,7 @@ export default function HomeClient({ initialBlogs }) {
               <select
                 value={selectedTag}
                 onChange={(e) => setSelectedTag(e.target.value)}
-                className="pl-10 pr-8 py-2 bg-background border border-input rounded-md focus:ring-2 focus:ring-ring focus:border-transparent text-foreground"
+                className="pl-10 pr-8 py-2 bg-black border border-input text-foreground"
               >
                 <option value="">All categories</option>
                 {allTags.map(tag => (

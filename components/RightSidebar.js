@@ -67,7 +67,7 @@ export default function PostNavigation({ mainTitle, mainRead, totalRead, subpost
                       href={`/blog/${post.slug}`}
                       className="block transition-colors duration-150 group"
                     >
-                      <div className="text-xs font-medium text-white mb-1 group-hover:text-blue-400 line-clamp-2">
+                      <div className="text-xs font-medium text-white/90 hover:text-white mb-1 line-clamp-2">
                         {post.title}
                       </div>
                       <div className="text-[10px] text-neutral-400 mb-1 line-clamp-1">
