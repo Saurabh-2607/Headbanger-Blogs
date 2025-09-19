@@ -2,7 +2,7 @@ import { getBlogPost, getAllBlogPosts, getPreviousPost, getNextPost } from '@/li
 import { getContentImageUrl } from '@/lib/imageUtils';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, FileText, Hash, ChevronLeft, ChevronRight, House, BookOpen,  } from 'lucide-react';
+import { FileText, Hash, ArrowLeft, ArrowRight, House, BookOpen,  } from 'lucide-react';
 import PostNavigation from '@/components/RightSidebar';
 import { getSuggestedPosts } from '@/lib/blog';
 import PostSidebar from '@/components/LeftSidebar';
@@ -43,9 +43,9 @@ export default async function BlogPage({ params }) {
                   <House className='size-4' /> Home
                 </Link>
               </li>
-              <li className="text-muted-foreground">/</li>
+              <li className="text-white/60">/</li>
               <li>
-                <Link href={`/blog/${slug}`} className="text-white/60 flex items-center gap-x-2 hover:text-white">
+                <Link href={`/blog/${slug}`} className="flex items-center gap-x-2 text-white">
                   <BookOpen className='size-4' /> {post.title}
                 </Link>
               </li>
@@ -100,7 +100,7 @@ export default async function BlogPage({ params }) {
                 <Link
                   href={`/blog/${previousPost.slug}`}
                   className="flex items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
-                  <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                  <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                   <div className="text-left">
                     <div className="text-[12px] opacity-75">Previous</div>
                     <div className="font-medium text-sm">{previousPost.title}</div>
@@ -108,7 +108,7 @@ export default async function BlogPage({ params }) {
                 </Link>
               ) : (
                 <div className="flex opacity-50 items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
-                  <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                  <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                   <div className="text-left">
                     <div className="text-[12px] opacity-75">Previous</div>
                     <div className="font-medium text-sm">You are at the First Post</div>
@@ -124,7 +124,7 @@ export default async function BlogPage({ params }) {
                     <div className="text-[12px] opacity-75">Next</div>
                     <div className="font-medium text-sm">{nextPost.title}</div>
                   </div>
-                  <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               ) : (
                 <div className="flex items-center opacity-50 justify-end h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
@@ -132,7 +132,7 @@ export default async function BlogPage({ params }) {
                     <div className="text-[12px] opacity-75">Next</div>
                     <div className="font-medium text-sm">You are on the Last Post</div>
                   </div>
-                  <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
               )}
             </div>

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { Clock, FileText, Hash, ChevronLeft, ChevronRight, House, BookOpen } from 'lucide-react';
+import { Clock, FileText, Hash, ArrowLeft, ArrowRight, House, BookOpen, CornerLeftUp } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import PostNavigation from '@/components/RightSidebar';
 import PostSidebar from '@/components/LeftSidebar';
@@ -55,13 +55,13 @@ export default async function SubpostPage({ params }) {
                   <House className='size-4' /> Home
                 </Link>
               </li>
-              <li className="text-muted-foreground">/</li>
+              <li className="text-white/60">/</li>
               <li>
                 <Link href={`/blog/${slug}`} className="text-white/60 flex items-center gap-x-2 hover:text-white">
                   <BookOpen className='size-4' /> {mainPost.title}
                 </Link>
               </li>
-              <li className="text-muted-foreground">/</li>
+              <li className="text-white/60">/</li>
               <li className="text-white flex items-center gap-x-2">
                 <FileText className='size-4' /> {subpostData.title}
               </li>
@@ -96,7 +96,7 @@ export default async function SubpostPage({ params }) {
                   href={`/blog/${slug}/${previousSubpost.slug}`}
                   className="flex items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"
                 >
-                  <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                  <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                   <div className="text-left">
                     <div className="text-[12px] opacity-75">Previous</div>
                     <div className="font-medium text-sm">{previousSubpost.title}</div>
@@ -104,7 +104,7 @@ export default async function SubpostPage({ params }) {
                 </Link>
               ) : (
                 <div className="flex items-center h-auto gap-2 w-full text-muted-foreground/50 border-2 border-muted-foreground/20 p-2 opacity-50">
-                  <ChevronLeft className="w-4 h-4" />
+                  <ArrowLeft className="w-4 h-4" />
                   <div className="text-left">
                     <div className="text-[12px] opacity-75">Previous</div>
                     <div className="font-medium text-sm">No previous subpost</div>
@@ -114,9 +114,9 @@ export default async function SubpostPage({ params }) {
 
               <Link
                 href={`/blog/${slug}`}
-                className="flex flex-col items-center justify-center h-auto gap-1 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"
+                className="flex items-center justify-center h-auto gap-1 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"
               >
-                <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                <CornerLeftUp className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 <div className="text-center">
                   <div className="text-[12px] opacity-75">Parent Post</div>
                   <div className="font-medium text-sm">{mainPost.title}</div>
@@ -132,7 +132,7 @@ export default async function SubpostPage({ params }) {
                     <div className="text-[12px] opacity-75">Next</div>
                     <div className="font-medium text-sm">{nextSubpost.title}</div>
                   </div>
-                  <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               ) : (
                 <div className="flex items-center justify-end h-auto gap-2 w-full text-muted-foreground/50 border-2 border-muted-foreground/20 p-2 opacity-50">
@@ -140,7 +140,7 @@ export default async function SubpostPage({ params }) {
                     <div className="text-[12px] opacity-75">Next</div>
                     <div className="font-medium text-sm">No next subpost</div>
                   </div>
-                  <ChevronRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4" />
                 </div>
               )}
             </div>
