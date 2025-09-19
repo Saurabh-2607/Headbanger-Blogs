@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { Clock } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
-import TableOfContents from '@/components/PostNavigation';
+import TableOfContents from '@/components/RightSidebar';
 import MDXComponents from '@/components/MDXComponents';
 
 export default async function SubpostPage({ params }) {

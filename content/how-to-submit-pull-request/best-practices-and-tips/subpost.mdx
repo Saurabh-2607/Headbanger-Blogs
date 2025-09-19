@@ -1,0 +1,525 @@
+---
+title: "Pull Request Best Practices: Writing Code That Gets Merged"
+description: "Learn the best practices for creating high-quality pull requests that maintainers love to review and merge."
+---
+
+# Pull Request Best Practices: Writing Code That Gets Merged
+
+Creating a successful pull request is both an art and a science. This guide covers the best practices that will make your contributions stand out and increase your chances of getting merged.
+
+## Code Quality Best Practices
+
+### 1. Follow the Single Responsibility Principle
+
+Each pull request should focus on one specific change or feature.
+
+#### ✅ Good Examples:
+```
+- Fix email validation bug in user registration
+- Add dark mode toggle to navigation bar
+- Update API documentation for user endpoints
+- Refactor authentication middleware for better error handling
+```
+
+#### ❌ Bad Examples:
+```
+- Fix bugs, add new features, and update documentation
+- Various improvements and fixes
+- Working on multiple issues
+```
+
+### 2. Write Clean, Readable Code
+
+#### Use Meaningful Variable Names
+```javascript
+// ❌ Bad
+const u = users.filter(x => x.a > 18);
+
+// ✅ Good
+const adultUsers = users.filter(user => user.age > 18);
+```
+
+#### Add Comments for Complex Logic
+```javascript
+// ✅ Good
+// Calculate compound interest using the formula: A = P(1 + r/n)^(nt)
+function calculateCompoundInterest(principal, rate, compoundingFrequency, time) {
+  return principal * Math.pow(1 + rate / compoundingFrequency, compoundingFrequency * time);
+}
+```
+
+#### Use Consistent Formatting
+```javascript
+// ✅ Good - consistent spacing and indentation
+const userConfig = {
+  name: 'John Doe',
+  email: 'john@example.com',
+  preferences: {
+    theme: 'dark',
+    notifications: true
+  }
+};
+```
+
+### 3. Include Comprehensive Tests
+
+#### Write Tests for New Features
+```javascript
+// Example: Testing the email validation function
+describe('validateEmail', () => {
+  test('returns true for valid email addresses', () => {
+    expect(validateEmail('user@example.com')).toBe(true);
+    expect(validateEmail('test.email+tag@domain.co.uk')).toBe(true);
+  });
+
+  test('returns false for invalid email addresses', () => {
+    expect(validateEmail('invalid-email')).toBe(false);
+    expect(validateEmail('@domain.com')).toBe(false);
+    expect(validateEmail('user@')).toBe(false);
+  });
+
+  test('handles edge cases', () => {
+    expect(validateEmail('')).toBe(false);
+    expect(validateEmail(null)).toBe(false);
+    expect(validateEmail(undefined)).toBe(false);
+  });
+});
+```
+
+#### Test Coverage Guidelines
+- **Aim for 80%+ coverage** for new code
+- **Test edge cases** and error conditions
+- **Include integration tests** for complex features
+- **Test both happy path and failure scenarios**
+
+## Commit Message Excellence
+
+### Conventional Commit Format
+
+Use a consistent format for commit messages:
+
+```
+<type>(<scope>): <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+#### Types:
+- **feat**: New feature
+- **fix**: Bug fix
+- **docs**: Documentation changes
+- **style**: Code style changes (formatting, etc.)
+- **refactor**: Code refactoring
+- **test**: Adding or updating tests
+- **chore**: Maintenance tasks
+
+#### Examples:
+```bash
+feat(auth): add two-factor authentication support
+
+fix(api): resolve memory leak in user session handling
+
+docs(readme): update installation instructions for Windows
+
+style(components): format code according to ESLint rules
+
+refactor(database): optimize query performance for user search
+
+test(utils): add unit tests for date formatting functions
+
+chore(deps): update React to version 18.2.0
+```
+
+### Writing Descriptive Commit Messages
+
+#### ✅ Good Commit Messages:
+```
+fix(validation): prevent XSS attacks in user input fields
+
+- Sanitize HTML input using DOMPurify library
+- Add validation for script tags and event handlers
+- Update tests to cover XSS prevention scenarios
+- Fixes security vulnerability reported in issue #456
+
+feat(dashboard): implement real-time notification system
+
+- Add WebSocket connection for live updates
+- Create notification component with sound alerts
+- Implement notification persistence in localStorage
+- Add user preferences for notification types
+
+docs(api): add comprehensive examples for authentication endpoints
+
+- Include cURL examples for each endpoint
+- Add response format documentation
+- Document error codes and their meanings
+- Provide JavaScript SDK usage examples
+```
+
+#### ❌ Bad Commit Messages:
+```
+fix
+update stuff
+changes
+working on it
+misc fixes
+```
+
+## Pull Request Structure
+
+### 1. Write Compelling Titles
+
+Your PR title is the first thing reviewers see. Make it count.
+
+#### ✅ Good Titles:
+```
+Fix memory leak in WebSocket connection handling
+Add user avatar upload with image compression
+Implement OAuth2 integration for Google Sign-In
+Update dependency management to use Yarn workspaces
+```
+
+#### ❌ Bad Titles:
+```
+Bug fix
+Update
+Changes
+Feature
+```
+
+### 2. Craft Detailed Descriptions
+
+Use this template for PR descriptions:
+
+```markdown
+## What This PR Does
+Brief summary of the changes made.
+
+## Why These Changes Are Needed
+Explain the problem this solves or the value it adds.
+
+## How It Works
+Technical details about the implementation.
+
+## Testing
+- [ ] Unit tests added/updated
+- [ ] Integration tests pass
+- [ ] Manual testing completed
+- [ ] Performance impact assessed
+
+## Screenshots/GIFs
+[Include for UI changes]
+
+## Breaking Changes
+List any breaking changes and migration steps.
+
+## Related Issues
+- Fixes #123
+- Related to #456
+- Depends on #789
+
+## Checklist
+- [ ] Code follows project style guidelines
+- [ ] Self-review completed
+- [ ] Documentation updated
+- [ ] Tests added for new functionality
+- [ ] All tests pass
+- [ ] No new linting errors
+```
+
+### 3. Keep PRs Manageable
+
+#### Size Guidelines:
+- **Small PRs** (1-100 lines): Quick to review, easy to merge
+- **Medium PRs** (100-500 lines): Still manageable with good description
+- **Large PRs** (500+ lines): Should be broken down when possible
+
+#### Breaking Down Large Changes:
+```
+Instead of: "Implement complete user management system"
+
+Break into:
+1. "Add user model and database migrations"
+2. "Implement user authentication endpoints"
+3. "Add user profile management UI"
+4. "Implement user permissions system"
+```
+
+## Review Process Best Practices
+
+### 1. Prepare for Review
+
+#### Self-Review Checklist:
+- [ ] **Read through your own code** line by line
+- [ ] **Check for debug code** or console.logs
+- [ ] **Verify all tests pass** locally
+- [ ] **Run linting** and fix all issues
+- [ ] **Test the feature** manually
+- [ ] **Check for security vulnerabilities**
+
+#### Use GitHub's Review Tools:
+```bash
+# Create draft PR for early feedback
+gh pr create --draft --title "WIP: Add user authentication" --body "Early draft for feedback"
+
+# Mark ready for review when complete
+gh pr ready
+```
+
+### 2. Respond to Feedback Professionally
+
+#### When You Agree with Feedback:
+```markdown
+Thanks for catching that! You're absolutely right about the performance concern. 
+I'll refactor this to use a Map instead of an array for O(1) lookups.
+```
+
+#### When You Need Clarification:
+```markdown
+Could you help me understand the security concern here? I'm using the same 
+pattern as in the existing codebase, but I'm happy to improve it if there's 
+a better approach.
+```
+
+#### When You Disagree (Respectfully):
+```markdown
+I appreciate the feedback about using a different library. I chose this one 
+because it's already a project dependency and has better TypeScript support. 
+However, I'm open to discussion if there are specific concerns about this approach.
+```
+
+### 3. Iterate Quickly
+
+#### Making Updates:
+```bash
+# Make requested changes
+git add .
+git commit -m "refactor: optimize user search with Map-based lookup
+
+Address performance review feedback:
+- Replace array iteration with Map for O(1) user lookups
+- Add performance test to verify improvement
+- Update documentation with complexity analysis"
+
+# Push updates
+git push origin feature-branch
+```
+
+## Advanced Best Practices
+
+### 1. Rebase vs Merge
+
+#### When to Rebase:
+```bash
+# Keep a clean history by rebasing your branch
+git rebase main
+
+# Interactive rebase to clean up commits
+git rebase -i HEAD~3
+```
+
+#### When to Merge:
+- **Collaborative branches** where others are working
+- **When rebase would rewrite shared history**
+- **Project prefers merge commits**
+
+### 2. Using Draft PRs Effectively
+
+Draft PRs are perfect for:
+- **Getting early feedback** on approach
+- **Showing work in progress**
+- **Collaborative development**
+- **Architecture discussions**
+
+```bash
+# Create draft PR
+gh pr create --draft --title "Draft: New authentication system"
+```
+
+### 3. Handling Merge Conflicts
+
+#### Prevention:
+```bash
+# Regularly sync with upstream
+git fetch upstream
+git rebase upstream/main
+```
+
+#### Resolution:
+```bash
+# When conflicts occur during rebase
+git status  # See conflicted files
+# Edit files to resolve conflicts
+git add .
+git rebase --continue
+```
+
+## Documentation Best Practices
+
+### 1. Update README Files
+
+When adding new features:
+
+```markdown
+## New Feature: User Authentication
+
+### Installation
+```bash
+npm install bcrypt jsonwebtoken
+```
+
+### Usage
+```javascript
+const auth = require('./auth');
+const token = auth.generateToken(user);
+```
+
+### Configuration
+Add these environment variables:
+- `JWT_SECRET`: Secret key for token signing
+- `TOKEN_EXPIRY`: Token expiration time (default: 24h)
+```
+
+### 2. Code Documentation
+
+#### Function Documentation:
+```javascript
+/**
+ * Calculates the distance between two geographical points
+ * @param {number} lat1 - Latitude of the first point
+ * @param {number} lon1 - Longitude of the first point
+ * @param {number} lat2 - Latitude of the second point
+ * @param {number} lon2 - Longitude of the second point
+ * @returns {number} Distance in kilometers
+ * @example
+ * const distance = calculateDistance(40.7128, -74.0060, 34.0522, -118.2437);
+ * console.log(distance); // Distance between NYC and LA
+ */
+function calculateDistance(lat1, lon1, lat2, lon2) {
+  // Implementation here
+}
+```
+
+### 3. API Documentation
+
+For API changes, update documentation:
+
+```markdown
+### POST /api/users
+
+Creates a new user account.
+
+#### Request Body
+```json
+{
+  "username": "string (required)",
+  "email": "string (required)",
+  "password": "string (required, min 8 characters)"
+}
+```
+
+#### Response
+```json
+{
+  "id": "string",
+  "username": "string",
+  "email": "string",
+  "created_at": "ISO 8601 timestamp"
+}
+```
+
+#### Error Responses
+- `400`: Invalid input data
+- `409`: Username or email already exists
+- `422`: Password doesn't meet requirements
+```
+
+## Performance Considerations
+
+### 1. Measure Performance Impact
+
+#### Before Submitting:
+```bash
+# Run performance tests
+npm run perf-test
+
+# Check bundle size impact
+npm run build:analyze
+
+# Memory usage profiling
+npm run profile
+```
+
+#### Include Performance Data:
+```markdown
+## Performance Impact
+
+### Bundle Size
+- Before: 245KB gzipped
+- After: 247KB gzipped (+2KB)
+
+### Load Time
+- Home page: No change (< 1ms difference)
+- User profile: 15ms improvement due to optimized queries
+
+### Memory Usage
+- Steady state: No significant change
+- Peak usage: 5% reduction during user operations
+```
+
+### 2. Optimize for Review Speed
+
+#### Provide Context:
+```markdown
+## Why This Implementation
+
+I chose to use a WeakMap here instead of a regular Map because:
+1. Automatic garbage collection when components unmount
+2. Better memory efficiency for large component trees
+3. Prevents memory leaks in Single Page Applications
+
+Alternative approaches considered:
+- Regular Map: Risk of memory leaks
+- Set with manual cleanup: More complex lifecycle management
+```
+
+## Common Mistakes to Avoid
+
+### 1. Technical Mistakes
+- **Committing sensitive data** (API keys, passwords)
+- **Including debug code** in production
+- **Breaking existing functionality**
+- **Not handling edge cases**
+- **Ignoring error conditions**
+
+### 2. Process Mistakes
+- **Working on main branch**
+- **Force pushing to shared branches**
+- **Not reading contribution guidelines**
+- **Submitting without testing**
+- **Abandoning PRs after feedback**
+
+### 3. Communication Mistakes
+- **Being defensive about feedback**
+- **Not explaining complex decisions**
+- **Ignoring review comments**
+- **Being impatient with the review process**
+
+## Measuring Success
+
+### Metrics to Track:
+- **Time to first review** (aim for < 24 hours)
+- **Number of review iterations** (aim for < 3)
+- **Time to merge** (varies by project)
+- **Feedback quality** (constructive vs nitpicky)
+
+### Signs of Success:
+- ✅ Quick, positive feedback from reviewers
+- ✅ Minimal back-and-forth on implementation details
+- ✅ Reviewers asking you to review their PRs
+- ✅ Maintainers trusting you with larger changes
+- ✅ Being invited to be a project collaborator
+
+Remember: great pull requests are not just about code—they're about communication, collaboration, and contributing to a positive community culture. Focus on making the reviewer's job easy, and your PRs will consistently get merged!

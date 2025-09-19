@@ -3,7 +3,9 @@ import { getContentImageUrl } from '@/lib/imageUtils';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, FileText, Hash, ChevronLeft, ChevronRight } from 'lucide-react';
-import PostNavigation from '@/components/PostNavigation';
+import PostNavigation from '@/components/RightSidebar';
+import { getSuggestedPosts } from '@/lib/blog';
+import PostSidebar from '@/components/LeftSidebar';
 import ReactMarkdown from 'react-markdown';
 import MDXComponents from '@/components/MDXComponents';
 import Image from 'next/image';
@@ -11,6 +13,7 @@ import Image from 'next/image';
 export default async function BlogPage({ params }) {
   const { slug } = await params;
   const post = getBlogPost(slug);
+  const suggestedPosts = getSuggestedPosts(slug, 3);
 
   if (!post) {
     notFound();
@@ -82,8 +85,11 @@ export default async function BlogPage({ params }) {
 
         <div className='w-full flex gap-8 mx-auto'>
 
-          <div className='border-b w-80 border-border my-6'>
-            <PostNavigation mainTitle={post.title} mainRead={post.readTime} subposts={post.subposts || []} />
+          <div className='w-80 my-6'>
+            <PostSidebar
+              content={post.content}
+              suggestedPosts={suggestedPosts}
+            />
           </div>
 
           <div className='w-[50vw]'>
@@ -131,9 +137,13 @@ export default async function BlogPage({ params }) {
 
             <ReactMarkdown components={MDXComponents}>{post.content}</ReactMarkdown>
           </div>
-          <div className='border-b w-80 border-border my-6'>
-            <PostNavigation mainTitle={post.title} mainRead={post.readTime} subposts={post.subposts || []} />
-          </div>
+          <div className='w-80 my-6'>
+            <PostNavigation
+              mainTitle={post.title}
+              mainRead={post.readTime}
+              subposts={post.subposts || []}
+              suggestedPosts={suggestedPosts}
+            />          </div>
         </div>
 
       </div>

@@ -1,0 +1,347 @@
+---
+title: "Setting Up Your Development Environment for Pull Requests"
+description: "Essential tools and setup required before you can start contributing to open source projects through pull requests."
+---
+
+# Setting Up Your Development Environment for Pull Requests
+
+Before you can contribute to open source projects, you need to set up your development environment properly. This guide will walk you through all the essential tools and configurations.
+
+## Essential Tools
+
+### 1. Git Version Control
+
+Git is the backbone of modern software collaboration. Every open source project uses Git for version control.
+
+#### Installation
+
+**Windows:**
+```bash
+# Download from git-scm.com or use package manager
+winget install Git.Git
+```
+
+**macOS:**
+```bash
+# Using Homebrew
+brew install git
+
+# Or download from git-scm.com
+```
+
+**Linux:**
+```bash
+# Ubuntu/Debian
+sudo apt-get install git
+
+# CentOS/RHEL
+sudo yum install git
+
+# Arch Linux
+sudo pacman -S git
+```
+
+#### Initial Configuration
+
+After installation, configure your identity:
+
+```bash
+git config --global user.name "Your Full Name"
+git config --global user.email "your.email@example.com"
+```
+
+#### Verify Installation
+
+```bash
+git --version
+# Should output something like: git version 2.39.0
+```
+
+### 2. GitHub Account
+
+Create a free account at [github.com](https://github.com) if you don't have one already.
+
+#### Setting Up SSH Keys (Recommended)
+
+SSH keys provide secure authentication without passwords:
+
+1. **Generate SSH key:**
+```bash
+ssh-keygen -t ed25519 -C "your.email@example.com"
+```
+
+2. **Add to SSH agent:**
+```bash
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+```
+
+3. **Copy public key:**
+```bash
+# Linux/macOS
+cat ~/.ssh/id_ed25519.pub
+
+# Windows
+type %USERPROFILE%\.ssh\id_ed25519.pub
+```
+
+4. **Add to GitHub:**
+   - Go to GitHub Settings → SSH and GPG keys
+   - Click "New SSH key"
+   - Paste your public key
+
+#### Test SSH Connection
+
+```bash
+ssh -T git@github.com
+# Should output: Hi username! You've successfully authenticated...
+```
+
+### 3. Code Editor/IDE
+
+Choose a code editor that supports Git integration:
+
+#### Popular Options
+
+**Visual Studio Code** (Recommended for beginners)
+- Built-in Git support
+- Extensions for every language
+- Integrated terminal
+- Free and open source
+
+**Other Great Options:**
+- **JetBrains IDEs** (IntelliJ, PyCharm, WebStorm)
+- **Vim/Neovim** (for advanced users)
+- **Sublime Text**
+- **Atom** (discontinued but still usable)
+
+#### VS Code Git Extensions
+
+Essential extensions for Git workflow:
+- **GitLens** - Supercharge Git capabilities
+- **Git Graph** - Visual Git history
+- **GitHub Pull Requests** - Manage PRs directly in VS Code
+
+## Understanding Git Workflow
+
+### Basic Git Commands
+
+Learn these essential commands:
+
+```bash
+# Clone a repository
+git clone <repository-url>
+
+# Check status
+git status
+
+# Add changes to staging
+git add <file-name>
+git add .  # Add all changes
+
+# Commit changes
+git commit -m "Your commit message"
+
+# Push changes
+git push origin <branch-name>
+
+# Pull latest changes
+git pull origin main
+
+# Create and switch to new branch
+git checkout -b <branch-name>
+
+# Switch between branches
+git checkout <branch-name>
+
+# List all branches
+git branch
+
+# Merge branches
+git merge <branch-name>
+```
+
+### Git Configuration Best Practices
+
+#### Set Up Useful Aliases
+
+```bash
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.ci commit
+git config --global alias.st status
+git config --global alias.unstage 'reset HEAD --'
+git config --global alias.last 'log -1 HEAD'
+git config --global alias.visual '!gitk'
+```
+
+#### Configure Default Editor
+
+```bash
+# For VS Code
+git config --global core.editor "code --wait"
+
+# For Vim
+git config --global core.editor vim
+
+# For Nano
+git config --global core.editor nano
+```
+
+#### Set Up Line Ending Handling
+
+```bash
+# Windows
+git config --global core.autocrlf true
+
+# macOS/Linux
+git config --global core.autocrlf input
+```
+
+## Project-Specific Setup
+
+### Understanding Project Structure
+
+Before contributing, familiarize yourself with:
+
+#### Common Files to Read
+- **README.md** - Project overview and setup instructions
+- **CONTRIBUTING.md** - Contribution guidelines
+- **CODE_OF_CONDUCT.md** - Community standards
+- **LICENSE** - Legal terms for using the code
+
+#### Configuration Files
+- **package.json** (Node.js projects)
+- **requirements.txt** (Python projects)
+- **Gemfile** (Ruby projects)
+- **Cargo.toml** (Rust projects)
+- **pom.xml** (Java Maven projects)
+
+### Environment Variables
+
+Many projects require environment variables:
+
+#### Create .env File
+```bash
+# Copy example environment file
+cp .env.example .env
+
+# Edit with your local settings
+nano .env
+```
+
+#### Common Environment Variables
+```bash
+# Database connections
+DATABASE_URL=postgresql://localhost:5432/myapp
+
+# API keys (never commit these!)
+API_KEY=your-secret-key-here
+
+# Environment type
+NODE_ENV=development
+```
+
+## Language-Specific Setup
+
+### Node.js Projects
+
+```bash
+# Install Node.js and npm
+# Download from nodejs.org
+
+# Verify installation
+node --version
+npm --version
+
+# Install project dependencies
+npm install
+
+# Run the project
+npm start
+npm run dev
+```
+
+### Python Projects
+
+```bash
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment
+# Windows
+venv\Scripts\activate
+# macOS/Linux
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the project
+python manage.py runserver  # Django
+flask run  # Flask
+```
+
+### Ruby Projects
+
+```bash
+# Install dependencies
+bundle install
+
+# Run the project
+rails server  # Rails
+rackup  # Rack applications
+```
+
+## Testing Your Setup
+
+### Verify Git Configuration
+
+```bash
+git config --list
+```
+
+### Test Repository Operations
+
+1. **Fork a simple repository** on GitHub
+2. **Clone your fork** locally
+3. **Make a small change** (edit README)
+4. **Commit and push** the change
+5. **Create a pull request**
+
+### Common Setup Issues
+
+#### SSH Authentication Problems
+```bash
+# Test SSH connection
+ssh -T git@github.com
+
+# If fails, check SSH agent
+ssh-add -l
+
+# Re-add key if needed
+ssh-add ~/.ssh/id_ed25519
+```
+
+#### HTTPS vs SSH URLs
+```bash
+# HTTPS (requires password/token)
+git clone https://github.com/user/repo.git
+
+# SSH (uses key authentication)
+git clone git@github.com:user/repo.git
+```
+
+#### Permission Denied Errors
+- Check if you have push access to the repository
+- Verify you're pushing to your fork, not the original repository
+- Ensure SSH keys are properly configured
+
+## Next Steps
+
+With your environment set up, you're ready to:
+1. Find your first project to contribute to
+2. Understand the project's contribution workflow
+3. Make your first pull request
+
+Remember: A well-configured development environment saves time and prevents frustration. Take time to set things up properly—it's an investment that pays off with every contribution you make!
