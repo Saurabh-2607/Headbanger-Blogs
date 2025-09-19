@@ -2,11 +2,11 @@
 title: "How to Submit a Pull Request: A Complete Guide"
 description: "Learn the step-by-step process of submitting your first pull request on GitHub, from forking a repository to getting your changes merged."
 date: "2025-09-19"
-author: "Tech Contributor"
+author: "Headbanger"
 tags: ["git", "github", "open-source", "pull-request", "version-control", "collaboration"]
 ---
 
-# How to Submit a Pull Request: A Complete Guide
+---
 
 Submitting a pull request (PR) is one of the most fundamental skills every developer should master. Let's walk through the entire process step by step.
 
@@ -279,5 +279,3 @@ Remember: every expert was once a beginner. Your first PR might not be perfect, 
 Happy coding, and welcome to the world of open-source contribution! 🚀
 
 ---
-
-*Have questions about submitting pull requests? Found this guide helpful? Let us know in the comments below!*
