@@ -1,5 +1,6 @@
 import './globals.css';
 import { JetBrains_Mono } from 'next/font/google';
+import Footer from '@/components/Footer';
 
 const jetbrainsMono = JetBrains_Mono({ 
   subsets: ['latin'],
@@ -18,6 +19,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`dark overflow-x-hidden ${jetbrainsMono.variable}`}>
       <body className={jetbrainsMono.className}>
         {children}
+        <Footer />
       </body>
     </html>
   );
