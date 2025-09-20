@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { Clock, FileText, Hash, ArrowLeft, ArrowRight, House, BookOpen, CornerLeftUp } from 'lucide-react';
+import { CornerLeftUp , FileText, ArrowLeft, ArrowRight, House, BookOpen } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import PostNavigation from '@/components/RightSidebar';
 import PostSidebar from '@/components/LeftSidebar';
@@ -47,9 +47,9 @@ export default async function SubpostPage({ params }) {
     <div className="min-h-screen bg-background">
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Subpost Header */}
-        <div className='flex flex-col mx-auto w-[60%] gap-y-2 mb-8'>
+        <div className='flex flex-col mx-auto px-2 md:px-0 md:w-[60%] gap-y-2 mb-8'>
           <div className="mb-2">
-            <ol className="flex items-center space-x-2">
+            <ol className="flex items-center flex-wrap space-x-2">
               <li>
                 <Link href="/" className="text-white/60 flex items-center gap-x-2 hover:text-white">
                   <House className='size-4' /> Home
@@ -68,8 +68,8 @@ export default async function SubpostPage({ params }) {
             </ol>
           </div>
 
-          <div className='text-4xl flex-wrap w-full px-5 text-center'>{subpostData.title}</div>
-          <div className='flex text-md text-white/75 justify-center gap-2'>
+          <div className='text-2xl md:text-4xl flex-wrap w-full px-5 text-center'>{subpostData.title}</div>
+          <div className='md:flex hidden text-md text-white/75 justify-center gap-2'>
             <div className='flex justify-center items-center gap-1'>
               <img className='rounded-full size-4.5 opacity-100' src="https://www.headbanger.tech/favicon.ico" />
               {subpostData.author || mainPost.author}
@@ -78,19 +78,40 @@ export default async function SubpostPage({ params }) {
             <div>{formatDate(subpostData.date || mainPost.date)}</div>
             <div>|</div>
             <div>{subpostData.readTime}</div>
+            <div>|</div>
+            <div className='flex'>
+              <span className="px-3 py-1 text-sm text-white/75 bg-[#1a1815] font-medium">
+                Part of: {mainPost.title}
+              </span>
+            </div>
           </div>
+          <div className='flex flex-col md:hidden items-center text-md text-white/75 justify-center gap-1'>
+            <div className='w-full border-1' />
+            <div className='flex justify-center items-center gap-1'>
+              <img className='rounded-full size-4.5 opacity-100' src="https://www.headbanger.tech/favicon.ico" />
+              {subpostData.author || mainPost.author}
+            </div>
+            <div className='w-full border-1' />
+            <div className='w-full flex justify-center items-center gap-2'>
+              <div className='flex'>{formatDate(subpostData.date || mainPost.date)}</div>
+              <div>|</div>
+              <div className='flex'>{subpostData.readTime}</div>
+            </div>
+            <div className='w-full border-1' />
+          </div>
+          
         </div>
 
-        <div className='w-full flex gap-8 mx-auto'>
-          <div className='w-80 my-6'>
+        <div className='w-full flex-row md:flex gap-8 md:mx-auto justify-center'>
+          <div className='md:w-80 my-6'>
             <PostSidebar
               content={subpostData.content}
               suggestedPosts={suggestedPosts}
             />
           </div>
 
-          <div className='w-[50vw]'>
-            <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-3 mb-6">
+          <div className='md:w-[50vw] w-full'>
+            <div className="grid grid-rows-3 sm:grid-rows-1 sm:grid-cols-3 items-stretch gap-4 w-full mb-6">
               {previousSubpost ? (
                 <Link
                   href={`/blog/${slug}/${previousSubpost.slug}`}
@@ -116,7 +137,7 @@ export default async function SubpostPage({ params }) {
                 href={`/blog/${slug}`}
                 className="flex items-center justify-center h-auto gap-1 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"
               >
-                <CornerLeftUp className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                <CornerLeftUp  className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 <div className="text-center">
                   <div className="text-[12px] opacity-75">Parent Post</div>
                   <div className="font-medium text-sm">{mainPost.title}</div>
@@ -146,8 +167,18 @@ export default async function SubpostPage({ params }) {
             </div>
 
             <ReactMarkdown components={MDXComponents}>{subpostData.content}</ReactMarkdown>
+            
+            <div className='block md:hidden'>
+              <PostNavigation
+                mainTitle={mainPost.title}
+                mainRead={mainPost.readTime}
+                subposts={mainPost.subposts || []}
+                currentSlug={subpost}
+                suggestedPosts={suggestedPosts}
+              />
+            </div>
 
-            <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-3 mb-6">
+            <div className="grid grid-rows-3 sm:grid-rows-1 sm:grid-cols-3 items-stretch gap-4 w-full mb-6">
               {previousSubpost ? (
                 <Link
                   href={`/blog/${slug}/${previousSubpost.slug}`}
@@ -171,9 +202,9 @@ export default async function SubpostPage({ params }) {
 
               <Link
                 href={`/blog/${slug}`}
-                className="flex items-center justify-center h-auto gap-1 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"
+                className="flex flex-col items-center justify-center h-auto gap-1 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"
               >
-                <CornerLeftUp className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 <div className="text-center">
                   <div className="text-[12px] opacity-75">Parent Post</div>
                   <div className="font-medium text-sm">{mainPost.title}</div>
@@ -202,8 +233,8 @@ export default async function SubpostPage({ params }) {
               )}
             </div>
           </div>
-
-          <div className='w-80 my-6'>
+          
+          <div className='md:w-80 hidden md:block my-6'>
             <PostNavigation
               mainTitle={mainPost.title}
               mainRead={mainPost.readTime}

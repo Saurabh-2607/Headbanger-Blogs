@@ -70,137 +70,148 @@ export default async function BlogPage({ params }) {
             <div>|</div>
             <div className='flex'><FileText className='w-4 mr-1' />{post.subposts.length} subpost{post.subposts.length > 1 ? 's' : ''}</div>
           </div>
-          <div className='flex-col md:hidden items-center text-md text-white/75 justify-center gap-2'>
+          <div className='flex flex-col md:hidden items-center text-md text-white/75 justify-center gap-1'>
+            <div className='w-full border-1' />
+
             <div className='flex justify-center items-center gap-1'> <img className='rounded-full size-4.5 opacity-100' src="https://www.headbanger.tech/favicon.ico" />{post.author}</div>
             <div className='w-full border-1' />
-            <div className='flex mx-auto'>{formatDate(post.date)}</div>
-            <div className='w-full border-1' />
-            <div className='flex mx-auto'>{post.readTime}</div>
-            <div className='w-full border-1' />
-            <div className='flex mx-auto'><FileText className='w-4 mr-1' />{post.subposts.length} subpost{post.subposts.length > 1 ? 's' : ''}</div>
+            <div className='w-full flex justify-center items-center gap-2'>
+              <div className='flex'>{formatDate(post.date)}</div>
+              <div>|</div>
+              <div className='flex'>{post.readTime}</div>
+            </div>
+          </div>
+          <div className='w-full border-1' />
+        </div>
+
+        <div className='flex justify-center'>
+          {post.tags && post.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mx-auto justify-center">
+              {post.tags.map((tag, index) => (
+                <span
+                  key={tag} className="px-3 py-1 text-sm text-white/75 bg-[#1a1815] font-medium">
+                  <Hash className="w-3 h-3 inline mr-1" />
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className='w-full flex-row px-6 md:flex gap-8 md:mx-auto justify-center'>
+        <div className='md:w-80 my-6'>
+          <PostSidebar
+            content={post.content}
+            suggestedPosts={suggestedPosts}
+          />
+        </div>
+
+        <div className='md:w-[50vw] w-full'>
+          <div className="grid grid-rows-2 sm:grid-rows-1 sm:grid-cols-2 items-stretch gap-4 w-full">
+            {previousPost ? (
+              <Link
+                href={`/blog/${previousPost.slug}`}
+                className="flex items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
+                <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                <div className="text-left">
+                  <div className="text-[12px] opacity-75">Previous</div>
+                  <div className="font-medium text-sm">{previousPost.title}</div>
+                </div>
+              </Link>
+            ) : (
+              <div className="flex opacity-50 items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
+                <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                <div className="text-left">
+                  <div className="text-[12px] opacity-75">Previous</div>
+                  <div className="font-medium text-sm">You are at the First Post</div>
+                </div>
+              </div>
+            )}
+
+            {nextPost ? (
+              <Link
+                href={`/blog/${nextPost.slug}`}
+                className="flex items-center justify-end h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
+                <div className="text-right">
+                  <div className="text-[12px] opacity-75">Next</div>
+                  <div className="font-medium text-sm">{nextPost.title}</div>
+                </div>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            ) : (
+              <div className="flex items-center opacity-50 justify-end h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
+                <div className="text-right">
+                  <div className="text-[12px] opacity-75">Next</div>
+                  <div className="font-medium text-sm">You are on the Last Post</div>
+                </div>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </div>
+            )}
           </div>
 
-          <div className='flex justify-center'>
-            {post.tags && post.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2">
-                {post.tags.map((tag, index) => (
-                  <span
-                    key={tag} className="px-3 py-1 text-sm text-white/75 bg-[#1a1815] font-medium">
-                    <Hash className="w-3 h-3 inline mr-1" />
-                    {tag}
-                  </span>
-                ))}
+          <ReactMarkdown components={MDXComponents}>{post.content}</ReactMarkdown>
+          <div className='block md:hidden'>
+          <PostNavigation
+            mainTitle={post.title}
+            mainRead={post.readTime}
+            subposts={post.subposts || []}
+            suggestedPosts={suggestedPosts}
+          />
+          </div>
+
+          <div className="grid grid-rows-2 sm:grid-rows-1 sm:grid-cols-2 items-stretch gap-4 w-full">
+            {previousPost ? (
+              <Link
+                href={`/blog/${previousPost.slug}`}
+                className="flex items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
+                <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                <div className="text-left">
+                  <div className="text-[12px] opacity-75">Previous</div>
+                  <div className="font-medium text-sm">{previousPost.title}</div>
+                </div>
+              </Link>
+            ) : (
+              <div className="flex opacity-50 items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
+                <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                <div className="text-left">
+                  <div className="text-[12px] opacity-75">Previous</div>
+                  <div className="font-medium text-sm">You are at the First Post</div>
+                </div>
+              </div>
+            )}
+
+            {nextPost ? (
+              <Link
+                href={`/blog/${nextPost.slug}`}
+                className="flex items-center justify-end h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
+                <div className="text-right">
+                  <div className="text-[12px] opacity-75">Next</div>
+                  <div className="font-medium text-sm">{nextPost.title}</div>
+                </div>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            ) : (
+              <div className="flex items-center opacity-50 justify-end h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
+                <div className="text-right">
+                  <div className="text-[12px] opacity-75">Next</div>
+                  <div className="font-medium text-sm">You are on the Last Post</div>
+                </div>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </div>
             )}
           </div>
         </div>
-
-        <div className='w-full flex gap-8 mx-auto'>
-
-          <div className='w-80 my-6'>
-            <PostSidebar
-              content={post.content}
-              suggestedPosts={suggestedPosts}
-            />
-          </div>
-
-          <div className='md:w-[50vw] w-full'>
-            <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2">
-              {previousPost ? (
-                <Link
-                  href={`/blog/${previousPost.slug}`}
-                  className="flex items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
-                  <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                  <div className="text-left">
-                    <div className="text-[12px] opacity-75">Previous</div>
-                    <div className="font-medium text-sm">{previousPost.title}</div>
-                  </div>
-                </Link>
-              ) : (
-                <div className="flex opacity-50 items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
-                  <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                  <div className="text-left">
-                    <div className="text-[12px] opacity-75">Previous</div>
-                    <div className="font-medium text-sm">You are at the First Post</div>
-                  </div>
-                </div>
-              )}
-
-              {nextPost ? (
-                <Link
-                  href={`/blog/${nextPost.slug}`}
-                  className="flex items-center justify-end h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
-                  <div className="text-right">
-                    <div className="text-[12px] opacity-75">Next</div>
-                    <div className="font-medium text-sm">{nextPost.title}</div>
-                  </div>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              ) : (
-                <div className="flex items-center opacity-50 justify-end h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
-                  <div className="text-right">
-                    <div className="text-[12px] opacity-75">Next</div>
-                    <div className="font-medium text-sm">You are on the Last Post</div>
-                  </div>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </div>
-              )}
-            </div>
-
-            <ReactMarkdown components={MDXComponents}>{post.content}</ReactMarkdown>
-
-            <div className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2">
-              {previousPost ? (
-                <Link
-                  href={`/blog/${previousPost.slug}`}
-                  className="flex items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
-                  <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                  <div className="text-left">
-                    <div className="text-[12px] opacity-75">Previous</div>
-                    <div className="font-medium text-sm">{previousPost.title}</div>
-                  </div>
-                </Link>
-              ) : (
-                <div className="flex opacity-50 items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
-                  <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                  <div className="text-left">
-                    <div className="text-[12px] opacity-75">Previous</div>
-                    <div className="font-medium text-sm">You are at the First Post</div>
-                  </div>
-                </div>
-              )}
-
-              {nextPost ? (
-                <Link
-                  href={`/blog/${nextPost.slug}`}
-                  className="flex items-center justify-end h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
-                  <div className="text-right">
-                    <div className="text-[12px] opacity-75">Next</div>
-                    <div className="font-medium text-sm">{nextPost.title}</div>
-                  </div>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              ) : (
-                <div className="flex items-center opacity-50 justify-end h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
-                  <div className="text-right">
-                    <div className="text-[12px] opacity-75">Next</div>
-                    <div className="font-medium text-sm">You are on the Last Post</div>
-                  </div>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </div>
-              )}
-            </div>
-          </div>
-          <div className='w-80 my-6'>
-            <PostNavigation
-              mainTitle={post.title}
-              mainRead={post.readTime}
-              subposts={post.subposts || []}
-              suggestedPosts={suggestedPosts}
-            />          </div>
+        <div className='md:w-80 hidden md:block my-6'>
+          <PostNavigation
+            mainTitle={post.title}
+            mainRead={post.readTime}
+            subposts={post.subposts || []}
+            suggestedPosts={suggestedPosts}
+          />          
         </div>
-
       </div>
+
     </div>
   );
 }
