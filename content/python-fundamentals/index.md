@@ -2,7 +2,7 @@
 title: "Python Fundamentals for Beginners"
 description: "Learn Python programming from the ground up with practical examples, best practices, and hands-on exercises for beginners."
 date: "2024-02-10"
-author: "Alex Chen"
+author: "Headbanger"
 tags: ["Python", "Programming", "Beginner", "Tutorial", "Fundamentals"]
 ---
 

@@ -2,7 +2,7 @@
 title: "Data Science Masterclass"
 description: "Complete guide to data science from fundamentals to advanced machine learning, covering Python, statistics, visualization, and real-world projects."
 date: "2024-03-05"
-author: "Dr. Emma Wilson"
+author: "Headbanger"
 tags: ["Data Science", "Machine Learning", "Python", "Statistics", "Analytics", "AI"]
 ---
 

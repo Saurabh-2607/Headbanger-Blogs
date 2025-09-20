@@ -2,7 +2,7 @@
 title: "Complete Web Development Guide"
 description: "Master modern web development from HTML/CSS basics to advanced JavaScript frameworks, backend development, and deployment strategies."
 date: "2024-01-15"
-author: "Sarah Johnson"
+author: "Headbanger"
 tags: ["Web Development", "HTML", "CSS", "JavaScript", "Frontend", "Backend", "Full Stack"]
 ---
 
