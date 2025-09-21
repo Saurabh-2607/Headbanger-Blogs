@@ -6,7 +6,6 @@ import PostNavigation from '@/components/RightSidebar';
 import PostSidebar from '@/components/LeftSidebar';
 import MDXComponents from '@/components/MDXComponents';
 import { getSuggestedPosts } from '@/lib/blog';
-import Image from 'next/image';
 
 export default async function SubpostPage({ params }) {
   const resolvedParams = await params;
@@ -78,12 +77,6 @@ export default async function SubpostPage({ params }) {
             <div>{formatDate(subpostData.date || mainPost.date)}</div>
             <div>|</div>
             <div>{subpostData.readTime}</div>
-            <div>|</div>
-            <div className='flex'>
-              <span className="px-3 py-1 text-sm text-white/75 bg-[#1a1815] font-medium">
-                Part of: {mainPost.title}
-              </span>
-            </div>
           </div>
           <div className='flex flex-col md:hidden items-center text-md text-white/75 justify-center gap-1'>
             <div className='w-full border-1' />

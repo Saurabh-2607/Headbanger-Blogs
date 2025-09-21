@@ -3,7 +3,7 @@ cover: "./cover_advance_js.png"
 title: "Advanced JavaScript Concepts"
 description: "Deep dive into advanced JavaScript topics including closures, prototypes, async programming, and modern ES6+ features."
 date: "2024-01-20"
-author: "Jane Smith"
+author: "Headbanger"
 tags: ["JavaScript", "Programming", "Advanced", "ES6", "Async"]
 ---
 

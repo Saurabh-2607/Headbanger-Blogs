@@ -35,7 +35,7 @@ export default async function BlogPage({ params }) {
       <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Blog Post Header custom by Saurabh */}
 
-        <div className='flex flex-col mx-auto px-2 md:px-0 md:w-[60%] gap-y-2 mb-8'>
+        <div className='flex flex-col mx-auto px-2 md:px-0 md:w-[60%] gap-y-2 mb-3'>
           <div className="mb-2">
             <ol className="flex  items-center flex-wrap space-x-2">
               <li>
@@ -51,6 +51,7 @@ export default async function BlogPage({ params }) {
               </li>
             </ol>
           </div>
+          
           {post.cover && (
             <Image
               alt={post.title}
@@ -70,9 +71,9 @@ export default async function BlogPage({ params }) {
             <div>|</div>
             <div className='flex'><FileText className='w-4 mr-1' />{post.subposts.length} subpost{post.subposts.length > 1 ? 's' : ''}</div>
           </div>
+
           <div className='flex flex-col md:hidden items-center text-md text-white/75 justify-center gap-1'>
             <div className='w-full border-1' />
-
             <div className='flex justify-center items-center gap-1'> <img className='rounded-full size-4.5 opacity-100' src="https://www.headbanger.tech/favicon.ico" />{post.author}</div>
             <div className='w-full border-1' />
             <div className='w-full flex justify-center items-center gap-2'>
@@ -80,8 +81,8 @@ export default async function BlogPage({ params }) {
               <div>|</div>
               <div className='flex'>{post.readTime}</div>
             </div>
+            <div className='w-full border-1' />
           </div>
-          <div className='w-full border-1' />
         </div>
 
         <div className='flex justify-center'>
@@ -152,12 +153,12 @@ export default async function BlogPage({ params }) {
 
           <ReactMarkdown components={MDXComponents}>{post.content}</ReactMarkdown>
           <div className='block md:hidden'>
-          <PostNavigation
-            mainTitle={post.title}
-            mainRead={post.readTime}
-            subposts={post.subposts || []}
-            suggestedPosts={suggestedPosts}
-          />
+            <PostNavigation
+              mainTitle={post.title}
+              mainRead={post.readTime}
+              subposts={post.subposts || []}
+              suggestedPosts={suggestedPosts}
+            />
           </div>
 
           <div className="grid grid-rows-2 sm:grid-rows-1 sm:grid-cols-2 items-stretch gap-4 w-full">
@@ -208,7 +209,7 @@ export default async function BlogPage({ params }) {
             mainRead={post.readTime}
             subposts={post.subposts || []}
             suggestedPosts={suggestedPosts}
-          />          
+          />
         </div>
       </div>
 
