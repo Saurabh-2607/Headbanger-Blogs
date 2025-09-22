@@ -17,7 +17,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={jetbrainsMono.className}>
+    <html lang="en" className={`dark overflow-x-hidden ${jetbrainsMono.variable}`}>
       <head>
         {/* Google tag (gtag.js) */}
         <Script
