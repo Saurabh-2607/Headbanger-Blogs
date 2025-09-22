@@ -195,9 +195,9 @@ export default async function SubpostPage({ params }) {
 
               <Link
                 href={`/blog/${slug}`}
-                className="flex flex-col items-center justify-center h-auto gap-1 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"
+                className="flex items-center justify-center h-auto gap-1 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"
               >
-                <BookOpen className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                <CornerLeftUp  className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 <div className="text-center">
                   <div className="text-[12px] opacity-75">Parent Post</div>
                   <div className="font-medium text-sm">{mainPost.title}</div>
@@ -225,6 +225,7 @@ export default async function SubpostPage({ params }) {
                 </div>
               )}
             </div>
+
           </div>
           
           <div className='md:w-80 hidden md:block my-6'>

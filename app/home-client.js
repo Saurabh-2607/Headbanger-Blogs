@@ -34,7 +34,7 @@ export default function HomeClient({ initialBlogs }) {
         <div className="w-screen mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center">
             
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-md text-muted-foreground max-w-2xl mx-auto">
               Discover insightful articles about technology, programming, and development by <a className='underline' href='https://www.headbanger.tech/'> Saurabh Sharma | Headbanger </a>
             </p>
           </div>

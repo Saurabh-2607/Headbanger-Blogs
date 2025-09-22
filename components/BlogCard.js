@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Calendar, Clock, User, Tag } from 'lucide-react';
+import { Calendar, Clock, User, Hash } from 'lucide-react';
 
 export default function BlogCard({ post }) {
   const formatDate = (dateString) => {
@@ -10,50 +10,40 @@ export default function BlogCard({ post }) {
     });
   };
 
-  const tagColors = [
-    'bg-blue-500/10 text-blue-400 border border-blue-500/20',
-    'bg-green-500/10 text-green-400 border border-green-500/20',
-    'bg-purple-500/10 text-purple-400 border border-purple-500/20',
-    'bg-orange-500/10 text-orange-400 border border-orange-500/20',
-    'bg-pink-500/10 text-pink-400 border border-pink-500/20'
-  ];
-
   return (
     <article className="bg-card shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-border">
-      <div className="p-6">
-        <div className="mb-4">
-          <h2 className="text-2xl font-bold text-foreground mb-2 hover:text-primary transition-colors">
+      <div className="p-4">
+        <div className="mb-3">
+          <h2 className="text-lg font-bold text-foreground mb-2 hover:text-primary transition-colors">
             <Link href={`/blog/${post.slug}`}>
               {post.title}
             </Link>
           </h2>
         </div>
 
-        <div className="flex flex-wrap items-center text-sm text-muted-foreground mb-4 gap-4">
-          <div className="flex items-center gap-1">
+        <div className="flex flex-wrap items-center text-sm text-muted-foreground mb-3 gap-3">
+          <div className="flex items-center gap-1 opacity-75">
             <Calendar className="w-4 h-4" />
             {formatDate(post.date)}
           </div>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 opacity-75">
             <User className="w-4 h-4" />
             {post.author}
           </div>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 opacity-75">
             <Clock className="w-4 h-4" />
             {post.readTime}
           </div>
         </div>
 
         {post.tags && post.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-4">
-            {post.tags.map((tag, index) => (
+          <div className="flex flex-wrap gap-1 mb-3">
+            {post.tags.map((tag) => (
               <span
-                key={tag}
-                className={`px-2 py-1 text-xs font-medium ${
-                  tagColors[index % tagColors.length]
-                }`}
+                key={tag} 
+                className="px-2 py-1 text-xs text-white/75 bg-[#1a1815] font-medium"
               >
-                <Tag className="w-3 h-3 inline mr-1" />
+                <Hash className="w-3 h-3 inline mr-1" />
                 {tag}
               </span>
             ))}
@@ -61,19 +51,19 @@ export default function BlogCard({ post }) {
         )}
 
         {post.subposts && post.subposts.length > 0 && (
-          <div className="border-t border-border pt-4">
+          <div className="border-t border-border pt-3">
             <p className="text-sm text-muted-foreground mb-2">
               {post.subposts.length} subpost{post.subposts.length > 1 ? 's' : ''}
             </p>
-            <div className="space-y-1">
-              {post.subposts.slice(0, 4).map((subpost) => (
-                <div key={subpost.slug} className="text-[12px] text-muted-foreground">
+            <div className="space-y-0.5">
+              {post.subposts.slice(0, 3).map((subpost) => (
+                <div key={subpost.slug} className="text-xs text-muted-foreground opacity-75">
                   - {subpost.title}
                 </div>
               ))}
-              {post.subposts.length > 4 && (
-                <div className="text-sm text-muted-foreground">
-                  ... and {post.subposts.length - 4} more
+              {post.subposts.length > 3 && (
+                <div className="text-xs text-muted-foreground opacity-75">
+                  ... and {post.subposts.length - 3} more
                 </div>
               )}
             </div>

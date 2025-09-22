@@ -59,7 +59,7 @@ const components = {
     
     if (isInline) {
       return (
-        <code className="bg-muted text-white/50 px-2 py-1 rounded text-sm font-mono border border-border">
+        <code className="bg-muted text-white/50 px-2 py-1 text-sm font-mono border border-border">
           {children}
         </code>
       );
@@ -73,7 +73,7 @@ const components = {
     );
   },
   pre: ({ children }) => (
-    <pre className="bg-muted text-white/50 p-4 rounded-lg overflow-x-auto mb-6 text-sm border border-border font-mono leading-relaxed">
+    <pre className="bg-muted text-white/50 p-4 overflow-x-auto mb-6 text-sm border border-border font-mono leading-relaxed">
       {children}
     </pre>
   ),
@@ -102,7 +102,7 @@ const components = {
   ),
   table: ({ children }) => (
     <div className="overflow-x-auto mb-6">
-      <table className="min-w-full border text-white/50 border-border rounded-lg">
+      <table className="min-w-full border text-white/50 border-border">
         {children}
       </table>
     </div>
@@ -136,7 +136,7 @@ const components = {
     <img 
       src={src} 
       alt={alt} 
-      className="rounded-lg shadow-md mb-6 max-w-full h-auto border border-border"
+      className="shadow-md mb-6 max-w-full h-auto border border-border"
     />
   ),
   // Add support for definition lists
@@ -157,7 +157,7 @@ const components = {
   ),
   // Add support for keyboard keys
   kbd: ({ children }) => (
-    <kbd className="px-2 py-1 text-xs font-mono bg-muted border border-border rounded shadow-sm">
+    <kbd className="px-2 py-1 text-xs font-mono bg-muted border border-border shadow-sm">
       {children}
     </kbd>
   ),
