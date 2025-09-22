@@ -1,6 +1,7 @@
 import './globals.css';
 import { JetBrains_Mono } from 'next/font/google';
 import Footer from '@/components/Footer';
+import { Analytics } from "@vercel/analytics/next"
 import Script from 'next/script';
 
 const jetbrainsMono = JetBrains_Mono({
@@ -35,6 +36,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         {children}
+        <Analytics />
         <Footer />
       </body>
     </html>
