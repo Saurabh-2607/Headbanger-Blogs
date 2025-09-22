@@ -10,6 +10,18 @@ import ReactMarkdown from 'react-markdown';
 import MDXComponents from '@/components/MDXComponents';
 import Image from 'next/image';
 
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const post = getBlogPost(slug);
+  if (!post) return {};
+  return {
+    title: post.title,
+    openGraph: {
+      images: [`/api/og/${slug}?title=${encodeURIComponent(post.title)}`],
+    },
+  };
+}
+
 export default async function BlogPage({ params }) {
   const { slug } = await params;
   const post = getBlogPost(slug);
