@@ -31,7 +31,7 @@ export default function PostNavigation({ mainTitle, mainRead, totalRead, subpost
       {/* Desktop Navigation */}
       <nav className="text-neutral-100 hidden md:block w-full sticky top-6">
         <div className='flex flex-col gap-2'>
-          <div className="flex items-center gap-2 border border-neutral-800 p-2">
+          <div className="flex items-center gap-2 hover:bg-neutral-800/25 p-2">
             <BookOpen className="w-5 h-5 text-neutral-400" />
             <div>
               <div className="font-medium text-sm leading-tight">{mainTitle}</div>
@@ -45,7 +45,7 @@ export default function PostNavigation({ mainTitle, mainRead, totalRead, subpost
             const IconComponent = isActive ? FileText : File;
             
             return (
-              <div key={subpost.slug} className={`flex w-full p-2 items-center border border-neutral-800 ${isActive ? 'bg-neutral-800/50' : ''}`}>
+              <div key={subpost.slug} className={`flex w-full p-2 items-center  ${isActive ? 'bg-neutral-800/50' : 'hover:bg-neutral-800/25'}`}>
                 <Link
                   href={`/blog/${subpost.parentSlug}/${subpost.slug}`}
                   className="items-center flex ml-1 gap-2 w-full transition-colors duration-150"
