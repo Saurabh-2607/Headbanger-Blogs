@@ -11,7 +11,7 @@ export default function BlogCard({ post }) {
   };
 
   return (
-    <article className="bg-card shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-border">
+    <article className="bg-card shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-dashed border-border">
       <div className="p-4">
         <div className="mb-3">
           <h2 className="text-lg font-bold text-foreground mb-2 hover:text-primary transition-colors">

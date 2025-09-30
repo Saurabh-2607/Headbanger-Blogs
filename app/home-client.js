@@ -30,7 +30,7 @@ export default function HomeClient({ initialBlogs }) {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="bg-card shadow-sm border-b border-border">
+      <header className="bg-card shadow-sm border-b border-dashed border-border">
         <div className="w-screen mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center">
             
@@ -43,7 +43,7 @@ export default function HomeClient({ initialBlogs }) {
 
       {/* Search and Filter */}
       <div className="w-screen mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-card shadow-md p-6 mb-8 border border-border">
+        <div className="bg-card shadow-md p-6 mb-8 border border-dashed border-border">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
@@ -52,7 +52,7 @@ export default function HomeClient({ initialBlogs }) {
                 placeholder="Search articles..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-background border border-input focus:ring-2 focus:ring-ring focus:border-transparent text-foreground"
+                className="w-full pl-10 pr-4 py-2 bg-background border border-dashed border-input focus:ring-2 focus:ring-ring focus:border-transparent text-foreground"
               />
             </div>
             <div className="relative">
@@ -60,7 +60,7 @@ export default function HomeClient({ initialBlogs }) {
               <select
                 value={selectedTag}
                 onChange={(e) => setSelectedTag(e.target.value)}
-                className="pl-10 pr-8 py-2 bg-black border border-input text-foreground"
+                className="pl-10 pr-8 py-2 bg-black border broder-dashed border-input text-foreground"
               >
                 <option value="">All categories</option>
                 {allTags.map(tag => (
