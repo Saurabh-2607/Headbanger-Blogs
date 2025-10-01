@@ -50,7 +50,10 @@ export default function BlogCard({ post }) {
           </div>
         )}
 
-        {post.subposts && post.subposts.length > 0 && (
+
+        {/* subpost on the card */}
+
+        {/* {post.subposts && post.subposts.length > 0 && (
           <div className="border-t border-border pt-3">
             <p className="text-sm text-muted-foreground mb-2">
               {post.subposts.length} subpost{post.subposts.length > 1 ? 's' : ''}
@@ -68,7 +71,9 @@ export default function BlogCard({ post }) {
               )}
             </div>
           </div>
-        )}
+        )} */}
+
+
       </div>
     </article>
   );
