@@ -90,7 +90,7 @@ export default async function SubpostPage({ params }) {
           <div className='text-2xl md:text-4xl flex-wrap w-full px-5 text-center'>{subpostData.title}</div>
           <div className='md:flex hidden text-md text-white/75 justify-center gap-2'>
             <div className='flex justify-center items-center gap-1'>
-              <img className='rounded-full size-4.5 opacity-100' src="https://www.headbanger.tech/favicon.ico" />
+              <img className='rounded-full size-4.5 opacity-100' src="https://www.headbanger.me/favicon.ico" />
               {subpostData.author || mainPost.author}
             </div>
             <div>|</div>
@@ -101,7 +101,7 @@ export default async function SubpostPage({ params }) {
           <div className='flex flex-col md:hidden items-center text-md text-white/75 justify-center gap-1'>
             <div className='w-full border-1' />
             <div className='flex justify-center items-center gap-1'>
-              <img className='rounded-full size-4.5 opacity-100' src="https://www.headbanger.tech/favicon.ico" />
+              <img className='rounded-full size-4.5 opacity-100' src="https://www.headbanger.me/favicon.ico" />
               {subpostData.author || mainPost.author}
             </div>
             <div className='w-full border-1' />

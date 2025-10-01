@@ -35,7 +35,7 @@ export default function HomeClient({ initialBlogs }) {
           <div className="text-center">
             
             <p className="text-md text-muted-foreground max-w-2xl mx-auto">
-              Discover insightful articles about technology, programming, and development by <a className='underline' href='https://www.headbanger.tech/'> Saurabh Sharma | Headbanger </a>
+              Discover insightful articles about technology, programming, and development by <a className='underline' href='https://www.headbanger.me/'> Saurabh Sharma | Headbanger </a>
             </p>
           </div>
         </div>

@@ -12,7 +12,7 @@ export default function Footer() {
         <p className="text-neutral-400 text-sm">
           Made with ❤️ by{' '}
           <a
-            href="https://headbanger.tech/"
+            href="https://headbanger.me/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-neutral-300 transition-colors underline"
