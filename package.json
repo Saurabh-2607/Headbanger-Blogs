@@ -12,6 +12,7 @@
     "@next/swc-wasm-nodejs": "13.5.1",
     "@tailwindcss/postcss": "^4.1.13",
     "@tailwindcss/typography": "^0.5.16",
+    "@vercel/analytics": "^1.5.0",
     "autoprefixer": "^10.4.21",
     "clsx": "^2.1.1",
     "eslint": "^9.35.0",

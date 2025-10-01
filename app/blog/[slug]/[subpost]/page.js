@@ -7,6 +7,26 @@ import PostSidebar from '@/components/LeftSidebar';
 import MDXComponents from '@/components/MDXComponents';
 import { getSuggestedPosts } from '@/lib/blog';
 
+export async function generateMetadata({ params }) {
+  const resolvedParams = await params;
+  const { slug, subpost } = resolvedParams;
+
+  const { getBlogPost, getSubPost } = await import('@/lib/blog');
+
+  const mainPost = getBlogPost(slug);
+  if (!mainPost) return {};
+
+  const subpostData = getSubPost(slug, subpost);
+  if (!subpostData) return {};
+
+  return {
+    title: subpostData.title,
+    openGraph: {
+      images: [`/api/og/${slug}/${subpost}?title=${encodeURIComponent(subpostData.title)}`],
+    },
+  };
+}
+
 export default async function SubpostPage({ params }) {
   const resolvedParams = await params;
   const { slug, subpost } = resolvedParams;
