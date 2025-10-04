@@ -1,4 +1,5 @@
 ---
+cover: "./cover.png"
 title: "Getting Started with React: A Complete Guide"
 description: "Learn React from basics to advanced concepts with practical examples and best practices. Perfect for beginners and intermediate developers."
 date: "2024-01-15"
