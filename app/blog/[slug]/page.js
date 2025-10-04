@@ -64,16 +64,16 @@ export default async function BlogPage({ params }) {
             </ol>
           </div>
           
-          {post.cover && (
+          {post.coverImage && (
             <Image
               alt={post.title}
               className='object-cover object-center w-full mb-6 h-[20vh] md:h-[50vh] mx-auto'
               width={800}
               height={300}
-              src={getContentImageUrl(slug, post.cover)}
+              src={post.coverImage}
             />
           )}
-          <div className=' text-2xl md:text-4xl flex-wrap w-full px-5 text-center'>{post.title}</div>
+          <div className=' text-2xl md:text-4xl fle x-wrap w-full px-5 text-center'>{post.title}</div>
           <div className='md:flex hidden text-md text-white/75 justify-center gap-2'>
             <div className='flex justify-center items-center gap-1'> <img className='rounded-full size-4.5 opacity-100' src="https://www.headbanger.me/favicon.ico" />{post.author}</div>
             <div>|</div>
