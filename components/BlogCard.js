@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Calendar, Clock, User, Hash } from 'lucide-react';
 
 export default function BlogCard({ post }) {
@@ -12,6 +13,26 @@ export default function BlogCard({ post }) {
 
   return (
     <article className="bg-card shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-dashed border-border">
+      <div className="relative h-60 w-full overflow-hidden">
+        {post.coverImage ? (
+          <Image
+            src={post.coverImage}
+            alt={post.title}
+            fill
+            className="object-cover "
+          />
+        ) : (
+          <div className="w-full h-full bg-[url('/placeholder.jpg')] bg-cover bg-center flex items-center justify-center">
+            <div className='h-full w-full bg-black/50 my-auto justify-center flex items-center'>
+            <div className="text-center text-white">
+              <div className="text-4xl mb-2">📄</div>
+              <div className="text-sm font-medium opacity-75">{post.title}</div>
+            </div>
+            </div>
+          </div>
+        )}
+      </div>
+      
       <div className="p-4">
         <div className="mb-3">
           <h2 className="text-lg font-bold text-foreground mb-2 hover:text-primary transition-colors">

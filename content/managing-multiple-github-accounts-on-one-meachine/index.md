@@ -1,5 +1,5 @@
 ---
-cover: "./coverimg.png"
+cover: "./coverimg.webp"
 title: "Managing Multiple GitHub Accounts on One Machine"
 description: "Learn how to configure and use multiple GitHub accounts on a single machine with SSH keys, Git identity management, and conditional configuration."
 date: "2025-10-01"

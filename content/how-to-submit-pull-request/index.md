@@ -1,4 +1,5 @@
 ---
+cover: "./cover.png"
 title: "How to Submit a Pull Request: A Complete Guide"
 description: "Learn the step-by-step process of submitting your first pull request on GitHub, from forking a repository to getting your changes merged."
 date: "2025-09-19"
