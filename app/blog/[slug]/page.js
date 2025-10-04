@@ -121,7 +121,7 @@ export default async function BlogPage({ params }) {
         </div>
 
         <div className='md:w-[50vw] w-full'>
-          <div className="grid grid-rows-2 sm:grid-rows-1 sm:grid-cols-2 items-stretch gap-4 w-full">
+          <div className="grid grid-rows-2 sm:grid-rows-1 sm:grid-cols-2 items-stretch pb-6 gap-4 w-full">
             {previousPost ? (
               <Link
                 href={`/blog/${previousPost.slug}`}

@@ -6,8 +6,6 @@ author: "Headbanger"
 tags: ["GitHub", "Git", "SSH", "Developer Tools", "Productivity"]
 ---
 
-# Managing Multiple GitHub Accounts on One Machine
-
 When working with both personal and organizational GitHub accounts, you may run into conflicts if you try to use them on the same machine with a single SSH key. This guide explains how to configure multiple SSH keys, set up Git to manage identities, and streamline your workflow with conditional configurations.
 
 ---
