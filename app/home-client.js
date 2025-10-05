@@ -29,48 +29,101 @@ export default function HomeClient({ initialBlogs }) {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
+      {/* Header with Logo, Text, and Search */}
       <header className="bg-card shadow-sm border-b border-dashed border-border">
         <div className="w-screen mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center">
+          {/* Mobile Layout */}
+          <div className="flex flex-col gap-6 lg:hidden">
+            {/* Logo and Text */}
+            <div className="flex flex-col w-full items-center gap-4">
+              <img 
+                src="/logo.png" 
+                alt="Logo" 
+                className="h-12 w-12"
+              />
+              <p className="text-md text-muted-foreground max-w-2xl text-center">
+                Discover insightful articles about technology, programming, and development by <a className='underline' href='https://www.headbanger.me/'> Saurabh Sharma | Headbanger </a>
+              </p>
+            </div>
             
-            <p className="text-md text-muted-foreground max-w-2xl mx-auto">
-              Discover insightful articles about technology, programming, and development by <a className='underline' href='https://www.headbanger.me/'> Saurabh Sharma | Headbanger </a>
-            </p>
+            {/* Search and Filter */}
+            <div className="flex flex-col gap-3">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                <input
+                  type="text"
+                  placeholder="Search articles..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 bg-background border border-dashed border-input focus:ring-2 focus:ring-ring focus:border-transparent text-foreground"
+                />
+              </div>
+              <div className="relative">
+                <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                <select
+                  value={selectedTag}
+                  onChange={(e) => setSelectedTag(e.target.value)}
+                  className="w-full pl-10 pr-8 py-2 bg-black border border-dashed border-input text-foreground"
+                >
+                  <option value="">All categories</option>
+                  {allTags.map(tag => (
+                    <option key={tag} value={tag}>{tag}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop Layout - Two Column Grid */}
+          <div className="hidden lg:flex lg:items-center lg:justify-between lg:gap-8">
+            {/* Left - Logo and Text */}
+            <div className="flex items-center gap-4">
+              <img 
+                src="/logo.png" 
+                alt="Logo" 
+                className="size-20 flex-shrink-0"
+              />
+              <div>
+              <h1 className='text-xl'>Headbanger Blogs</h1>
+
+              <p className="text-md flex-wrap w-[60%] text-white/60">
+                Discover insightful articles about technology, programming, and development by <a className='underline' href='https://www.headbanger.me/'> Saurabh Sharma | Headbanger </a>
+              </p>
+              </div>
+            </div>
+
+            {/* Right - Search and Filter */}
+            <div className="flex flex-col gap-2 min-w-[300px] w-[25%]">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <input
+                  type="text"
+                  placeholder="Search articles..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-9 pr-3 py-1.5 text-sm bg-background border border-dashed border-input focus:ring-2 focus:ring-ring focus:border-transparent text-foreground"
+                />
+              </div>
+              <div className="relative">
+                <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <select
+                  value={selectedTag}
+                  onChange={(e) => setSelectedTag(e.target.value)}
+                  className="w-full pl-9 py-1.5 text-sm bg-black border border-dashed border-input text-foreground"
+                >
+                  <option value="">All categories</option>
+                  {allTags.map(tag => (
+                    <option key={tag} value={tag}>{tag}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
           </div>
         </div>
       </header>
 
-      {/* Search and Filter */}
+      {/* Main Content */}
       <div className="w-screen mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-card shadow-md p-6 mb-8 border border-dashed border-border">
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-              <input
-                type="text"
-                placeholder="Search articles..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-background border border-dashed border-input focus:ring-2 focus:ring-ring focus:border-transparent text-foreground"
-              />
-            </div>
-            <div className="relative">
-              <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-              <select
-                value={selectedTag}
-                onChange={(e) => setSelectedTag(e.target.value)}
-                className="pl-10 pr-8 py-2 bg-black border broder-dashed border-input text-foreground"
-              >
-                <option value="">All categories</option>
-                {allTags.map(tag => (
-                  <option key={tag} value={tag}>{tag}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
-
         {/* Results Count */}
         <div className="mb-6">
           <p className="text-muted-foreground">
