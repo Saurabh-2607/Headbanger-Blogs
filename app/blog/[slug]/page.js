@@ -1,5 +1,4 @@
 import { getBlogPost, getAllBlogPosts, getPreviousPost, getNextPost } from '@/lib/blog';
-import { getContentImageUrl } from '@/lib/imageUtils';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { FileText, Hash, ArrowLeft, ArrowRight, House, BookOpen, } from 'lucide-react';
@@ -73,9 +72,9 @@ export default async function BlogPage({ params }) {
               src={post.coverImage}
             />
           )}
-          <div className=' text-2xl md:text-4xl fle x-wrap w-full px-5 text-center'>{post.title}</div>
+          <div className=' text-2xl md:text-4xl flex-wrap w-full px-5 text-center'>{post.title}</div>
           <div className='md:flex hidden text-md text-white/75 justify-center gap-2'>
-            <div className='flex justify-center items-center gap-1'> <img className='rounded-full size-4.5 opacity-100' src="https://www.headbanger.me/favicon.ico" />{post.author}</div>
+            <div className='flex justify-center items-center gap-1'> <img className='rounded-full size-4.5 opacity-100' src="https://www.headbanger.me/favicon.ico" alt={`${post.author} avatar`} />{post.author}</div>
             <div>|</div>
             <div>{formatDate(post.date)}</div>
             <div>|</div>
@@ -86,7 +85,7 @@ export default async function BlogPage({ params }) {
 
           <div className='flex flex-col md:hidden items-center text-md text-white/75 justify-center gap-1'>
             <div className='w-full border-1' />
-            <div className='flex justify-center items-center gap-1'> <img className='rounded-full size-4.5 opacity-100' src="https://www.headbanger.me/favicon.ico" />{post.author}</div>
+            <div className='flex justify-center items-center gap-1'> <img className='rounded-full size-4.5 opacity-100' src="https://www.headbanger.me/favicon.ico" alt={`${post.author} avatar`} />{post.author}</div>
             <div className='w-full border-1' />
             <div className='w-full flex justify-center items-center gap-2'>
               <div className='flex'>{formatDate(post.date)}</div>
@@ -100,7 +99,7 @@ export default async function BlogPage({ params }) {
         <div className='flex justify-center'>
           {post.tags && post.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 mx-auto justify-center">
-              {post.tags.map((tag, index) => (
+              {post.tags.map((tag) => (
                 <span
                   key={tag} className="px-3 py-1 text-sm text-white/75 bg-[#1a1815] font-medium">
                   <Hash className="w-3 h-3 inline mr-1" />
