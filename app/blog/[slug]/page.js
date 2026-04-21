@@ -5,7 +5,7 @@ import { FileText, Hash, ArrowLeft, ArrowRight, House, BookOpen, } from 'lucide-
 import PostNavigation from '@/components/RightSidebar';
 import { getSuggestedPosts } from '@/lib/blog';
 import PostSidebar from '@/components/LeftSidebar';
-import ReactMarkdown from 'react-markdown';
+import { MDXRemote } from 'next-mdx-remote/rsc';
 import MDXComponents from '@/components/MDXComponents';
 import Image from 'next/image';
 
@@ -162,7 +162,7 @@ export default async function BlogPage({ params }) {
             )}
           </div>
 
-          <ReactMarkdown components={MDXComponents}>{post.content}</ReactMarkdown>
+          <MDXRemote source={post.content} components={MDXComponents} />
           <div className='block md:hidden'>
             <PostNavigation
               mainTitle={post.title}

@@ -1,4 +1,7 @@
+import { DynamicMDXComponents } from './generated-mdx-components';
+
 const components = {
+  ...DynamicMDXComponents,
   h1: ({ children }) => (
     <h1 className="text-3xl font-bold text-white/90 mb-6 mt-8 leading-tight border-b border-border pb-3 first:mt-0">
       {children}
@@ -65,7 +68,6 @@ const components = {
       );
     }
     
-    // Code block - preserve the className for syntax highlighting
     return (
       <code className={`${className || ''} text-sm text-white/50 font-mono`}>
         {children}
@@ -73,7 +75,7 @@ const components = {
     );
   },
   pre: ({ children }) => (
-    <pre className="bg-muted text-white/50 p-4 overflow-x-auto mb-6 text-sm border border-border font-mono leading-relaxed">
+    <pre className="bg-muted text-white/50 p-4 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] mb-6 text-sm border border-border font-mono leading-relaxed">
       {children}
     </pre>
   ),
@@ -139,7 +141,6 @@ const components = {
       className="shadow-md mb-6 max-w-full h-auto border border-border"
     />
   ),
-  // Add support for definition lists
   dl: ({ children }) => (
     <dl className="mb-6 space-y-2">
       {children}
@@ -155,7 +156,6 @@ const components = {
       {children}
     </dd>
   ),
-  // Add support for keyboard keys
   kbd: ({ children }) => (
     <kbd className="px-2 py-1 text-xs font-mono bg-muted border border-border shadow-sm">
       {children}

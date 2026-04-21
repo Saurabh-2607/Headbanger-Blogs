@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { CornerLeftUp, FileText, ArrowLeft, ArrowRight, House, BookOpen } from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
+import { MDXRemote } from 'next-mdx-remote/rsc';
 import PostNavigation from '@/components/RightSidebar';
 import PostSidebar from '@/components/LeftSidebar';
 import MDXComponents from '@/components/MDXComponents';
@@ -179,7 +179,7 @@ export default async function SubpostPage({ params }) {
               )}
             </div>
 
-            <ReactMarkdown components={MDXComponents}>{subpostData.content}</ReactMarkdown>
+            <MDXRemote source={subpostData.content} components={MDXComponents} />
             
             <div className='block md:hidden'>
               <PostNavigation

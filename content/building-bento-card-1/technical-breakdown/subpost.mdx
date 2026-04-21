@@ -1,0 +1,27 @@
+---
+title: "Technical Breakdown: Animation Logic & 3D Web Physics"
+description: "A deep dive into how 3D CSS transforms and Framer Motion spring physics interact with the browser's GPU compositing engine."
+---
+
+# Technical Breakdown: Animation Logic & 3D Web Physics
+
+To understand exactly how this interactive component works under the hood, we have to deconstruct the relationship between the browser's GPU compositing engine and Framer Motion's animation loop.
+
+## 1. Establishing the Camera (`perspective: 1200px`)
+By default, the browser's Document Object Model (DOM) is strictly a 2D plane. If you rotate a `<div>` in 3D without perspective, it just squashes horizontally or vertically. 
+
+To unlock the Z-axis (depth), the parent container is given `[perspective: 1200px]`. This technically creates a mathematical **vanishing point**. It tells the rendering engine to position the user's virtual eye exactly 1,200 pixels away from the object's surface. Anything closer to `0px` will look massive, and anything pushed into negative Z-space will visibly shrink towards the horizon, establishing true geometric depth.
+
+## 2. Preventing DOM Flattening (`transform-style: preserve-3d`)
+Even with a camera established, browsers aggressively try to flatten child elements back into a 2D plane to save rendering power. We apply `[transform-style: preserve-3d]` to the `motion.div` wrapper to explicitly command the browser's compositing engine: *"Do not flatten the children of this div. Let them maintain their independent 3D coordinates relative to each other."* Without this fundamental CSS property, the entire phone would collapse into a paper-thin square the second it receives a rotation command.
+
+## 3. Voxel Extrusion using `translateZ`
+Standard HTML has no concept of "thickness"—you cannot simply give a div a `depth: 5px` property. Instead, we trick the engine by stacking multiple raw 2D `<div>` planes tightly together, similar to slicing an MRI or 3D printing voxels. Because they exist inside a `preserve-3d` context, they are rendered incrementally further away from the camera. When the object rotates, the browser engine renders the overlapping edges of these stacked planes, which the human eye perceives as a solid block.
+
+## 4. Back-Face Culling (`backface-visibility: hidden`)
+Rendering 3D math is expensive for the GPU. When the phone rotates 180 degrees, the front screen physically points away from the camera. By applying `[backface-visibility: hidden]`, we tell the GPU to completely stop painting the pixels of that specific DOM node when its angle to the camera exceeds 90 degrees. This is why you don't see the text UI "backwards" pushing through the back of the phone. When the phone is flipped, the front screen literally un-renders to save memory and preserve the illusion.
+
+## 5. Animation Coordination: Unhovered vs. Hovered
+The core logic relies on two absolute 3D coordinate states:
+*   **Resting/Unhovered State:** `rotateX: 60`, `rotateZ: 45`, `rotateY: 180`. The `rotateX` leans the phone backwards to lay it on the "table". The `rotateZ` pivots it diagonally for an isometric look. The crucial part is `rotateY: 180`—this spins the phone completely around its vertical axis, making the screen face directly *down* into the table.
+*   **Flipped/Hovered State:** We forcefully animate to `rotateX: 0, rotateZ: 0, rotateY: 0` alongside `y: -20, z: 50`. Resetting all rotations to zero stands the phone straight back up and spins the Y-axis back around so the screen points directly at the camera, while pushing it 50 pixels closer to the screen.

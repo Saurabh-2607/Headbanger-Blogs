@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "predev": "node scripts/generate-components.js",
+    "prebuild": "node scripts/generate-components.js"
   },
   "dependencies": {
     "@next/swc-wasm-nodejs": "13.5.1",
@@ -17,9 +19,12 @@
     "clsx": "^2.1.1",
     "eslint": "^9.35.0",
     "eslint-config-next": "^15.5.2",
+    "framer-motion": "^12.38.0",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.542.0",
+    "motion": "^12.38.0",
     "next": "15.5.9",
+    "next-mdx-remote": "^6.0.0",
     "postcss": "^8.5.6",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
