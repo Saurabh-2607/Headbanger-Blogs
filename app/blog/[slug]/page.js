@@ -66,33 +66,42 @@ export default async function BlogPage({ params }) {
           {post.coverImage && (
             <Image
               alt={post.title}
-              className='object-cover object-center w-full mb-6 h-[20vh] md:h-[50vh] mx-auto'
+              className='object-cover rounded-2xl md:rounded-3xl object-center w-full mb-6 h-[20vh] md:h-[50vh] mx-auto'
               width={800}
               height={300}
               src={post.coverImage}
             />
           )}
-          <div className=' text-2xl md:text-4xl flex-wrap w-full px-5 text-center'>{post.title}</div>
-          <div className='md:flex hidden text-md text-white/75 justify-center gap-2'>
-            <div className='flex justify-center items-center gap-1'> <img className='rounded-full size-4.5 opacity-100' src="https://www.headbanger.me/favicon.ico" alt={`${post.author} avatar`} />{post.author}</div>
-            <div>|</div>
-            <div>{formatDate(post.date)}</div>
-            <div>|</div>
-            <div>{post.readTime}</div>
-            <div>|</div>
-            <div className='flex'><FileText className='w-4 mr-1' />{post.subposts.length} subpost{post.subposts.length > 1 ? 's' : ''}</div>
+          <h1 className='text-3xl md:text-5xl font-normal font-serif tracking-wide flex-wrap w-full px-5 text-center leading-tight'>{post.title}</h1>
+          <div className='md:flex hidden text-base font-sans tracking-wide text-white/80 justify-center gap-3 mt-4'>
+            <div className='flex justify-center items-center gap-1.5'>
+              <img className='rounded-full size-5 opacity-100 border border-white/20' src="https://www.headbanger.me/favicon.ico" alt={`${post.author} avatar`} />
+              <span className="opacity-90">{post.author}</span>
+            </div>
+            <div className="opacity-60">|</div>
+            <div className="opacity-90">{formatDate(post.date)}</div>
+            <div className="opacity-60">|</div>
+            <div className="opacity-90">{post.readTime}</div>
+            <div className="opacity-60">|</div>
+            <div className='flex items-center gap-1.5 opacity-90'>
+              <FileText className='w-4' />
+              {post.subposts.length} subpost{post.subposts.length > 1 ? 's' : ''}
+            </div>
           </div>
 
-          <div className='flex flex-col md:hidden items-center text-md text-white/75 justify-center gap-1'>
-            <div className='w-full border-1' />
-            <div className='flex justify-center items-center gap-1'> <img className='rounded-full size-4.5 opacity-100' src="https://www.headbanger.me/favicon.ico" alt={`${post.author} avatar`} />{post.author}</div>
-            <div className='w-full border-1' />
-            <div className='w-full flex justify-center items-center gap-2'>
-              <div className='flex'>{formatDate(post.date)}</div>
-              <div>|</div>
-              <div className='flex'>{post.readTime}</div>
+          <div className='flex flex-col md:hidden items-center text-[15px] font-sans tracking-wide text-white/80 justify-center gap-2 mt-4'>
+            <div className='w-full border-t border-white/10' />
+            <div className='flex justify-center items-center gap-1.5 py-1'>
+              <img className='rounded-full size-5 flex-shrink-0 opacity-100 border border-white/20' src="https://www.headbanger.me/favicon.ico" alt={`${post.author} avatar`} />
+              <span className="opacity-90">{post.author}</span>
             </div>
-            <div className='w-full border-1' />
+            <div className='w-full border-t border-white/10' />
+            <div className='w-full flex justify-center items-center gap-3 py-1'>
+              <div className='flex opacity-90'>{formatDate(post.date)}</div>
+              <div className="opacity-60">|</div>
+              <div className='flex opacity-90'>{post.readTime}</div>
+            </div>
+            <div className='w-full border-t border-white/10 pb-4' />
           </div>
         </div>
 
@@ -115,6 +124,7 @@ export default async function BlogPage({ params }) {
         <div className='md:w-80 my-6'>
           <PostSidebar
             content={post.content}
+            title={post.title}
             suggestedPosts={suggestedPosts}
           />
         </div>
@@ -124,17 +134,17 @@ export default async function BlogPage({ params }) {
             {previousPost ? (
               <Link
                 href={`/blog/${previousPost.slug}`}
-                className="flex items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
-                <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                <div className="text-left">
+                className="flex items-center h-auto gap-3 w-full text-muted-foreground border-2 rounded-xl p-3 px-4 hover:text-foreground transition-colors group"                >
+                <ArrowLeft className="w-4 h-4 flex-shrink-0 group-hover:-translate-x-1 transition-transform" />
+                <div className="text-left w-full">
                   <div className="text-[12px] opacity-75">Previous</div>
-                  <div className="font-medium text-sm">{previousPost.title}</div>
+                  <div className="font-medium text-sm line-clamp-2">{previousPost.title}</div>
                 </div>
               </Link>
             ) : (
-              <div className="flex opacity-50 items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
-                <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                <div className="text-left">
+              <div className="flex opacity-50 items-center h-auto gap-3 w-full text-muted-foreground border-2 rounded-xl p-3 px-4 transition-colors group"                >
+                <ArrowLeft className="w-4 h-4 flex-shrink-0" />
+                <div className="text-left w-full">
                   <div className="text-[12px] opacity-75">Previous</div>
                   <div className="font-medium text-sm">You are at the First Post</div>
                 </div>
@@ -144,25 +154,27 @@ export default async function BlogPage({ params }) {
             {nextPost ? (
               <Link
                 href={`/blog/${nextPost.slug}`}
-                className="flex items-center justify-end h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
-                <div className="text-right">
+                className="flex items-center justify-end h-auto gap-3 w-full text-muted-foreground border-2 rounded-xl p-3 px-4 hover:text-foreground transition-colors group"                >
+                <div className="text-right w-full">
                   <div className="text-[12px] opacity-75">Next</div>
-                  <div className="font-medium text-sm">{nextPost.title}</div>
+                  <div className="font-medium text-sm line-clamp-2">{nextPost.title}</div>
                 </div>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
               </Link>
             ) : (
-              <div className="flex items-center opacity-50 justify-end h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
-                <div className="text-right">
+              <div className="flex items-center opacity-50 justify-end h-auto gap-3 w-full text-muted-foreground border-2 rounded-xl p-3 px-4 transition-colors group"                >
+                <div className="text-right w-full">
                   <div className="text-[12px] opacity-75">Next</div>
                   <div className="font-medium text-sm">You are on the Last Post</div>
                 </div>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 flex-shrink-0" />
               </div>
             )}
           </div>
 
-          <MDXRemote source={post.content} components={MDXComponents} />
+          <article id="mdx-content">
+            <MDXRemote source={post.content} components={MDXComponents} />
+          </article>
           <div className='block md:hidden'>
             <PostNavigation
               mainTitle={post.title}
@@ -172,21 +184,21 @@ export default async function BlogPage({ params }) {
             />
           </div>
 
-          <div className="grid grid-rows-2 sm:grid-rows-1 sm:grid-cols-2 items-stretch gap-4 w-full">
+          <div className="grid grid-rows-2 sm:grid-rows-1 sm:grid-cols-2 items-stretch gap-4 w-full mt-6">
             {previousPost ? (
               <Link
                 href={`/blog/${previousPost.slug}`}
-                className="flex items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
-                <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                <div className="text-left">
+                className="flex items-center h-auto gap-3 w-full text-muted-foreground border-2 rounded-xl p-3 px-4 hover:text-foreground transition-colors group"                >
+                <ArrowLeft className="w-4 h-4 flex-shrink-0 group-hover:-translate-x-1 transition-transform" />
+                <div className="text-left w-full">
                   <div className="text-[12px] opacity-75">Previous</div>
-                  <div className="font-medium text-sm">{previousPost.title}</div>
+                  <div className="font-medium text-sm line-clamp-2">{previousPost.title}</div>
                 </div>
               </Link>
             ) : (
-              <div className="flex opacity-50 items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
-                <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                <div className="text-left">
+              <div className="flex opacity-50 items-center h-auto gap-3 w-full text-muted-foreground border-2 rounded-xl p-3 px-4 transition-colors group"                >
+                <ArrowLeft className="w-4 h-4 flex-shrink-0" />
+                <div className="text-left w-full">
                   <div className="text-[12px] opacity-75">Previous</div>
                   <div className="font-medium text-sm">You are at the First Post</div>
                 </div>
@@ -196,20 +208,20 @@ export default async function BlogPage({ params }) {
             {nextPost ? (
               <Link
                 href={`/blog/${nextPost.slug}`}
-                className="flex items-center justify-end h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
-                <div className="text-right">
+                className="flex items-center justify-end h-auto gap-3 w-full text-muted-foreground border-2 rounded-xl p-3 px-4 hover:text-foreground transition-colors group"                >
+                <div className="text-right w-full">
                   <div className="text-[12px] opacity-75">Next</div>
-                  <div className="font-medium text-sm">{nextPost.title}</div>
+                  <div className="font-medium text-sm line-clamp-2">{nextPost.title}</div>
                 </div>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
               </Link>
             ) : (
-              <div className="flex items-center opacity-50 justify-end h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"                >
-                <div className="text-right">
+              <div className="flex items-center opacity-50 justify-end h-auto gap-3 w-full text-muted-foreground border-2 rounded-xl p-3 px-4 transition-colors group"                >
+                <div className="text-right w-full">
                   <div className="text-[12px] opacity-75">Next</div>
                   <div className="font-medium text-sm">You are on the Last Post</div>
                 </div>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 flex-shrink-0" />
               </div>
             )}
           </div>

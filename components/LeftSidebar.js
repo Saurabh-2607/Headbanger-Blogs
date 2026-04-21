@@ -1,14 +1,17 @@
 "use client";
 import { useEffect, useState } from 'react';
 
-export default function PostSidebar({ content }) {
+export default function PostSidebar({ content, title }) {
   const [headings, setHeadings] = useState([]);
   const [activeId, setActiveId] = useState('');
 
   useEffect(() => {
     if (!content) return;
 
-    const existingHeadings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+    const contentContainer = document.getElementById('mdx-content');
+    const existingHeadings = contentContainer 
+      ? contentContainer.querySelectorAll('h1, h2, h3, h4, h5, h6') 
+      : document.querySelectorAll('h1, h2, h3, h4, h5, h6');
     
     if (existingHeadings.length > 0) {
       const headingData = Array.from(existingHeadings)
@@ -24,7 +27,7 @@ export default function PostSidebar({ content }) {
           
           return { level, text, id };
         })
-        .filter(heading => heading.text !== 'Suggested Posts'); // Filter out "Suggested Posts" heading
+        .filter(heading => heading.text !== 'Suggested Posts' && heading.text !== 'TITLE' && heading.text !== title); // Filter title and specific headings
 
       setHeadings(headingData);
     } else {
@@ -40,11 +43,11 @@ export default function PostSidebar({ content }) {
           
           return { level, text, id };
         })
-        .filter(heading => heading.text !== 'Suggested Posts'); // Filter out "Suggested Posts" heading
+        .filter(heading => heading.text !== 'Suggested Posts' && heading.text !== 'TITLE' && heading.text !== title); // Filter title and specific headings
 
       setHeadings(headingData);
     }
-  }, [content]);
+  }, [content, title]);
 
   // Track active heading on scroll
   useEffect(() => {
@@ -87,20 +90,20 @@ export default function PostSidebar({ content }) {
   return (
     <div className="w-80 my-6 hidden md:block sticky top-6">
       {headings.length > 0 && (
-        <nav className="text-neutral-100 w-full">
-          <div className="space-y-1">
+        <nav className="text-white/80 w-full font-sans">
+          <div className="space-y-1.5">
             {headings.map((heading) => (
               <div
                 key={heading.id}
-                className={`cursor-pointer transition-colors duration-150 ${
+                className={`cursor-pointer transition-colors duration-150 py-1 ${
                   activeId === heading.id 
-                    ? 'text-white' 
-                    : 'text-neutral-400 hover:text-neutral-200'
+                    ? 'text-white font-medium' 
+                    : 'text-neutral-400/90 hover:text-white/90'
                 }`}
                 style={{ paddingLeft: `${(heading.level - 1) * 16}px` }}
                 onClick={() => scrollToHeading(heading.id)}
               >
-                <span className="text-sm">
+                <span className="text-[14px] leading-relaxed tracking-wide">
                   {heading.text}
                 </span>
               </div>

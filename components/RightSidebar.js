@@ -39,12 +39,12 @@ export default function PostNavigation({ mainTitle, mainRead, totalRead, subpost
         <div className='flex flex-col gap-2'>
           {hasSubposts && (
             <>
-              <div className="flex items-center gap-2 hover:bg-neutral-800/25 p-2">
-                <BookOpen className="w-5 h-5 text-neutral-400" />
+              <div className="flex items-center gap-3 hover:bg-neutral-800/25 p-2 rounded-xl mb-1">
+                <BookOpen className="w-5 h-5 text-neutral-400 font-sans" />
                 <div>
-                  <div className="font-medium text-sm leading-tight">{mainTitle}</div>
-                  <div className="text-xs text-neutral-400">
-                    {mainRead} <span>({totalReadingTime} total)</span>
+                  <div className="font-medium font-sans text-[15px] leading-snug tracking-tight mb-0.5">{mainTitle}</div>
+                  <div className="text-[13px] font-sans text-neutral-400">
+                    {mainRead} <span className="opacity-75">({totalReadingTime} total)</span>
                   </div>
                 </div>
               </div>
@@ -53,15 +53,15 @@ export default function PostNavigation({ mainTitle, mainRead, totalRead, subpost
             const IconComponent = isActive ? FileText : File;
             
             return (
-              <div key={subpost.slug} className={`flex w-full p-2 items-center  ${isActive ? 'bg-neutral-800/50' : 'hover:bg-neutral-800/25'}`}>
+              <div key={subpost.slug} className={`flex w-full p-2 py-2.5 items-center rounded-xl transition-all ${isActive ? 'bg-neutral-800/50' : 'hover:bg-neutral-800/25'}`}>
                 <Link
                   href={`/blog/${subpost.parentSlug}/${subpost.slug}`}
-                  className="items-center flex ml-1 gap-2 w-full transition-colors duration-150"
+                  className="items-center flex ml-1 gap-3 w-full transition-colors duration-150"
                 >
                   <IconComponent className={`w-4 h-4 ${isActive ? 'text-white' : 'text-neutral-400'}`} />
-                  <div className='w-full items-center'>
-                    <div className={`text-left text-xs ${isActive ? 'text-white font-medium' : ''}`}>{subpost.title}</div>
-                    <div className="items-center gap-1 text-[10px] text-neutral-400">
+                  <div className='w-full items-center font-sans'>
+                    <div className={`text-left font-sans text-[14px] leading-snug tracking-tight mb-0.5 ${isActive ? 'text-white font-medium' : 'text-white/80'}`}>{subpost.title}</div>
+                    <div className="items-center gap-1 font-sans text-[12px] text-neutral-400">
                       {subpost.readTime}
                     </div>
                   </div>
@@ -75,21 +75,21 @@ export default function PostNavigation({ mainTitle, mainRead, totalRead, subpost
           {/* Suggested Posts Section */}
           {hasSuggestedPosts && (
             <div className={`${hasSubposts ? 'mt-4 pt-4 border-t border-neutral-800' : ''}`}>
-              <h3 className="text-sm font-semibold text-white mb-3">Suggested Posts</h3>
-              <div className="space-y-2">
+              <h3 className="text-[15px] font-semibold font-sans text-white/90 mb-4 tracking-tight">Suggested Posts</h3>
+              <div className="space-y-3">
                 {suggestedPosts.map((post) => (
-                  <div key={post.slug} className="border border-neutral-800 p-2">
+                  <div key={post.slug} className="border border-neutral-800 p-3.5 rounded-xl hover:border-neutral-700 transition-colors">
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="block transition-colors duration-150 group"
+                      className="block transition-colors duration-150 group font-sans"
                     >
-                      <div className="text-xs font-medium text-white/90 hover:text-white mb-1 line-clamp-2">
+                      <div className="text-[15px] font-medium font-sans text-white/90 group-hover:text-white mb-1.5 line-clamp-2 leading-snug tracking-tight">
                         {post.title}
                       </div>
-                      <div className="text-[10px] text-neutral-400 mb-1 line-clamp-1">
+                      <div className="text-[13px] font-sans text-neutral-400/90 mb-3 line-clamp-2 leading-relaxed">
                         {post.description || 'No description available'}
                       </div>
-                      <div className="flex items-center justify-between text-[10px] text-neutral-500">
+                      <div className="flex font-sans items-center justify-between text-[12px] text-neutral-500 font-medium">
                         <time dateTime={post.date}>
                           {new Date(post.date).toLocaleDateString('en-US', {
                             month: 'short',

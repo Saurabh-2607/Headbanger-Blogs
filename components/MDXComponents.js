@@ -1,81 +1,103 @@
 import { DynamicMDXComponents } from './generated-mdx-components';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 const components = {
   ...DynamicMDXComponents,
   h1: ({ children }) => (
-    <h1 className="text-3xl font-bold text-white/90 mb-6 mt-8 leading-tight border-b border-border pb-3 first:mt-0">
+    <h1 className="text-4xl font-normal font-serif text-white/90 mb-6 mt-8 leading-tight border-b border-border pb-3 first:mt-0 tracking-wide">
       {children}
     </h1>
   ),
   h2: ({ children }) => (
-    <h2 className="text-2xl font-semibold text-white/85 mb-4 mt-8 leading-tight first:mt-0">
+    <h2 className="text-3xl font-semibold font-sans text-white/90 mb-6 mt-10 leading-snug tracking-tight first:mt-0">
       {children}
     </h2>
   ),
   h3: ({ children }) => (
-    <h3 className="text-xl font-semibold text-white/80 mb-3 mt-6 leading-tight">
+    <h3 className="text-2xl font-semibold font-sans text-white/85 mb-4 mt-8 leading-snug tracking-tight">
       {children}
     </h3>
   ),
   h4: ({ children }) => (
-    <h4 className="text-lg font-semibold text-white/75 mb-3 mt-4 leading-tight">
+    <h4 className="text-xl font-semibold font-sans text-white/80 mb-4 mt-6 leading-snug tracking-tight">
       {children}
     </h4>
   ),
   h5: ({ children }) => (
-    <h5 className="text-base font-semibold text-white/70 mb-2 mt-4 leading-tight">
+    <h5 className="text-lg font-semibold font-sans text-white/75 mb-3 mt-4 leading-snug tracking-tight">
       {children}
     </h5>
   ),
   h6: ({ children }) => (
-    <h6 className="text-sm font-semibold text-white/65 mb-2 mt-3 leading-tight">
+    <h6 className="text-base font-semibold font-sans text-white/70 mb-3 mt-4 leading-snug tracking-tight">
       {children}
     </h6>
   ),
   p: ({ children }) => (
-    <p className="text-muted-foreground leading-relaxed mb-4 text-white/60 first:mt-0">
+    <p className="text-base md:text-lg text-white/80 leading-[1.8] tracking-wide mb-6 first:mt-0 font-sans">
       {children}
     </p>
   ),
   ul: ({ children }) => (
-    <ul className="list-disc pl-6 mb-6 space-y-1 text-white/50 marker:text-primary">
+    <ul className="list-disc pl-6 mb-8 space-y-3 text-white/80 marker:text-primary font-sans text-base md:text-lg">
       {children}
     </ul>
   ),
   ol: ({ children }) => (
-    <ol className="list-decimal pl-6 mb-6 space-y-1 text-white/50 marker:text-primary">
+    <ol className="list-decimal pl-6 mb-8 space-y-3 text-white/80 marker:text-primary font-sans text-base md:text-lg">
       {children}
     </ol>
   ),
   li: ({ children }) => (
-    <li className="leading-relaxed text-white/50 text-base mb-1">
+    <li className="leading-[1.8] tracking-wide text-white/80">
       {children}
     </li>
   ),
   blockquote: ({ children }) => (
-    <blockquote className="border-l-4 border-primary/30 text-white/50 pl-6 py-3 mb-6 bg-primary/5 text-muted-foreground italic rounded-r-lg">
+    <blockquote className="border-l-4 border-primary/50 text-white/80 pl-6 py-4 mb-8 bg-primary/5 text-lg md:text-xl italic rounded-r-lg font-sans leading-[1.8] tracking-wide">
       {children}
     </blockquote>
   ),
-  code: ({ children, className, inline }) => {
+  code: ({ children, className, inline, ...props }) => {
     const isInline = inline || !className;
+    const match = /language-(\w+)/.exec(className || '');
     
-    if (isInline) {
+    if (isInline || !match) {
       return (
-        <code className="bg-muted text-white/50 px-2 py-1 text-sm font-mono border border-border">
+        <code className={`${className || ''} bg-muted text-white/90 px-1.5 py-0.5 text-[16px] md:text-[18px] font-[family-name:var(--font-dm-mono)] border border-border rounded-md mx-0.5 whitespace-pre-wrap break-words`} {...props}>
           {children}
         </code>
       );
     }
     
     return (
-      <code className={`${className || ''} text-sm text-white/50 font-mono`}>
-        {children}
-      </code>
+      <SyntaxHighlighter
+        {...props}
+        style={vscDarkPlus}
+        language={match[1]}
+        PreTag="div"
+        className="[&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+        customStyle={{
+          margin: 0,
+          background: 'transparent',
+          padding: 0,
+          overflowX: 'auto',
+        }}
+        codeTagProps={{
+          style: {
+            fontFamily: 'var(--font-dm-mono)',
+            fontSize: '18px',
+            lineHeight: '1.7',
+          }
+        }}
+      >
+        {String(children).replace(/\n$/, '')}
+      </SyntaxHighlighter>
     );
   },
-  pre: ({ children }) => (
-    <pre className="bg-muted text-white/50 p-4 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] mb-6 text-sm border border-border font-mono leading-relaxed">
+  pre: ({ children, ...props }) => (
+    <pre className="bg-neutral-900 border-neutral-800 text-white/90 p-5 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] mb-8 border font-[family-name:var(--font-dm-mono)] text-[18px] leading-[1.7] rounded-xl tracking-wide" {...props}>
       {children}
     </pre>
   ),
@@ -103,8 +125,8 @@ const components = {
     <hr className="border-border text-white/50 my-8" />
   ),
   table: ({ children }) => (
-    <div className="overflow-x-auto mb-6">
-      <table className="min-w-full border text-white/50 border-border">
+    <div className="overflow-x-auto mb-6 rounded-xl border border-border">
+      <table className="min-w-full text-white/50">
         {children}
       </table>
     </div>
@@ -138,7 +160,7 @@ const components = {
     <img 
       src={src} 
       alt={alt} 
-      className="shadow-md mb-6 max-w-full h-auto border border-border"
+      className="shadow-md mb-6 max-w-full h-auto border border-border rounded-xl"
     />
   ),
   dl: ({ children }) => (
@@ -157,7 +179,7 @@ const components = {
     </dd>
   ),
   kbd: ({ children }) => (
-    <kbd className="px-2 py-1 text-xs font-mono bg-muted border border-border shadow-sm">
+    <kbd className="px-2 py-1 text-xs font-mono bg-muted border border-border shadow-sm rounded-md">
       {children}
     </kbd>
   ),

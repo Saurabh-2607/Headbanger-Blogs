@@ -57,8 +57,24 @@
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
-    font-family: var(--font-jetbrains-mono), monospace;
+    font-family: var(--font-geist), sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
+  }
+  
+  h1 {
+    font-family: var(--font-instrument-serif), serif;
+  }
+}
+
+@layer utilities {
+  .font-mono {
+    font-family: var(--font-dm-mono), monospace;
+  }
+  .font-serif {
+    font-family: var(--font-instrument-serif), serif;
+  }
+  .font-sans {
+    font-family: var(--font-geist), sans-serif;
   }
 }

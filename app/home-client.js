@@ -41,8 +41,8 @@ export default function HomeClient({ initialBlogs }) {
                 alt="Logo" 
                 className="h-12 w-12"
               />
-              <p className="text-md text-muted-foreground max-w-2xl text-center">
-                Discover insightful articles about technology, programming, and development by <a className='underline' href='https://www.headbanger.me/'> Saurabh Sharma | Headbanger </a>
+              <p className="text-base text-white/80 max-w-2xl text-center leading-relaxed tracking-wide font-sans">
+                Discover insightful articles about technology, programming, and development by <a className='underline hover:text-white transition-colors' href='https://www.headbanger.me/'> Saurabh Sharma | Headbanger </a>
               </p>
             </div>
             
@@ -55,15 +55,15 @@ export default function HomeClient({ initialBlogs }) {
                   placeholder="Search articles..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 bg-background border border-dashed border-input focus:ring-2 focus:ring-ring focus:border-transparent text-foreground"
+                  className="w-full pl-10 pr-4 py-2.5 bg-background border border-dashed border-input outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent text-foreground rounded-xl transition-all"
                 />
               </div>
               <div className="relative">
-                <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground z-10 pointer-events-none" />
                 <select
                   value={selectedTag}
                   onChange={(e) => setSelectedTag(e.target.value)}
-                  className="w-full pl-10 pr-8 py-2 bg-black border border-dashed border-input text-foreground"
+                  className="w-full pl-10 pr-8 py-2.5 bg-background appearance-none border border-dashed border-input outline-none focus:ring-2 focus:ring-primary/50 text-foreground rounded-xl transition-all"
                 >
                   <option value="">All categories</option>
                   {allTags.map(tag => (
@@ -84,10 +84,10 @@ export default function HomeClient({ initialBlogs }) {
                 className="size-20 flex-shrink-0"
               />
               <div>
-              <h1 className='text-xl'>Headbanger Blogs</h1>
+              <h1 className='text-3xl font-serif font-normal tracking-wide'>Headbanger Blogs</h1>
 
-              <p className="text-md flex-wrap w-[60%] text-white/60">
-                Discover insightful articles about technology, programming, and development by <a className='underline' href='https://www.headbanger.me/'> Saurabh Sharma | Headbanger </a>
+              <p className="text-base font-sans mt-2 flex-wrap w-[65%] text-white/80 leading-relaxed tracking-wide">
+                Discover insightful articles about technology, programming, and development by <a className='underline hover:text-white transition-colors' href='https://www.headbanger.me/'> Saurabh Sharma | Headbanger </a>
               </p>
               </div>
             </div>
@@ -101,15 +101,15 @@ export default function HomeClient({ initialBlogs }) {
                   placeholder="Search articles..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-9 pr-3 py-1.5 text-sm bg-background border border-dashed border-input focus:ring-2 focus:ring-ring focus:border-transparent text-foreground"
+                  className="w-full pl-10 pr-4 py-2 text-sm bg-background border border-dashed border-input outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent text-foreground rounded-xl transition-all"
                 />
               </div>
               <div className="relative">
-                <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground z-10 pointer-events-none" />
                 <select
                   value={selectedTag}
                   onChange={(e) => setSelectedTag(e.target.value)}
-                  className="w-full pl-9 py-1.5 text-sm bg-black border border-dashed border-input text-foreground"
+                  className="w-full pl-10 pr-8 py-2 text-sm bg-background appearance-none border border-dashed border-input outline-none focus:ring-2 focus:ring-primary/50 text-foreground rounded-xl transition-all"
                 >
                   <option value="">All categories</option>
                   {allTags.map(tag => (
@@ -123,10 +123,10 @@ export default function HomeClient({ initialBlogs }) {
       </header>
 
       {/* Main Content */}
-      <div className="w-screen mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="w-screen mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
         {/* Results Count */}
-        <div className="mb-6">
-          <p className="text-muted-foreground">
+        <div className="mb-8">
+          <p className="text-white/80 font-sans tracking-wide text-[15px]">
             {filteredBlogs.length === blogs.length 
               ? `Showing all ${blogs.length} articles`
               : `Found ${filteredBlogs.length} of ${blogs.length} articles`

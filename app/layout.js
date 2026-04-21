@@ -1,14 +1,26 @@
 import './globals.css';
-import { JetBrains_Mono } from 'next/font/google';
+import { Instrument_Serif, DM_Mono, Geist } from 'next/font/google';
 import Footer from '@/components/Footer';
 import { Analytics } from "@vercel/analytics/next"
 import Script from 'next/script';
 
-const jetbrainsMono = JetBrains_Mono({
+const geist = Geist({
   subsets: ['latin'],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800'],
-  style: ['normal'],
-  variable: '--font-jetbrains-mono'
+  variable: '--font-geist'
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: ['400'],
+  style: ['normal', 'italic'],
+  variable: '--font-instrument-serif'
+});
+
+const dmMono = DM_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  style: ['normal', 'italic'],
+  variable: '--font-dm-mono'
 });
 
 export const metadata = {
@@ -18,7 +30,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`dark overflow-x-hidden ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`dark overflow-x-hidden ${instrumentSerif.variable} ${dmMono.variable} ${geist.variable}`}>
       <head>
         {/* Google tag (gtag.js) */}
         <Script

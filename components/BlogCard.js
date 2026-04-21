@@ -12,7 +12,7 @@ export default function BlogCard({ post }) {
   };
 
   return (
-    <article className="bg-card shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-dashed border-border">
+    <article className="bg-card shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-dashed border-border rounded-xl">
       <div className="relative h-60 w-full overflow-hidden">
         {post.coverImage ? (
           <Image
@@ -33,38 +33,38 @@ export default function BlogCard({ post }) {
         )}
       </div>
       
-      <div className="p-4">
-        <div className="mb-3">
-          <h2 className="text-lg font-bold text-foreground mb-2 hover:text-primary transition-colors">
+      <div className="p-5 md:p-6">
+        <div className="mb-4">
+          <h2 className="text-2xl md:text-3xl font-normal font-serif text-white/90 mb-3 hover:text-primary transition-colors leading-tight tracking-wide">
             <Link href={`/blog/${post.slug}`}>
               {post.title}
             </Link>
           </h2>
         </div>
 
-        <div className="flex flex-wrap items-center text-sm text-muted-foreground mb-3 gap-3">
-          <div className="flex items-center gap-1 opacity-75">
+        <div className="flex flex-wrap items-center text-[15px] font-sans text-white/80 tracking-wide mb-4 gap-4">
+          <div className="flex items-center gap-1.5 opacity-90">
             <Calendar className="w-4 h-4" />
             {formatDate(post.date)}
           </div>
-          <div className="flex items-center gap-1 opacity-75">
+          <div className="flex items-center gap-1.5 opacity-90">
             <User className="w-4 h-4" />
             {post.author}
           </div>
-          <div className="flex items-center gap-1 opacity-75">
+          <div className="flex items-center gap-1.5 opacity-90">
             <Clock className="w-4 h-4" />
             {post.readTime}
           </div>
         </div>
 
         {post.tags && post.tags.length > 0 && (
-          <div className="flex flex-wrap gap-1 mb-3">
+          <div className="flex flex-wrap gap-2 mt-2">
             {post.tags.map((tag) => (
               <span
                 key={tag} 
-                className="px-2 py-1 text-xs text-white/75 bg-[#1a1815] font-medium"
+                className="px-2.5 py-1 text-[13px] text-white/85 bg-[#1a1815] font-medium font-sans tracking-wide rounded-md hover:bg-[#2a2825] transition-colors"
               >
-                <Hash className="w-3 h-3 inline mr-1" />
+                <Hash className="w-3.5 h-3.5 inline mr-1 opacity-70" />
                 {tag}
               </span>
             ))}

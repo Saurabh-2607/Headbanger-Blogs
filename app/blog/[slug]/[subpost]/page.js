@@ -87,30 +87,30 @@ export default async function SubpostPage({ params }) {
             </ol>
           </div>
 
-          <div className='text-2xl md:text-4xl flex-wrap w-full px-5 text-center'>{subpostData.title}</div>
-          <div className='md:flex hidden text-md text-white/75 justify-center gap-2'>
-            <div className='flex justify-center items-center gap-1'>
-              <img className='rounded-full size-4.5 opacity-100' src="https://www.headbanger.me/favicon.ico" alt={`${subpostData.author || mainPost.author} avatar`} />
-              {subpostData.author || mainPost.author}
+          <div className='text-3xl md:text-5xl font-normal font-serif tracking-wide flex-wrap w-full px-5 text-center leading-tight'>{subpostData.title}</div>
+          <div className='md:flex hidden text-base font-sans tracking-wide text-white/80 justify-center gap-3 mt-4'>
+            <div className='flex justify-center items-center gap-1.5'>
+              <img className='rounded-full size-5 opacity-100 border border-white/20' src="https://www.headbanger.me/favicon.ico" alt={`${subpostData.author || mainPost.author} avatar`} />
+              <span className="opacity-90">{subpostData.author || mainPost.author}</span>
             </div>
-            <div>|</div>
-            <div>{formatDate(subpostData.date || mainPost.date)}</div>
-            <div>|</div>
-            <div>{subpostData.readTime}</div>
+            <div className="opacity-60">|</div>
+            <div className="opacity-90">{formatDate(subpostData.date || mainPost.date)}</div>
+            <div className="opacity-60">|</div>
+            <div className="opacity-90">{subpostData.readTime}</div>
           </div>
-          <div className='flex flex-col md:hidden items-center text-md text-white/75 justify-center gap-1'>
-            <div className='w-full border-1' />
-            <div className='flex justify-center items-center gap-1'>
-              <img className='rounded-full size-4.5 opacity-100' src="https://www.headbanger.me/favicon.ico" alt={`${subpostData.author || mainPost.author} avatar`} />
-              {subpostData.author || mainPost.author}
+          <div className='flex flex-col md:hidden items-center text-[15px] font-sans tracking-wide text-white/80 justify-center gap-2 mt-4'>
+            <div className='w-full border-t border-white/10' />
+            <div className='flex justify-center items-center gap-1.5 py-1'>
+              <img className='rounded-full size-5 flex-shrink-0 opacity-100 border border-white/20' src="https://www.headbanger.me/favicon.ico" alt={`${subpostData.author || mainPost.author} avatar`} />
+              <span className="opacity-90">{subpostData.author || mainPost.author}</span>
             </div>
-            <div className='w-full border-1' />
-            <div className='w-full flex justify-center items-center gap-2'>
-              <div className='flex'>{formatDate(subpostData.date || mainPost.date)}</div>
-              <div>|</div>
-              <div className='flex'>{subpostData.readTime}</div>
+            <div className='w-full border-t border-white/10' />
+            <div className='w-full flex justify-center items-center gap-3 py-1'>
+              <div className='flex opacity-90'>{formatDate(subpostData.date || mainPost.date)}</div>
+              <div className="opacity-60">|</div>
+              <div className='flex opacity-90'>{subpostData.readTime}</div>
             </div>
-            <div className='w-full border-1' />
+            <div className='w-full border-t border-white/10 pb-4' />
           </div>
           
         </div>
@@ -119,6 +119,7 @@ export default async function SubpostPage({ params }) {
           <div className='md:w-80 my-6'>
             <PostSidebar
               content={subpostData.content}
+              title={subpostData.title}
               suggestedPosts={suggestedPosts}
             />
           </div>
@@ -128,18 +129,18 @@ export default async function SubpostPage({ params }) {
               {previousSubpost ? (
                 <Link
                   href={`/blog/${slug}/${previousSubpost.slug}`}
-                  className="flex items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"
+                  className="flex items-center h-auto gap-3 w-full text-muted-foreground border-2 rounded-xl p-3 px-4 hover:text-foreground transition-colors group"
                 >
-                  <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                  <div className="text-left">
+                  <ArrowLeft className="w-4 h-4 flex-shrink-0 group-hover:-translate-x-1 transition-transform" />
+                  <div className="text-left w-full">
                     <div className="text-[12px] opacity-75">Previous</div>
-                    <div className="font-medium text-sm">{previousSubpost.title}</div>
+                    <div className="font-medium text-sm line-clamp-2">{previousSubpost.title}</div>
                   </div>
                 </Link>
               ) : (
-                <div className="flex items-center h-auto gap-2 w-full text-muted-foreground/50 border-2 border-muted-foreground/20 p-2 opacity-50">
-                  <ArrowLeft className="w-4 h-4" />
-                  <div className="text-left">
+                <div className="flex items-center h-auto gap-3 w-full text-muted-foreground border-2 rounded-xl p-3 px-4 opacity-50 transition-colors group">
+                  <ArrowLeft className="w-4 h-4 flex-shrink-0" />
+                  <div className="text-left w-full">
                     <div className="text-[12px] opacity-75">Previous</div>
                     <div className="font-medium text-sm">No previous subpost</div>
                   </div>
@@ -148,38 +149,40 @@ export default async function SubpostPage({ params }) {
 
               <Link
                 href={`/blog/${slug}`}
-                className="flex items-center justify-center h-auto gap-1 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"
+                className="flex items-center justify-center h-auto gap-3 w-full text-muted-foreground border-2 rounded-xl p-3 px-4 hover:text-foreground transition-colors group"
               >
-                <CornerLeftUp  className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                <div className="text-center">
+                <CornerLeftUp  className="w-5 h-5 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                <div className="text-center w-full">
                   <div className="text-[12px] opacity-75">Parent Post</div>
-                  <div className="font-medium text-sm">{mainPost.title}</div>
+                  <div className="font-medium text-sm line-clamp-2">{mainPost.title}</div>
                 </div>
               </Link>
 
               {nextSubpost ? (
                 <Link
                   href={`/blog/${slug}/${nextSubpost.slug}`}
-                  className="flex items-center justify-end h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"
+                  className="flex items-center justify-end h-auto gap-3 w-full text-muted-foreground border-2 rounded-xl p-3 px-4 hover:text-foreground transition-colors group"
                 >
-                  <div className="text-right">
+                  <div className="text-right w-full">
                     <div className="text-[12px] opacity-75">Next</div>
-                    <div className="font-medium text-sm">{nextSubpost.title}</div>
+                    <div className="font-medium text-sm line-clamp-2">{nextSubpost.title}</div>
                   </div>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
                 </Link>
               ) : (
-                <div className="flex items-center justify-end h-auto gap-2 w-full text-muted-foreground/50 border-2 border-muted-foreground/20 p-2 opacity-50">
-                  <div className="text-right">
+                <div className="flex items-center justify-end h-auto gap-3 w-full text-muted-foreground border-2 rounded-xl p-3 px-4 opacity-50 transition-colors group">
+                  <div className="text-right w-full">
                     <div className="text-[12px] opacity-75">Next</div>
                     <div className="font-medium text-sm">No next subpost</div>
                   </div>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 flex-shrink-0" />
                 </div>
               )}
             </div>
 
-            <MDXRemote source={subpostData.content} components={MDXComponents} />
+            <article id="mdx-content">
+              <MDXRemote source={subpostData.content} components={MDXComponents} />
+            </article>
             
             <div className='block md:hidden'>
               <PostNavigation
@@ -191,22 +194,22 @@ export default async function SubpostPage({ params }) {
               />
             </div>
 
-            <div className="grid grid-rows-3 sm:grid-rows-1 sm:grid-cols-3 items-stretch gap-4 w-full mb-6">
+            <div className="grid grid-rows-3 sm:grid-rows-1 sm:grid-cols-3 items-stretch gap-4 w-full mt-6 mb-6">
               {previousSubpost ? (
                 <Link
                   href={`/blog/${slug}/${previousSubpost.slug}`}
-                  className="flex items-center h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"
+                  className="flex items-center h-auto gap-3 w-full text-muted-foreground border-2 rounded-xl p-3 px-4 hover:text-foreground transition-colors group"
                 >
-                  <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                  <div className="text-left">
+                  <ArrowLeft className="w-4 h-4 flex-shrink-0 group-hover:-translate-x-1 transition-transform" />
+                  <div className="text-left w-full">
                     <div className="text-[12px] opacity-75">Previous</div>
-                    <div className="font-medium text-sm">{previousSubpost.title}</div>
+                    <div className="font-medium text-sm line-clamp-2">{previousSubpost.title}</div>
                   </div>
                 </Link>
               ) : (
-                <div className="flex items-center h-auto gap-2 w-full text-muted-foreground/50 border-2 border-muted-foreground/20 p-2 opacity-50">
-                  <ArrowLeft className="w-4 h-4" />
-                  <div className="text-left">
+                <div className="flex items-center h-auto gap-3 w-full text-muted-foreground border-2 rounded-xl p-3 px-4 opacity-50 transition-colors group">
+                  <ArrowLeft className="w-4 h-4 flex-shrink-0" />
+                  <div className="text-left w-full">
                     <div className="text-[12px] opacity-75">Previous</div>
                     <div className="font-medium text-sm">No previous subpost</div>
                   </div>
@@ -215,33 +218,33 @@ export default async function SubpostPage({ params }) {
 
               <Link
                 href={`/blog/${slug}`}
-                className="flex items-center justify-center h-auto gap-1 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"
+                className="flex items-center justify-center h-auto gap-3 w-full text-muted-foreground border-2 rounded-xl p-3 px-4 hover:text-foreground transition-colors group"
               >
-                <CornerLeftUp  className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                <div className="text-center">
+                <CornerLeftUp  className="w-5 h-5 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                <div className="text-center w-full">
                   <div className="text-[12px] opacity-75">Parent Post</div>
-                  <div className="font-medium text-sm">{mainPost.title}</div>
+                  <div className="font-medium text-sm line-clamp-2">{mainPost.title}</div>
                 </div>
               </Link>
 
               {nextSubpost ? (
                 <Link
                   href={`/blog/${slug}/${nextSubpost.slug}`}
-                  className="flex items-center justify-end h-auto gap-2 w-full text-muted-foreground border-2 p-2 hover:text-foreground transition-colors group"
+                  className="flex items-center justify-end h-auto gap-3 w-full text-muted-foreground border-2 rounded-xl p-3 px-4 hover:text-foreground transition-colors group"
                 >
-                  <div className="text-right">
+                  <div className="text-right w-full">
                     <div className="text-[12px] opacity-75">Next</div>
-                    <div className="font-medium text-sm">{nextSubpost.title}</div>
+                    <div className="font-medium text-sm line-clamp-2">{nextSubpost.title}</div>
                   </div>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
                 </Link>
               ) : (
-                <div className="flex items-center justify-end h-auto gap-2 w-full text-muted-foreground/50 border-2 border-muted-foreground/20 p-2 opacity-50">
-                  <div className="text-right">
+                <div className="flex items-center justify-end h-auto gap-3 w-full text-muted-foreground border-2 rounded-xl p-3 px-4 opacity-50 transition-colors group">
+                  <div className="text-right w-full">
                     <div className="text-[12px] opacity-75">Next</div>
                     <div className="font-medium text-sm">No next subpost</div>
                   </div>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 flex-shrink-0" />
                 </div>
               )}
             </div>
